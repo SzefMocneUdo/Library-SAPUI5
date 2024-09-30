@@ -1,0 +1,39 @@
+<mvc:View xmlns="sap.m"
+ xmlns:f="sap.ui.layout.form"
+ xmlns:core="sap.ui.core"
+ xmlns:mvc="sap.ui.core.mvc" 
+ controllerName="zkzilibraryproject.controller.CreateBook">
+<Page id="CreateBook">
+    <f:SimpleForm id="bookcreate_simpleform" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+    labelSpanS="12" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" >
+        <f:content>
+            <Label id="bookcreate_label_isbn" required="true" text="{/#Book/ISBN/@sap:label}" />
+            <Input id="bookcreate_input_isbn" value="{ISBN}" />
+            <Label id="bookcreate_label_title" required="true" text="{/#Book/Title/@sap:label}" />
+            <Input id="bookcreate_input_title" value="{Title}" />
+            <Label id="bookcreate_label_authors" required="true" text="{/#Book/Authors/@sap:label}"/>
+            <MultiComboBox id="bookcreate_authorsMultiComboBox" required="true" showSecondaryValues= "true" items="{/AuthorSet}" valueStateText="{i18n>bookManagement.authorsEmptiness}" selectionChange="onAuthorsChange" >
+                <core:ListItem id="bookcreate_input_authors" key="{parts:['Authorid'], formatter:'sap.ui.base.ManagedObject.escapeSettingsValue'}" text="{Name} {Surname}" additionalText="{Authorid}"/>
+            </MultiComboBox>
+            <Label id="bookcreate_label_genres" text="{/#Book/Genres/@sap:label}"/>
+            <MultiComboBox id="bookcreate_genresMultiComboBox" required="true" showSecondaryValues= "true" items="{/GenreSet}" valueStateText="{i18n>bookManagement.genresEmptiness}" selectionChange="onGenresChange" >
+                <core:ListItem id="bookcreate_input_genres" key="{parts:['Genreid'], formatter:'sap.ui.base.ManagedObject.escapeSettingsValue'}" text="{Name}" additionalText="{Genreid}"/>
+            </MultiComboBox>
+            <Label id="bookcreate_label_publication_date" required="true" text="{/#Book/PublicationDate/@sap:label}" />
+            <DatePicker id="bookcreate_input_publication_date" maxDate="{ todayDate }" displayFormat="dd MMMM yyyy" value="{PublicationDate}" />
+            <Label id="bookcreate_label_language" required="true" text="{/#Book/Language/@sap:label}" />
+            <Input id="bookcreate_input_language" value="{Language}" />
+            <Label id="bookcreate_label_description" required="true" text="{/#Book/Description/@sap:label}" />
+            <Input id="bookcreate_input_description" value="{Description}" />
+        </f:content>
+    </f:SimpleForm>
+    <footer>
+            <OverflowToolbar id="bookcreate_toolbar_footer">
+                <ToolbarSpacer id="bookcreate_spacer_footer" />
+                <Button id="bookcreate_button_save" text="Save" press="onCreatePressed" type="Accept"/>
+                <Button id="bookcreate_button_cancel" text="Cancel" press="onCancelCreatePressed" type="Reject"/>
+            </OverflowToolbar>
+        </footer>
+</Page>
+    
+</mvc:View>

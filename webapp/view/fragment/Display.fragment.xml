@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns:f="sap.ui.layout.form" 
+ xmlns="sap.m" xmlns:core="sap.ui.core" 
+ xmlns:smartForm="sap.ui.comp.smartform"
+ xmlns:smartField="sap.ui.comp.smartfield">
+    <Page id="BookDetails" title="Book Details" >
+        <customHeader>
+            <OverflowToolbar id="bookdetails_toolbar_header">
+                <Title id="bookdetails_title_header" text="Details"/>
+                <ToolbarSpacer id="bookdetails_spacer_header" />
+                <Button id="bookdetails_button_edit" text="Edit" type="Emphasized" press="onEditPressed" visible="{= $(Update_mc) &amp;&amp; !${editModel>/editMode}}"/>
+            </OverflowToolbar>
+        </customHeader>
+        
+        <smartForm:SmartForm id="bookdetails_smartform">
+            <smartForm:Group id="bookdetails_group">
+                <smartForm:GroupElement id="bookdetails_element_isbn" label="{/#Book/ISBN/@sap:label}">
+                    <smartField:SmartField id="bookdetails_field_isbn" value="{ISBN}" />
+                </smartForm:GroupElement>
+                <smartForm:GroupElement id="bookdetails_element_title" label="{/#Book/Title/@sap:label}">
+                    <smartField:SmartField id="bookdetails_field_title" value="{Title}" />
+                </smartForm:GroupElement>
+                <smartForm:GroupElement id="bookdetails_element_authors" label="{/#Book/Authors/@sap:label}">
+                    <smartField:SmartField id="bookdetails_field_authors" value="{Authors}" />
+                </smartForm:GroupElement>
+                <smartForm:GroupElement id="bookdetails_element_genres" label="{/#Book/Genres/@sap:label}">
+                    <smartField:SmartField id="bookdetails_field_genres" value="{Genres}" />
+                </smartForm:GroupElement>
+                <smartForm:GroupElement id="bookdetails_element_description" label="{/#Book/Description/@sap:label}">
+                    <smartField:SmartField id="bookdetails_field_description" value="{Description}" />
+                </smartForm:GroupElement>
+                <smartForm:GroupElement id="bookdetails_element_language" label="{/#Book/Language/@sap:label}">
+                    <smartField:SmartField id="bookdetails_field_language" value="{Language}" />
+                </smartForm:GroupElement>
+                <smartForm:GroupElement id="bookdetails_element_rating" label="{/#Book/Rating/@sap:label}">
+                    <RatingIndicator id="bookdetails_field_rating" class="sapUiNoMargin" maxValue="10" displayOnly="true" iconSize="1rem" value="{Rating}"/>
+                </smartForm:GroupElement>
+                <smartForm:GroupElement id="bookdetails_element_publication_date" label="{/#Book/PublicationDate/@sap:label}">
+                    <smartField:SmartField id="bookdetails_field_publication_date" value="{path:'PublicationDate', type:'sap.ui.model.odata.type.Date', formatOptions: { pattern: 'dd MMMM yyyy'}}" />
+                </smartForm:GroupElement>
+            </smartForm:Group>
+        </smartForm:SmartForm>
+    </Page>
+</core:FragmentDefinition>

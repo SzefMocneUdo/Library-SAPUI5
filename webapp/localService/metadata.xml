@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZKZI_LIBRARY_ODATA_SRV_01" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <EntityType Name="AuthorBook" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Authorid"/>
+                    <PropertyRef Name="ISBN"/>
+                </Key>
+                <Property Name="Mandt" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Client" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Authorid" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Author" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ISBN" Type="Edm.String" Nullable="false" MaxLength="13" sap:unicode="false" sap:label="ISBN" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Book" Relationship="ZKZI_LIBRARY_ODATA_SRV_01.BookToAuthorBook" FromRole="ToRole_BookToAuthorBook" ToRole="FromRole_BookToAuthorBook"/>
+            </EntityType>
+            <EntityType Name="BookGenre" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ISBN"/>
+                    <PropertyRef Name="Genreid"/>
+                </Key>
+                <Property Name="Mandt" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Client" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ISBN" Type="Edm.String" Nullable="false" MaxLength="13" sap:unicode="false" sap:label="ISBN" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Genreid" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Genre ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="BookLoan" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Bookid"/>
+                    <PropertyRef Name="Loanid"/>
+                </Key>
+                <Property Name="Mandt" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Client" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Bookid" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Book" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Loanid" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Loan ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="BookReservation" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Bookid"/>
+                    <PropertyRef Name="Reservationid"/>
+                </Key>
+                <Property Name="Mandt" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Client" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Bookid" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Book" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Reservationid" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Reservation ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Rate" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Ratingid"/>
+                </Key>
+                <Property Name="Mandt" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Client" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Ratingid" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Rating ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ISBN" Type="Edm.String" Nullable="false" MaxLength="13" sap:unicode="false" sap:label="ISBN" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Reader" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="User Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Rating" Type="Edm.Float" Nullable="false" sap:unicode="false" sap:label="Book rating" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Reservation" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Reservationid"/>
+                </Key>
+                <Property Name="Reservationid" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Reservation ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Reservation status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="StartDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Reserv start date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="EndDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Reservation end date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="ToBookReservationSet" Relationship="ZKZI_LIBRARY_ODATA_SRV_01.ReservationToBookReservation" FromRole="FromRole_ReservationToBookReservation" ToRole="ToRole_ReservationToBookReservation"/>
+            </EntityType>
+            <EntityType Name="Author" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Authorid"/>
+                </Key>
+                <Property Name="Authorid" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Author" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="Author name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Surname" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="Author surname" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Author description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Nationality" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Author nationality" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="ToAuthorBookSet" Relationship="ZKZI_LIBRARY_ODATA_SRV_01.AuthorToAuthorBook" FromRole="FromRole_AuthorToAuthorBook" ToRole="ToRole_AuthorToAuthorBook"/>
+            </EntityType>
+            <EntityType Name="Book" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ISBN"/>
+                </Key>
+                <Property Name="ISBN" Type="Edm.String" Nullable="false" MaxLength="13" sap:unicode="false" sap:label="ISBN" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Title" Type="Edm.String" Nullable="false" MaxLength="70" sap:unicode="false" sap:label="Book title" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Rating" Type="Edm.Double" Nullable="false" sap:unicode="false" sap:label="Book rating" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Book language" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PublicationDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Publication date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="150" sap:unicode="false" sap:label="Book description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="ToAuthorBookSet" Relationship="ZKZI_LIBRARY_ODATA_SRV_01.BookToAuthorBook" FromRole="FromRole_BookToAuthorBook" ToRole="ToRole_BookToAuthorBook"/>
+                <NavigationProperty Name="ToBookGenreSet" Relationship="ZKZI_LIBRARY_ODATA_SRV_01.BookToBookGenre" FromRole="FromRole_BookToBookGenre" ToRole="ToRole_BookToBookGenre"/>
+                <NavigationProperty Name="ToBook_copySet" Relationship="ZKZI_LIBRARY_ODATA_SRV_01.BookToBook_copy" FromRole="FromRole_BookToBook_copy" ToRole="ToRole_BookToBook_copy"/>
+                <NavigationProperty Name="ToRateSet" Relationship="ZKZI_LIBRARY_ODATA_SRV_01.BookToRate" FromRole="FromRole_BookToRate" ToRole="ToRole_BookToRate"/>
+            </EntityType>
+            <EntityType Name="Book_copy" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Bookid"/>
+                </Key>
+                <Property Name="Bookid" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Book" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Availability" Type="Edm.String" Nullable="false" MaxLength="13" sap:unicode="false" sap:label="Availability" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ISBN" Type="Edm.String" Nullable="false" MaxLength="13" sap:unicode="false" sap:label="ISBN" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="ToBookReservationSet" Relationship="ZKZI_LIBRARY_ODATA_SRV_01.BookToBookReservation" FromRole="FromRole_BookToBookReservation" ToRole="ToRole_BookToBookReservation"/>
+                <NavigationProperty Name="ToBookLoanSet" Relationship="ZKZI_LIBRARY_ODATA_SRV_01.BookToBookLoan" FromRole="FromRole_BookToBookLoan" ToRole="ToRole_BookToBookLoan"/>
+            </EntityType>
+            <EntityType Name="Genre" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Genreid"/>
+                </Key>
+                <Property Name="Genreid" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Genre ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Genre" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Genre description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="ToBookGenreSet" Relationship="ZKZI_LIBRARY_ODATA_SRV_01.GenreToBookGenre" FromRole="FromRole_GenreToBookGenre" ToRole="ToRole_GenreToBookGenre"/>
+            </EntityType>
+            <EntityType Name="Loan" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Loanid"/>
+                </Key>
+                <Property Name="Loanid" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Loan ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Reader" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="User Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="StartDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Loan start date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="EndDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Loan end date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PickupDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Book pickup date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ReturnDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Loan return date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="ToBookLoanSet" Relationship="ZKZI_LIBRARY_ODATA_SRV_01.LoanToBookLoan" FromRole="FromRole_LoanToBookLoan" ToRole="ToRole_LoanToBookLoan"/>
+            </EntityType>
+            <Association Name="ReservationToBookReservation" sap:content-version="1">
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.Reservation" Multiplicity="1" Role="FromRole_ReservationToBookReservation"/>
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.BookReservation" Multiplicity="*" Role="ToRole_ReservationToBookReservation"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ReservationToBookReservation">
+                        <PropertyRef Name="Reservationid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ReservationToBookReservation">
+                        <PropertyRef Name="Reservationid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="LoanToBookLoan" sap:content-version="1">
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.Loan" Multiplicity="1" Role="FromRole_LoanToBookLoan"/>
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.BookLoan" Multiplicity="*" Role="ToRole_LoanToBookLoan"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_LoanToBookLoan">
+                        <PropertyRef Name="Loanid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_LoanToBookLoan">
+                        <PropertyRef Name="Loanid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="BookToAuthorBook" sap:content-version="1">
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.Book" Multiplicity="1" Role="FromRole_BookToAuthorBook"/>
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.AuthorBook" Multiplicity="*" Role="ToRole_BookToAuthorBook"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_BookToAuthorBook">
+                        <PropertyRef Name="ISBN"/>
+                    </Principal>
+                    <Dependent Role="ToRole_BookToAuthorBook">
+                        <PropertyRef Name="ISBN"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="BookToBookGenre" sap:content-version="1">
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.Book" Multiplicity="1" Role="FromRole_BookToBookGenre"/>
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.BookGenre" Multiplicity="*" Role="ToRole_BookToBookGenre"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_BookToBookGenre">
+                        <PropertyRef Name="ISBN"/>
+                    </Principal>
+                    <Dependent Role="ToRole_BookToBookGenre">
+                        <PropertyRef Name="ISBN"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="BookToBook_copy" sap:content-version="1">
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.Book" Multiplicity="1" Role="FromRole_BookToBook_copy"/>
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.Book_copy" Multiplicity="*" Role="ToRole_BookToBook_copy"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_BookToBook_copy">
+                        <PropertyRef Name="ISBN"/>
+                    </Principal>
+                    <Dependent Role="ToRole_BookToBook_copy">
+                        <PropertyRef Name="ISBN"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="BookToRate" sap:content-version="1">
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.Book" Multiplicity="1" Role="FromRole_BookToRate"/>
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.Rate" Multiplicity="*" Role="ToRole_BookToRate"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_BookToRate">
+                        <PropertyRef Name="ISBN"/>
+                    </Principal>
+                    <Dependent Role="ToRole_BookToRate">
+                        <PropertyRef Name="ISBN"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="AuthorToAuthorBook" sap:content-version="1">
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.Author" Multiplicity="1" Role="FromRole_AuthorToAuthorBook"/>
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.AuthorBook" Multiplicity="*" Role="ToRole_AuthorToAuthorBook"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_AuthorToAuthorBook">
+                        <PropertyRef Name="Authorid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_AuthorToAuthorBook">
+                        <PropertyRef Name="Authorid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="GenreToBookGenre" sap:content-version="1">
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.Genre" Multiplicity="1" Role="FromRole_GenreToBookGenre"/>
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.BookGenre" Multiplicity="*" Role="ToRole_GenreToBookGenre"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_GenreToBookGenre">
+                        <PropertyRef Name="Genreid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_GenreToBookGenre">
+                        <PropertyRef Name="Genreid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="BookToBookReservation" sap:content-version="1">
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.Book_copy" Multiplicity="1" Role="FromRole_BookToBookReservation"/>
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.BookReservation" Multiplicity="*" Role="ToRole_BookToBookReservation"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_BookToBookReservation">
+                        <PropertyRef Name="Bookid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_BookToBookReservation">
+                        <PropertyRef Name="Bookid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="BookToBookLoan" sap:content-version="1">
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.Book_copy" Multiplicity="1" Role="FromRole_BookToBookLoan"/>
+                <End Type="ZKZI_LIBRARY_ODATA_SRV_01.BookLoan" Multiplicity="*" Role="ToRole_BookToBookLoan"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_BookToBookLoan">
+                        <PropertyRef Name="Bookid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_BookToBookLoan">
+                        <PropertyRef Name="Bookid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZKZI_LIBRARY_ODATA_SRV_01_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="AuthorBookSet" EntityType="ZKZI_LIBRARY_ODATA_SRV_01.AuthorBook" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="BookGenreSet" EntityType="ZKZI_LIBRARY_ODATA_SRV_01.BookGenre" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="BookLoanSet" EntityType="ZKZI_LIBRARY_ODATA_SRV_01.BookLoan" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="BookReservationSet" EntityType="ZKZI_LIBRARY_ODATA_SRV_01.BookReservation" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="RateSet" EntityType="ZKZI_LIBRARY_ODATA_SRV_01.Rate" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ReservationSet" EntityType="ZKZI_LIBRARY_ODATA_SRV_01.Reservation" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="AuthorSet" EntityType="ZKZI_LIBRARY_ODATA_SRV_01.Author" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="BookSet" EntityType="ZKZI_LIBRARY_ODATA_SRV_01.Book" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="Book_copySet" EntityType="ZKZI_LIBRARY_ODATA_SRV_01.Book_copy" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="GenreSet" EntityType="ZKZI_LIBRARY_ODATA_SRV_01.Genre" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="LoanSet" EntityType="ZKZI_LIBRARY_ODATA_SRV_01.Loan" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="BookToAuthorBookSet" Association="ZKZI_LIBRARY_ODATA_SRV_01.BookToAuthorBook" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="BookSet" Role="FromRole_BookToAuthorBook"/>
+                    <End EntitySet="AuthorBookSet" Role="ToRole_BookToAuthorBook"/>
+                </AssociationSet>
+                <AssociationSet Name="BookToBook_copySet" Association="ZKZI_LIBRARY_ODATA_SRV_01.BookToBook_copy" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="BookSet" Role="FromRole_BookToBook_copy"/>
+                    <End EntitySet="Book_copySet" Role="ToRole_BookToBook_copy"/>
+                </AssociationSet>
+                <AssociationSet Name="LoanToBookLoanSet" Association="ZKZI_LIBRARY_ODATA_SRV_01.LoanToBookLoan" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="LoanSet" Role="FromRole_LoanToBookLoan"/>
+                    <End EntitySet="BookLoanSet" Role="ToRole_LoanToBookLoan"/>
+                </AssociationSet>
+                <AssociationSet Name="BookToBookLoanSet" Association="ZKZI_LIBRARY_ODATA_SRV_01.BookToBookLoan" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Book_copySet" Role="FromRole_BookToBookLoan"/>
+                    <End EntitySet="BookLoanSet" Role="ToRole_BookToBookLoan"/>
+                </AssociationSet>
+                <AssociationSet Name="AuthorToAuthorBookSet" Association="ZKZI_LIBRARY_ODATA_SRV_01.AuthorToAuthorBook" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="AuthorSet" Role="FromRole_AuthorToAuthorBook"/>
+                    <End EntitySet="AuthorBookSet" Role="ToRole_AuthorToAuthorBook"/>
+                </AssociationSet>
+                <AssociationSet Name="BookToBookReservationSet" Association="ZKZI_LIBRARY_ODATA_SRV_01.BookToBookReservation" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Book_copySet" Role="FromRole_BookToBookReservation"/>
+                    <End EntitySet="BookReservationSet" Role="ToRole_BookToBookReservation"/>
+                </AssociationSet>
+                <AssociationSet Name="BookToRateSet" Association="ZKZI_LIBRARY_ODATA_SRV_01.BookToRate" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="BookSet" Role="FromRole_BookToRate"/>
+                    <End EntitySet="RateSet" Role="ToRole_BookToRate"/>
+                </AssociationSet>
+                <AssociationSet Name="BookToBookGenreSet" Association="ZKZI_LIBRARY_ODATA_SRV_01.BookToBookGenre" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="BookSet" Role="FromRole_BookToBookGenre"/>
+                    <End EntitySet="BookGenreSet" Role="ToRole_BookToBookGenre"/>
+                </AssociationSet>
+                <AssociationSet Name="GenreToBookGenreSet" Association="ZKZI_LIBRARY_ODATA_SRV_01.GenreToBookGenre" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="GenreSet" Role="FromRole_GenreToBookGenre"/>
+                    <End EntitySet="BookGenreSet" Role="ToRole_GenreToBookGenre"/>
+                </AssociationSet>
+                <AssociationSet Name="ReservationToBookReservationSet" Association="ZKZI_LIBRARY_ODATA_SRV_01.ReservationToBookReservation" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ReservationSet" Role="FromRole_ReservationToBookReservation"/>
+                    <End EntitySet="BookReservationSet" Role="ToRole_ReservationToBookReservation"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZKZI_LIBRARY_ODATA_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZKZI_LIBRARY_ODATA_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

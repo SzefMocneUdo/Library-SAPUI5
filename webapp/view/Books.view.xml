@@ -1,0 +1,65 @@
+<mvc:View
+ controllerName="zkzilibraryproject.controller.Books"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns="sap.m">
+    <Page id="Books" title="{i18n>title}">
+        <content>
+            <Table id="main_table_books" headerText="{i18n>main.tableHeader}" items="{/BookSet}" growing="true" growingThreshold="200" alternateRowColors="true">
+                
+                <headerToolbar>
+                    <Toolbar id="Books_Table_Toolbar">
+                        <Title id="Books_table_title" text="{i18n>main.tableHeader}" />
+                        <ToolbarSpacer id="Books_table_toolbarspacer" />
+                        <Button id="Books_table_createbutton" text="{i18n>books.createButton}" press="onCreatePressed"></Button>
+                    </Toolbar>
+                </headerToolbar>
+                
+                <columns>
+                    <!-- <Column id="ISBN">
+                        <header>
+                            <Text id="main_text_isbn" text="{/#Book/ISBN/@sap:label}"/>
+                        </header>
+                    </Column> -->
+                    <Column id="Title">
+                        <header>
+                            <Text id="main_text_title" text="{/#Book/Title/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <!-- <Column id="Rating">
+                        <header>
+                            <Text id="main_text_rating" text="{/#Book/Rating/@sap:label}"/>
+                        </header>
+                    </Column> -->
+                    <!-- <Column id="Language">
+                        <header>
+                            <Text id="main_text_language" text="{/#Book/Language/@sap:label}"/>
+                        </header>
+                    </Column> -->
+                    <!-- <Column id="PublicationDate">
+                        <header>
+                            <Text id="main_text_puublicationdate" text="{/#Book/PublicationDate/@sap:label}"/>
+                        </header>
+                    </Column> -->
+                    <Column id="Description">
+                        <header>
+                            <Text id="main_text_description" text="{/#Book/Description/@sap:label}"/>
+                        </header>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="main_columnlistitem_template" press="onNavToDetail" type="Navigation">
+                        <cells>
+                            <!-- <Text id="main_text_isbntemplate" text="{ISBN}"/> -->
+                            <Text id="main_text_titletemplate" text="{Title}"/>
+                            <!-- <Text id="main_text_ratingtemplate" text="{Rating}"/>
+                            <Text id="main_text_languagetemplate" text="{Language}"/>
+                            <Text id="main_text_publicationdatetemplate" text="{path: 'PublicationDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/> -->
+                            <Text id="main_text_descriptiontemplate" text="{Description}"/>
+                            </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+        </content>
+    </Page>
+</mvc:View>

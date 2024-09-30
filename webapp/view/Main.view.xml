@@ -1,0 +1,50 @@
+<mvc:View xmlns:cards="sap.f.cards" xmlns:smarttable="sap.ui.comp.smarttable" xmlns:table="sap.ui.table"
+ controllerName="zkzilibraryproject.controller.Main"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns="sap.m">
+    <Page id="Main" title="{i18n>title}">
+
+        <content>
+            <StandardListItem id="_IDGenStandardListItem" title="Books" type="Navigation" press="onPress" />       
+        </content>  
+    </Page>
+</mvc:View>
+
+
+<!-- <mvc:View controllerName="zkzilibraryproject.controller.Main"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:tnt="sap.tnt">
+    <tnt:ToolPage id="navpage">
+        <tnt:sideContent>
+            <tnt:SideNavigation id="_IDGenSideNavigation1" itemSelect=".onSideNavigationItemSelected">
+                <tnt:NavigationList id="_IDGenNavigationList" selectedKey="{sideNavigation>/selectedKey}">
+                    <tnt:NavigationListItem id="_IDGenNavigationListItem" key="UserHome" text="{i18n>main.sideNavigation.home}" icon="sap-icon://home"/>
+                    <tnt:NavigationListItem id="_IDGenNavigationListItem1" key="UserRentals" text="{i18n>main.sideNavigation.rentals}" icon="sap-icon://cart"/>
+                    <tnt:NavigationListItem id="_IDGenNavigationListItem2" key="UserReservations" text="{i18n>main.sideNavigation.reservations}" icon="sap-icon://calendar"/>
+                    <tnt:NavigationListItem id="_IDGenNavigationListItem3" key="UserRatings" text="{i18n>main.sideNavigation.ratings}" icon="sap-icon://unfavorite"/>
+                    <tnt:NavigationListItem id="employeePanel" key="EmployeePanel" text="{i18n>main.sideNavigation.employeePanel}" icon="sap-icon://personnel-view" visible="false"/>
+                    <tnt:NavigationListGroup id="entityManagementGroup" text="{i18n>main.sideNavigation.entityManagement}" visible="false">
+                        <tnt:NavigationListItem id="_IDGenNavigationListItem4" key="GenreManagement" text="{i18n>main.sideNavigation.genres}" icon="sap-icon://theater" visible="false"/>
+                        <tnt:NavigationListItem id="_IDGenNavigationListItem5" key="AuthorManagement" text="{i18n>main.sideNavigation.authors}" icon="sap-icon://learning-assistant" visible="false"/>
+                        <tnt:NavigationListItem id="_IDGenNavigationListItem6" key="PublisherManagement" text="{i18n>main.sideNavigation.publishers}" icon="sap-icon://supplier" visible="false"/>
+                        <tnt:NavigationListItem id="_IDGenNavigationListItem7" key="BookManagement" text="{i18n>main.sideNavigation.books}" icon="sap-icon://course-book" visible="false"/>
+                        <tnt:NavigationListItem id="_IDGenNavigationListItem8" key="CopyManagement" text="{i18n>main.sideNavigation.copies}" icon="sap-icon://switch-views" visible="false"/>
+                        <tnt:NavigationListItem id="_IDGenNavigationListItem9" key="RentalManagement" text="{i18n>main.sideNavigation.rentals}" icon="sap-icon://cart" visible="false"/>
+                        <tnt:NavigationListItem id="_IDGenNavigationListItem10" key="ReservationManagement" text="{i18n>main.sideNavigation.reservations}" icon="sap-icon://calendar" visible="false"/>
+                        <tnt:NavigationListItem id="_IDGenNavigationListItem11" key="RatingManagement" text="{i18n>main.sideNavigation.ratings}" icon="sap-icon://unfavorite" visible="false"/>
+                    </tnt:NavigationListGroup>
+                    <tnt:NavigationListGroup id="translationManagementGroup" text="{i18n>main.sideNavigation.translationManagement}" visible="false">
+                        <tnt:NavigationListItem id="_IDGenNavigationListItem12" key="GenreTranslationManagement" text="{i18n>main.sideNavigation.genres}" icon="sap-icon://translate" visible="false"/>
+                        <tnt:NavigationListItem id="_IDGenNavigationListItem13" key="AuthorTranslationManagement" text="{i18n>main.sideNavigation.authors}" icon="sap-icon://translate" visible="false"/>
+                        <tnt:NavigationListItem id="_IDGenNavigationListItem14" key="PublisherTranslationManagement" text="{i18n>main.sideNavigation.publishers}" icon="sap-icon://translate" visible="false"/>
+                        <tnt:NavigationListItem id="_IDGenNavigationListItem15" key="BookTranslationManagement" text="{i18n>main.sideNavigation.books}" icon="sap-icon://translate" visible="false"/>
+                    </tnt:NavigationListGroup>
+                </tnt:NavigationList>
+            </tnt:SideNavigation>
+        </tnt:sideContent>
+        <tnt:mainContents>
+            <App id="mainapp"/>
+        </tnt:mainContents>
+    </tnt:ToolPage>
+</mvc:View> -->
