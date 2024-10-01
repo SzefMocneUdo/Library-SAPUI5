@@ -1,20 +1,42 @@
 sap.ui.define([
     "zkzilibraryproject/controller/Base.controller",
-    "sap/ui/model/json/JSONModel",
-    "sap/ui/core/Fragment",
     "sap/m/MessageBox",
-    "sap/ui/core/routing/History",
     "sap/ui/core/format/DateFormat"
 ],
 
-    function (Base, JSONModel, Fragment, MessageBox, History, DateFormat){
+    function (Base, MessageBox, DateFormat){
         "use strict";
-        return Base.extend("zkzilibraryproject.controller.BookDetails", {
+        return Base.extend("zkzilibraryproject.controller.BookEdit", {
             onInit: function(){
                 let oRouter = this.getOwnerComponent().getRouter(),
-                    oRoute = oRouter.getRoute("BookDetails");
+                    oRoute = oRouter.getRoute("BookEdit");
                 
                 oRoute.attachPatternMatched(this.onPatternMatched, this);
+
+                this.getVie().byId("bookedit_authorsMultiComboBox").setItems(this.getSelectedKeys())
+
+                // const authors = this.getView().byId("bookdetails_authorsMultiComboBox").getSelectedKeys();
+                
+                // let oDataModelAuthors = new sap.ui.model.odata.v2.ODataModel("/AuthorSet");
+
+                // let oItemTemplate = new sap.ui.core.Item({
+                //     key: "{Authorid}",
+                //     text: "{Name}"
+                // });
+
+                
+
+                // let mcb = new sap.m.MultiComboBox({
+                //     id: "mcb",
+                //     items: {
+                //         path: "/AuthorSet",
+                //         template: oItemTemplate
+                //     },
+                //     selectedKeys: authors
+                // });
+
+                // mcb.setModel(oDataModelAuthors);
+                // mcb.placeAt('BookEdit')
             },
 
             onPatternMatched: function(oEvent) {
@@ -24,38 +46,25 @@ sap.ui.define([
                 this.getView().bindElement(sPath);
             },
 
-
-            onEditPressed: function(oEvent){
-
-                let oRouter = this.getOwnerComponent().getRouter();
-
-                const path = oEvent.getSource().getBindingContext().getPath();
-
-                oRouter.navTo("BookEdit", {
-                    path: encodeURIComponent(path)
-                });
-            },
-
             onSavePressed: async function(){
-
-                console.log(this.getView());
-                console.log(this.getView().byId("bookdetails_input_publication_date"));
-
-                const publicationDate = this.getView().byId("bookdetails_input_publication_date").getValue();
+                const publicationDate = this.getView().byId("bookedit_input_publication_date").getValue();
+                const isbn = this.getView().byId("bookedit_text_isbn").getText();
                 const book = {
-                    ISBN: this.getView().byId("bookdetails_text_isbn").getValue(),
-                    Title: this.getView().byId("bookdetails_input_title").getValue(),
+                    ISBN: isbn,
+                    Title: this.getView().byId("bookedit_input_title").getValue(),
                     PublicationDate: publicationDate === "" ? null : `${DateFormat.getDateInstance({
                        pattern: "yyyy-MM-dd"
                     }).format(new Date(publicationDate))}T00:00:00`,
-                    Language: this.getView().byId("bookdetails_input_language").getValue(),
-                    Description: this.getView().byId("bookdetails_input_description").getValue()
+                    Language: this.getView().byId("bookedit_input_language").getValue(),
+                    Description: this.getView().byId("bookedit_input_description").getValue()
                 }
 
-                console.log(book);
 
-                // const authors = this.getView().byId("bookdetails_authorsMultiComboBox").getSelectedKeys();
-                // const genres = this.getView().byId("bookdetails_genresMultiComboBox").getSelectedKeys();
+                const authors = this.getView().byId("bookedit_authorsMultiComboBox").getSelectedKeys();
+                const genres = this.getView().byId("bookedit_genresMultiComboBox").getSelectedKeys();
+
+                console.log(authors);
+                console.log(genres);
 
                 // await Service.updateBook(this.getOwnerComponent().getModel(), book);
 
@@ -83,7 +92,7 @@ sap.ui.define([
 
             onCancelPressed: function() {
                 this.getView().getModel().resetChanges().then(() => {
-                    onNavBack();
+                    this.onNavBack();
                 });
             },
 
@@ -110,17 +119,5 @@ sap.ui.define([
                     }
                 })
             },
-
-            // onNavBack: function () {
-            //     let oHistory = History.getInstance(),
-            //         sPreviousHash = oHistory.getPreviousHash();
-
-            //     if (sPreviousHash !== undefined) {
-            //         window.history.go(-1);
-            //     } else {
-            //         let oRouter = this.getOwnerComponent().getRouter();
-            //         oRouter.navTo("Main", {}. true);
-            //     }
-            // }
         });
     });

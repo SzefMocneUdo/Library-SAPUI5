@@ -10,19 +10,15 @@ function (Controller) {
 
         onNavToDetail: function(oEvent){
             let oRouter = this.getOwnerComponent().getRouter();
-
-            const path = oEvent.getSource().getBindingContext().getPath();
-            console.log(path);
+            const sPath = oEvent.getSource().getBindingContext().getPath();
 
             oRouter.navTo("BookDetails", {
-                path: encodeURIComponent(path)
+                path: encodeURIComponent(sPath)
             });
         },
 
         onCreatePressed: function () {
             let oRouter = this.getOwnerComponent().getRouter();
-
-
             oRouter.navTo("CreateBook");
         }
     });

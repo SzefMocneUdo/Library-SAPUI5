@@ -1,0 +1,39 @@
+<mvc:View
+ controllerName="zkzilibraryproject.controller.BookEdit"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns:core="sap.ui.core"
+ xmlns="sap.m"
+ xmlns:f="sap.ui.layout.form">
+    <Page id="BookEdit">
+        <f:SimpleForm id="bookedit_simpleform" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+        labelSpanS="12" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" >
+        <f:content>
+            <Label id="bookedit_label_isbn" text="{/#Book/ISBN/@sap:label}" />
+            <Text id="bookedit_text_isbn" text="{ISBN}" />
+            <Label id="bookedit_label_title" required="true" text="{/#Book/Title/@sap:label}" />
+            <Input id="bookedit_input_title" value="{Title}" />
+            <Label id="bookedit_label_authors" required="true" text="{/#Book/Authors/@sap:label}"/>
+            <MultiComboBox id="bookedit_authorsMultiComboBox" required="true" showSecondaryValues= "true" items="{/AuthorSet}"  valueStateText="{i18n>bookManagement.authorsEmptiness}" selectionChange="onAuthorsChange" selectedKeys="{Authors}" value="{Authors}">
+                <core:ListItem id="bookedit_input_authors" key="{parts:['Authorid'], formatter:'sap.ui.base.ManagedObject.escapeSettingsValue'}" text="{Name} {Surname}" additionalText="{Authorid}"/>
+            </MultiComboBox>
+            <Label id="bookedit_label_genres" text="{/#Book/Genres/@sap:label}"/>
+            <MultiComboBox id="bookedit_genresMultiComboBox" required="true" showSecondaryValues= "true" items="{/GenreSet}"  valueStateText="{i18n>bookManagement.authorsEmptiness}" selectionChange="onGenresChange" value="{Genres}">
+                <core:ListItem id="bookedit_input_genres" key="{parts:['Genreid'], formatter:'sap.ui.base.ManagedObject.escapeSettingsValue'}" text="{Name}" additionalText="{Genreid}"/>
+            </MultiComboBox>
+            <Label id="bookedit_label_publication_date" required="true" text="{/#Book/PublicationDate/@sap:label}" />
+            <DatePicker id="bookedit_input_publication_date" maxDate="{ todayDate }" displayFormat="dd MMMM yyyy" value="{path:'PublicationDate', type:'sap.ui.model.odata.type.Date', formatOptions: { pattern: 'dd MMMM yyyy'}}" />
+            <Label id="bookedit_label_language" required="true" text="{/#Book/Language/@sap:label}" />
+            <Input id="bookedit_input_language" value="{Language}" />
+            <Label id="bookedit_label_description" required="true" text="{/#Book/Description/@sap:label}" />
+            <Input id="bookedit_input_description" required="true" value="{Description}" />
+        </f:content>
+        </f:SimpleForm>
+        <footer>
+            <OverflowToolbar id="bookedit_toolbar_footer" visible="{editModel>/editMode}">
+                <ToolbarSpacer id="bookedit_spacer_footer" />
+                <Button id="bookedit_button_save" text="Save" press="onSavePressed" type="Accept" visible="{editModel>/editMode}"/>
+                <Button id="bookedit_button_cancel" text="Cancel" press="onCancelPressed" type="Reject" visible="{editModel>/editMode}" />
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>

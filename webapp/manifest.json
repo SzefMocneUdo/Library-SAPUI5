@@ -112,7 +112,7 @@
         },
         {
           "name": "BookEdit",
-          "pattern": "BookDetails/{path}",
+          "pattern": "BookEdit/{path}",
           "target": ["BookEdit"]
         }
       ],

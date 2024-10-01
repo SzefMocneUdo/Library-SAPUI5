@@ -17,7 +17,7 @@ sap.ui.define([
                     window.history.go(-1);
                 } else {
                     let oRouter = this.getOwnerComponent().getRouter();
-                    oRouter.navTo("Main", {}. true);
+                    oRouter.navTo("Books", {}. true);
                 }
             }
         });
