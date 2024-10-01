@@ -2,6 +2,7 @@
  controllerName="zkzilibraryproject.controller.Books"
  xmlns:mvc="sap.ui.core.mvc"
  xmlns="sap.m">
+ <!-- <ScrollContainer id="BooksScrollContainer" vertical="false"> -->
     <Page id="Books" title="{i18n>title}">
         <content>
             <Table id="main_table_books" headerText="{i18n>main.tableHeader}" items="{/BookSet}" growing="true" growingThreshold="200" alternateRowColors="true">
@@ -62,4 +63,6 @@
 
         </content>
     </Page>
+ <!-- </ScrollContainer> -->
+    
 </mvc:View>

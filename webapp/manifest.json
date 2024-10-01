@@ -90,45 +90,47 @@
         "async": true,
         "viewPath": "zkzilibraryproject.view",
         "controlAggregation": "pages",
-        "controlId": "app",
+        "controlId": "mainapp",
         "clearControlAggregation": false
       },
       "routes": [
-        {
-          "name": "Main",
-          "pattern": ":?query:",
-          "target": ["Main"]
-        },
+        
         {
           "name": "BookDetails",
-          "pattern": "mandatoryParamDetail/{path}",
+          "pattern": "BookDetails/{path}",
           "target": ["BookDetails"]
         },
         {
           "name": "Books",
-          "pattern": "staticDetail",
+          "pattern": "Books",
           "target": ["Books"]
         },
         {
           "name": "CreateBook",
-          "pattern": "staticDetailCreate",
+          "pattern": "CreateBook",
           "target": ["CreateBook"]
+        },
+        {
+          "name": "BookEdit",
+          "pattern": "BookDetails/{path}",
+          "target": ["BookEdit"]
         }
       ],
       "targets": {
-        "Main": {
-          "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewId": "Main",
-          "viewName": "Main"
-      },
+
       "BookDetails": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
           "viewId": "BookDetails",
           "viewName": "BookDetails"
+      },
+      "BookEdit": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "BookEdit",
+          "viewName": "BookEdit"
       },
       "Books": {
         "viewType": "XML",
@@ -147,10 +149,10 @@
     }
     },
     "rootView": {
-      "viewName": "zkzilibraryproject.view.App",
+      "viewName": "zkzilibraryproject.view.Main",
       "type": "XML",
       "async": true,
-      "id": "App"
+      "id": "Main"
     }
   }
 }

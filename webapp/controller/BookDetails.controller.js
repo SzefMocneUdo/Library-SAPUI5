@@ -32,7 +32,7 @@ sap.ui.define([
 
             _loadFragment: function(sFragmentName) {
                 console.log(this);
-                const that = this;
+
                 this.getView().byId("page").removeAllContent();
                 if (this.aFragments[sFragmentName]) {
                     this.getView().byId("page").addContent(this.aFragments[sFragmentName]);
@@ -49,8 +49,16 @@ sap.ui.define([
                 }
             },
 
-            onEditPressed: function(){
-                this._onSwitchEdit();
+            onEditPressed: function(oEvent){
+                //this._onSwitchEdit();
+                let oRouter = this.getOwnerComponent().getRouter();
+
+            const path = oEvent.getSource().getBindingContext().getPath();
+            console.log(path);
+
+            oRouter.navTo("BookEdit", {
+                path: encodeURIComponent(path)
+            });
             },
 
             _onSwitchEdit: function(){

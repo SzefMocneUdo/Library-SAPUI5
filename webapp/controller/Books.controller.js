@@ -12,6 +12,7 @@ function (Controller) {
             let oRouter = this.getOwnerComponent().getRouter();
 
             const path = oEvent.getSource().getBindingContext().getPath();
+            console.log(path);
 
             oRouter.navTo("BookDetails", {
                 path: encodeURIComponent(path)
