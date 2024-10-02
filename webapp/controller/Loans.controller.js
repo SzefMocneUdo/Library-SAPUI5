@@ -27,15 +27,36 @@ function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button) {
                     title: this.getView().getModel("i18n").getResourceBundle().getText("LoanDetails"),
                     contentWidth: "550px",
                     contentHeight: "300px",
-                    content: new List({
-                        items: {
-                            path: "/LoanDetails", 
-                            template: new StandardListItem({
-                                title: "{propertyName}",
-                                description: "{propertyValue}"
-                            })
-                        }
-                    }),
+                    content: [
+                        new StandardListItem({
+                            title: "Loan ID",
+                            description: "{/Loanid}"
+                        }),
+                        new StandardListItem({
+                            title: "Status",
+                            description: "{/Status}"
+                        }),
+                        new StandardListItem({
+                            title: "Books",
+                            description: "{/Books}"
+                        }),
+                        new StandardListItem({
+                            title: "Start Date",
+                            description: "{/FormattedStartDate}" 
+                        }),
+                        new StandardListItem({
+                            title: "End Date",
+                            description: "{/FormattedEndDate}"
+                        }),
+                        new StandardListItem({
+                            title: "Pickup Date",
+                            description: "{/FormattedPickupDate}" 
+                        }),
+                        new StandardListItem({
+                            title: "Return Date",
+                            description: "{/FormattedReturnDate}"
+                        })
+                    ],
                     endButton: new Button({
                         type: ButtonType.Emphasized,
                         text: "Close",
@@ -44,31 +65,34 @@ function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button) {
                         }.bind(this)
                     })
                 });
-        
+                
                 this.getView().addDependent(this.oFixedSizeDialog);
             }
-
-            const startDate = new Date(oLoan.StartDate);            
+             
+            const startDate = new Date(oLoan.StartDate);
             const endDate = new Date(oLoan.EndDate);
+            const pickupDate = new Date(oLoan.PickupDate);
+            const returnDate = new Date(oLoan.ReturnDate);
 
             const options = { day: '2-digit', month: 'long', year: 'numeric' };
-
             const formattedStartDate = startDate.toLocaleDateString('pl-PL', options);
             const formattedEndDate = endDate.toLocaleDateString('pl-PL', options);
+            const formattedPickupDate = pickupDate.toLocaleDateString('pl-PL', options);
+            const formattedReturnDate = returnDate.toLocaleDateString('pl-PL', options);
         
             var oDialogModel = new sap.ui.model.json.JSONModel({
-                LoanDetails: [
-                    { propertyName: "Loan ID", propertyValue: oLoan.Loanid },
-                    { propertyName: "Status", propertyValue: oLoan.Status },
-                    { propertyName: "Books", propertyValue: oLoan.Books },
-                    { propertyName: "Start Date", propertyValue: formattedStartDate },
-                    { propertyName: "End Date", propertyValue: formattedEndDate }                    
-                ]
+                Loanid: oLoan.Loanid,
+                Status: oLoan.Status,
+                Books: oLoan.Books,
+                FormattedStartDate: formattedStartDate,
+                FormattedEndDate: formattedEndDate,
+                FormattedPickupDate: formattedPickupDate,
+                FormattedReturnDate: formattedReturnDate
             });
-            this.oFixedSizeDialog.setModel(oDialogModel);
         
+            this.oFixedSizeDialog.setModel(oDialogModel);
+            
             this.oFixedSizeDialog.open();
         },
-        
     });
 });

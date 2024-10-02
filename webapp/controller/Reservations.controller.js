@@ -17,7 +17,7 @@ function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button) {
 
     return Controller.extend("zkzilibraryproject.controller.Reservations", {
         onInit: function () {
-        },
+        },        
 
         onDetailsDialog: function(oEvent) {
             var oReservation = oEvent.getSource().getBindingContext().getObject();
@@ -27,15 +27,28 @@ function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button) {
                     title: this.getView().getModel("i18n").getResourceBundle().getText("ReservationDetails"),
                     contentWidth: "550px",
                     contentHeight: "300px",
-                    content: new List({
-                        items: {
-                            path: "/ReservationDetails", 
-                            template: new StandardListItem({
-                                title: "{propertyName}",
-                                description: "{propertyValue}"
-                            })
-                        }
-                    }),
+                    content: [
+                        new StandardListItem({
+                            title: "Reservation ID",
+                            description: "{/Reservationid}"
+                        }),
+                        new StandardListItem({
+                            title: "Status",
+                            description: "{/Status}"
+                        }),
+                        new StandardListItem({
+                            title: "Books",
+                            description: "{/Books}"
+                        }),
+                        new StandardListItem({
+                            title: "Start Date",
+                            description: "{/FormattedStartDate}" 
+                        }),
+                        new StandardListItem({
+                            title: "End Date",
+                            description: "{/FormattedEndDate}"
+                        })
+                    ],
                     endButton: new Button({
                         type: ButtonType.Emphasized,
                         text: "Close",
@@ -44,29 +57,27 @@ function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button) {
                         }.bind(this)
                     })
                 });
-        
+                
                 this.getView().addDependent(this.oFixedSizeDialog);
             }
-
-            const startDate = new Date(oReservation.StartDate);            
+        
+            
+            const startDate = new Date(oReservation.StartDate);
             const endDate = new Date(oReservation.EndDate);
-
             const options = { day: '2-digit', month: 'long', year: 'numeric' };
-
             const formattedStartDate = startDate.toLocaleDateString('pl-PL', options);
             const formattedEndDate = endDate.toLocaleDateString('pl-PL', options);
         
             var oDialogModel = new sap.ui.model.json.JSONModel({
-                ReservationDetails: [
-                    { propertyName: "Reservation ID", propertyValue: oReservation.Reservationid },
-                    { propertyName: "Status", propertyValue: oReservation.Status },
-                    { propertyName: "Books", propertyValue: oReservation.Books },
-                    { propertyName: "Start Date", propertyValue: formattedStartDate },
-                    { propertyName: "End Date", propertyValue: formattedEndDate }                    
-                ]
+                Reservationid: oReservation.Reservationid,
+                Status: oReservation.Status,
+                Books: oReservation.Books,
+                FormattedStartDate: formattedStartDate,
+                FormattedEndDate: formattedEndDate
             });
-            this.oFixedSizeDialog.setModel(oDialogModel);
         
+            this.oFixedSizeDialog.setModel(oDialogModel);
+            
             this.oFixedSizeDialog.open();
         },
         
