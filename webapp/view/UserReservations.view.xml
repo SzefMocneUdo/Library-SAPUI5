@@ -1,0 +1,45 @@
+<mvc:View
+ controllerName="zkzilibraryproject.controller.Reservations"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns="sap.m">
+    <Page id="UserReservations" title="{i18n>UserReservationsTitle}">
+        <content>
+            <Table id="main_table_reservations" headerText="{i18n>UserReservationsTitle.tableHeader}" items="{/ReservationSet}" growing="true" growingThreshold="200" alternateRowColors="true">
+                <columns>
+                    <Column id="Id">
+                        <header>
+                            <Text id="reservation_text_id" text="{/#Reservation/Reservationid/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="ReservationStartDate">
+                        <header>
+                            <Text id="reservation_text_startdate" text="{/#Reservation/StartDate/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="ReservationEndDate">
+                        <header>
+                            <Text id="reservation_text_enddate" text="{/#Reservation/EndDate/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="Status">
+                        <header>
+                            <Text id="reservation_text_status" text="{/#Reservation/Status/@sap:label}"/>
+                        </header>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="reservation_columnlistitem_template" press="onDetailsDialog" type="Navigation">
+                        <cells>
+                            <Text id="reservation_text_idtemplate" text="{Reservationid}"/>
+                            <Text id="reservation_text_startdatetemplate" text="{path: 'StartDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
+                            <Text id="reservation_text_enddatetemplate" text="{path: 'EndDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
+                            <Text id="reservation_text_statustemplate" text="{Status}"/>
+                            </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+            
+            <Button id="CreateReservationUser" press="onCreateReservationLoan" text="Create" />
+        </content>
+    </Page>
+</mvc:View>

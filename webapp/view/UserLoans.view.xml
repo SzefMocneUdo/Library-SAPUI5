@@ -1,0 +1,43 @@
+<mvc:View
+ controllerName="zkzilibraryproject.controller.Loans"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns="sap.m">
+    <Page id="UserLoans" title="{i18n>UserLoansTitle}">
+        <content>
+            <Table id="main_table_userloans" headerText="{i18n>UserLoans.tableHeader}" items="{/LoanSet}" growing="true" growingThreshold="200" alternateRowColors="true">
+                <columns>
+                    <Column id="userloan_Id">
+                        <header>
+                            <Text id="userloan_text_id" text="{/#Loan/Loanid/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="userloan_StartDate">
+                        <header>
+                            <Text id="userloan_text_startdate" text="{/#Loan/StartDate/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="userloan_EndDate">
+                        <header>
+                            <Text id="userloan_text_enddate" text="{/#Loan/EndDate/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="userloan_Status">
+                        <header>
+                            <Text id="userloan_text_status" text="{/#Loan/Status/@sap:label}"/>
+                        </header>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="userloan_columnlistitem_template" press="onDetailsDialog" type="Navigation">
+                        <cells>
+                            <Text id="userloan_text_idtemplate" text="{Loanid}"/>
+                            <Text id="userloan_text_startdatetemplate" text="{path: 'StartDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
+                            <Text id="userloan_text_enddatetemplate" text="{path: 'EndDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
+                            <Text id="userloan_text_statustemplate" text="{Status}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

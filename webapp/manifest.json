@@ -106,6 +106,16 @@
           "target": ["Books"]
         },
         {
+          "name": "UserLoans",
+          "pattern": "UserLoans",
+          "target": ["UserLoans"]
+        },
+        {
+          "name": "UserReservations",
+          "pattern": "UserReservations",
+          "target": ["UserReservations"]
+        },
+        {
           "name": "CreateBook",
           "pattern": "CreateBook",
           "target": ["CreateBook"]
@@ -138,6 +148,20 @@
         "clearControlAggregation": false,
         "viewId": "Books",
         "viewName": "Books"
+      },
+      "UserLoans": {
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "UserLoans",
+        "viewName": "UserLoans"
+      },
+      "UserReservations": {
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "UserReservations",
+        "viewName": "UserReservations"
       },
       "CreateBook": {
         "viewType": "XML",

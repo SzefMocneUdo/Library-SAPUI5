@@ -13,7 +13,7 @@ sap.ui.define([
                 
                 oRoute.attachPatternMatched(this.onPatternMatched, this);
 
-                this.getVie().byId("bookedit_authorsMultiComboBox").setItems(this.getSelectedKeys())
+                //this.getView().byId("bookedit_authorsMultiComboBox").setItems(this.getSelectedKeys())
 
                 // const authors = this.getView().byId("bookdetails_authorsMultiComboBox").getSelectedKeys();
                 

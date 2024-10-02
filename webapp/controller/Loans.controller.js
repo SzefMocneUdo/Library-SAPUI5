@@ -15,21 +15,21 @@ function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button) {
 	// shortcut for sap.m.DialogType
 	var DialogType = mobileLibrary.DialogType;
 
-    return Controller.extend("zkzilibraryproject.controller.Reservations", {
+    return Controller.extend("zkzilibraryproject.controller.Loans", {
         onInit: function () {
         },
 
         onDetailsDialog: function(oEvent) {
-            var oReservation = oEvent.getSource().getBindingContext().getObject();
+            var oLoan = oEvent.getSource().getBindingContext().getObject();
             
             if (!this.oFixedSizeDialog) {
                 this.oFixedSizeDialog = new Dialog({
-                    title: this.getView().getModel("i18n").getResourceBundle().getText("ReservationDetails"),
+                    title: this.getView().getModel("i18n").getResourceBundle().getText("LoanDetails"),
                     contentWidth: "550px",
                     contentHeight: "300px",
                     content: new List({
                         items: {
-                            path: "/ReservationDetails", 
+                            path: "/LoanDetails", 
                             template: new StandardListItem({
                                 title: "{propertyName}",
                                 description: "{propertyValue}"
@@ -48,8 +48,8 @@ function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button) {
                 this.getView().addDependent(this.oFixedSizeDialog);
             }
 
-            const startDate = new Date(oReservation.StartDate);            
-            const endDate = new Date(oReservation.EndDate);
+            const startDate = new Date(oLoan.StartDate);            
+            const endDate = new Date(oLoan.EndDate);
 
             const options = { day: '2-digit', month: 'long', year: 'numeric' };
 
@@ -57,10 +57,10 @@ function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button) {
             const formattedEndDate = endDate.toLocaleDateString('pl-PL', options);
         
             var oDialogModel = new sap.ui.model.json.JSONModel({
-                ReservationDetails: [
-                    { propertyName: "Reservation ID", propertyValue: oReservation.Reservationid },
-                    { propertyName: "Status", propertyValue: oReservation.Status },
-                    { propertyName: "Books", propertyValue: oReservation.Books },
+                LoanDetails: [
+                    { propertyName: "Loan ID", propertyValue: oLoan.Loanid },
+                    { propertyName: "Status", propertyValue: oLoan.Status },
+                    { propertyName: "Books", propertyValue: oLoan.Books },
                     { propertyName: "Start Date", propertyValue: formattedStartDate },
                     { propertyName: "End Date", propertyValue: formattedEndDate }                    
                 ]

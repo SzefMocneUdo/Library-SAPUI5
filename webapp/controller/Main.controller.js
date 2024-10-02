@@ -79,6 +79,12 @@ function (Base, Fragment, Popover, library, Button) {
                 case "Books":
                     this.getOwnerComponent().getRouter().navTo("Books");
                     break;
+				case "UserLoans":
+                    this.getOwnerComponent().getRouter().navTo("UserLoans");
+                    break;
+				case "UserReservations":
+                    this.getOwnerComponent().getRouter().navTo("UserReservations");
+                    break;
                 default:
                     this.getOwnerComponent().getRouter().navTo("Main");
                     break;

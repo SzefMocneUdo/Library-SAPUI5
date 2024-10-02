@@ -6,10 +6,10 @@
  xmlns:smartForm="sap.ui.comp.smartform"
  xmlns:smartField="sap.ui.comp.smartfield"
  xmlns:f="sap.ui.layout.form">
-        <Page id="BookDetails" title="Book Details" >
+        <Page id="BookDetails" >
         <customHeader>
             <OverflowToolbar id="bookdetails_toolbar_header">
-                <Title id="bookdetails_title_header" text="Details"/>
+                <Title id="bookdetails_title_header" text="{i18n>BookDetails}"/>
                 <ToolbarSpacer id="bookdetails_spacer_header" />
                 <Button id="bookdetails_button_edit" text="Edit" type="Emphasized" press="onEditPressed"/>
             </OverflowToolbar>
