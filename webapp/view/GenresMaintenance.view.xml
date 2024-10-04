@@ -1,0 +1,67 @@
+<mvc:View
+ controllerName="zkzilibraryproject.controller.GenresMaintenance"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns:core="sap.ui.core"
+ xmlns="sap.m"
+ xmlns:f="sap.ui.layout.form">
+    <IconTabBar id="IconTabBarGenresMaintenance" class="sapUiResponsiveContentPadding">
+        <items>
+            <IconTabFilter id="IconTabFilterGenresMaintenanceDefinitions" text="Definitions" key="definitions">
+        <content>
+            <Table id="main_table_genresmaintenance" headerText="{i18n>GenresTitle.tableHeader}" items="{/GenreSet}" growing="true" growingThreshold="200" alternateRowColors="true">
+                <columns>
+                    <Column id="GenresMaintenanceId">
+                        <header>
+                            <Text id="genresmaintenance_text_id" text="{/#Genre/Genreid/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="GenresMaintenanceName">
+                        <header>
+                            <Text id="genresmaintenance_text_customer" text="{/#Genre/Name/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="GenresMaintenanceDescription">
+                        <header>
+                            <Text id="genresmaintenance_text_startdate" text="{/#Genre/Description/@sap:label}"/>
+                        </header>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="genresmaintenance_columnlistitem_template" press="onDetailsDialog" type="Navigation">
+                        <cells>
+                            <Text id="genresmaintenance_text_idtemplate" text="{Genreid}"/>
+                            <Text id="genresmaintenance_text_nametemplate" text="{Name}"/>
+                            <Text id="genresmaintenance_textdescriptiontemplate" text="{Description}"/>
+                            </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+            
+            <Button id="CreateGenresMaintenance" press="onCreateReservation" text="Create" />
+        </content>
+            </IconTabFilter>
+            <IconTabFilter id="IconTabFilterGenresMaintenanceTranslations" text="Translations" key="translations">
+                <content>
+                    <f:SimpleForm id="genretranslation_simpleform" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+                    labelSpanS="12" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" >
+                        <Label id="GenreTranslationGenreidlabel" text="{/#Genre/Name/@sap:label}" />
+                        <ComboBox id="GenreTranslationGenreidinput" required="true" showSecondaryValues= "true" items="{/GenreSet}" valueStateText="{i18n>bookManagement.genresEmptiness}" selectionChange="onGenresChange" value="{Genres}">
+                            <core:ListItem id="GenreTranslationGenreidiListItem" key="{parts:['Genreid'], formatter:'sap.ui.base.ManagedObject.escapeSettingsValue'}" text="{Name}" additionalText="{Genreid}"/>
+                        </ComboBox>
+                    <Label id="GenreTranslationLanguagelabel" text="{i18n>Language}" />
+                        <ComboBox id="GenreTranslationLanguageinput" required="true" showSecondaryValues= "true" items="{/LanguageSet}" valueStateText="{i18n>bookManagement.genresEmptiness}" selectionChange="onLanguageChange" value="{Languages}">
+                            <core:ListItem id="GenreTranslationLanguageiListItem" key="{parts:['LanguageKey'], formatter:'sap.ui.base.ManagedObject.escapeSettingsValue'}" text="{Text}" additionalText="{LanguageKey}"/>
+                        </ComboBox>
+                        <Label id="GenreTranslationDescriptionlabel" text="{/#Genre/Description/@sap:label}" />
+                        <Input id="GenreTranslationDescriptioninput" required="true" value="{Description}" />
+                    </f:SimpleForm>
+                </content>
+                <OverflowToolbar id="booktranslation_toolbar_footer" visible="{editModel>/editMode}">
+                <ToolbarSpacer id="booktranslation_spacer_footer" />
+                <Button id="booktranslation_button_save" text="Save" press="onSavePressed" type="Accept" visible="{editModel>/editMode}"/>
+                <Button id="booktranslation_button_cancel" text="Cancel" press="onCancelPressed" type="Reject" visible="{editModel>/editMode}" />
+            </OverflowToolbar>
+            </IconTabFilter>
+        </items>
+    </IconTabBar>
+</mvc:View>

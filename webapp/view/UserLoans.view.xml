@@ -1,10 +1,70 @@
 <mvc:View
  controllerName="zkzilibraryproject.controller.Loans"
  xmlns:mvc="sap.ui.core.mvc"
+ xmlns:semantic="sap.f.semantic"
  xmlns="sap.m">
-    <Page id="UserLoans" title="{i18n>UserLoansTitle}">
-        <content>
-            <Table id="main_table_userloans" headerText="{i18n>UserLoans.tableHeader}" items="{/LoanSet}" growing="true" growingThreshold="200" alternateRowColors="true">
+    <semantic:SemanticPage id="UserLoans" headerPinnable="false" toggleHeaderOnTitleClick="false" >
+
+        <semantic:titleHeading>
+            <Title id="UserLoansTitle" text="{i18n>LoansTitle}" />
+        </semantic:titleHeading>
+
+        <semantic:headerContent>
+            <IconTabBar
+				id="iconTabBarUserLoans"
+				select=".onQuickFilter"
+				expandable="false">
+				<items>
+					<IconTabFilter id="_IDGenIconTabFilter1"
+						key="all"
+						showAll="true"
+						count="{worklistView>/countAll}"
+						text="{i18n>WorklistFilterUserLoansAll}"/>
+					<IconTabSeparator id="_IDGenIconTabSeparator"/>
+					<IconTabFilter id="_IDGenIconTabFilter2"
+						key="finished"
+						icon="sap-icon://message-success"
+						iconColor="Positive"
+						count="{worklistView>/finished}"
+						text="{i18n>WorklistFilterUserLoansFinished}"/>
+					<IconTabFilter id="_IDGenIconTabFilter3"
+						key="inprogress"
+						icon="sap-icon://message-warning"
+						iconColor="Critical"
+						count="{worklistView>/inprogress}"
+						text="{i18n>WorklistFilterUserLoansInProgress}"/>
+					<IconTabFilter id="_IDGenIconTabFilter4"
+						key="delayed"
+						icon="sap-icon://message-error"
+						iconColor="Negative"
+						count="{worklistView>/delayed}"
+						text="{i18n>WorklistFilterUserLoansDelayed}"/>
+				</items>
+                <content>
+            <Table
+                id="main_table_userloans"
+                headerText="{i18n>UserLoans.tableHeader}"
+                items="{/LoanSet}"
+                growing="true"
+                growingThreshold="200"
+                width="auto"
+                alternateRowColors="true">
+
+                <headerToolbar>
+						<Toolbar id="_IDGenToolbarUserLoans">
+							<Title
+								id="tableHeader"
+								text="{worklistView>worklistTableTitleUserLoans}"/>
+							<ToolbarSpacer id="_IDGenToolbarSpacerUserLoans"/>
+							<SearchField
+								id="searchField"
+								tooltip="{i18n>worklistSearchTooltip}"
+								search=".onSearch"
+								width="auto">
+							</SearchField>
+						</Toolbar>
+					</headerToolbar>
+
                 <columns>
                     <Column id="userloan_Id">
                         <header>
@@ -39,5 +99,7 @@
                 </items>
             </Table>
         </content>
-    </Page>
+            </IconTabBar>
+        </semantic:headerContent>
+    </semantic:SemanticPage>
 </mvc:View>

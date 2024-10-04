@@ -22,7 +22,9 @@
             <Label id="bookcreate_label_publication_date" required="true" text="{/#Book/PublicationDate/@sap:label}" />
             <DatePicker id="bookcreate_input_publication_date" maxDate="{ todayDate }" displayFormat="dd MMMM yyyy" value="{PublicationDate}" />
             <Label id="bookcreate_label_language" required="true" text="{/#Book/Language/@sap:label}" />
-            <Input id="bookcreate_input_language" value="{Language}" />
+            <ComboBox id="bookcreate_languageComboBox" required="true" showSecondaryValues= "true" items="{/LanguageSet}" valueStateText="{i18n>bookManagement.genresEmptiness}" selectionChange="onLanguageChange" value="{Languages}">
+                <core:ListItem id="bookcreate_input_language" key="{parts:['LanguageKey'], formatter:'sap.ui.base.ManagedObject.escapeSettingsValue'}" text="{Text}" additionalText="{LanguageKey}"/>
+            </ComboBox>
             <Label id="bookcreate_label_description" required="true" text="{/#Book/Description/@sap:label}" />
             <Input id="bookcreate_input_description" value="{Description}" />
         </f:content>

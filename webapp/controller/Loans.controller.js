@@ -4,9 +4,10 @@ sap.ui.define([
     "sap/m/library",
     "sap/m/List",
     "sap/m/StandardListItem",
-    "sap/m/Button"
+    "sap/m/Button",
+    "sap/ui/model/json/JSONModel"
 ],
-function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button) {
+function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button, JSONModel) {
     "use strict";
 
     // shortcut for sap.m.ButtonType
@@ -17,6 +18,42 @@ function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button) {
 
     return Controller.extend("zkzilibraryproject.controller.Loans", {
         onInit: function () {
+            // var oViewModel,
+			// 	iOriginalBusyDelay,
+			// 	oTable = this.byId("main_table_userloans");
+
+			// iOriginalBusyDelay = oTable.getBusyIndicatorDelay();
+			// this._oTable = oTable;
+			// // keeps the search state
+			// this._aTableSearchState = [];
+
+			// // Model used to manipulate control states
+			// oViewModel = new JSONModel({
+			// 	worklistTableTitle: this.getResourceBundle().getText("worklistTableTitleUserLoans"),
+			// 	shareOnJamTitle: this.getResourceBundle().getText("LoansTitle"),
+			// 	// tableNoDataText: this.getResourceBundle().getText("tableNoDataText"),
+			// 	tableBusyDelay: 0,
+			// 	finished: 0,
+			// 	inprogress: 0,
+			// 	delayed: 0,
+			// 	countAll: 0
+			// });
+			// this.setModel(oViewModel, "worklistView");
+			// // Create an object of filters
+			// this._mFilters = {
+			// 	"finished": [new Filter("UnitsInStock", FilterOperator.GT, 0)],
+			// 	"inprogress": [new Filter("UnitsInStock", FilterOperator.GT, 0)],
+			// 	"delayed": [new Filter("UnitsInStock", FilterOperator.GT, 0)],
+			// 	"all": []
+			// };
+
+			// // Make sure, busy indication is showing immediately so there is no
+			// // break after the busy indication for loading the view's meta data is
+			// // ended (see promise 'oWhenMetadataIsLoaded' in AppController)
+			// oTable.attachEventOnce("updateFinished", function(){
+			// 	// Restore original busy indicator delay for worklist's table
+			// 	oViewModel.setProperty("/tableBusyDelay", iOriginalBusyDelay);
+			// });
         },
 
         onDetailsDialog: function(oEvent) {
@@ -80,7 +117,7 @@ function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button) {
             const formattedPickupDate = pickupDate.toLocaleDateString('pl-PL', options);
             const formattedReturnDate = returnDate.toLocaleDateString('pl-PL', options);
         
-            var oDialogModel = new sap.ui.model.json.JSONModel({
+            var oDialogModel = new JSONModel({
                 Loanid: oLoan.Loanid,
                 Status: oLoan.Status,
                 Books: oLoan.Books,
@@ -94,5 +131,26 @@ function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button) {
             
             this.oFixedSizeDialog.open();
         },
+
+        onQuickFilter: function(oEvent) {
+			var oBinding = this._oTable.getBinding("items"),
+				sKey = oEvent.getParameter("selectedKey");
+			oBinding.filter(this._mFilters[sKey]);
+		},
+
+        onSearch : function (oEvent) {
+			if (oEvent.getParameters().refreshButtonPressed) {
+				this.onRefresh();
+			} else {
+				var aTableSearchState = [];
+				var sQuery = oEvent.getParameter("query");
+
+				if (sQuery && sQuery.length > 0) {
+					aTableSearchState = [new Filter("ProductName", FilterOperator.Contains, sQuery)];
+				}
+				this._applySearch(aTableSearchState);
+			}
+
+		},
     });
 });

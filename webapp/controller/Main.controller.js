@@ -91,6 +91,9 @@ function (Base, Fragment, Popover, library, Button) {
 				case "LoansMaintenance":
                     this.getOwnerComponent().getRouter().navTo("LoansMaintenance");
                     break;
+				case "GenresMaintenance":
+                    this.getOwnerComponent().getRouter().navTo("GenresMaintenance");
+                    break;
                 default:
                     this.getOwnerComponent().getRouter().navTo("Main");
                     break;
