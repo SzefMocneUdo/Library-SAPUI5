@@ -37,7 +37,7 @@
                         <tnt:NavigationListItem id="UserRatingsSideNavigation" key="UserRatings" text="{i18n>main.sideNavigation.UserRatings}" />
                     </tnt:NavigationListItem>
                     <tnt:NavigationListItem id="RanksSideNavigation" key="Ranks" text="{i18n>main.sideNavigation.ranks}" icon="sap-icon://unfavorite"/>
-                    <tnt:NavigationListItem id="MaintenancePanelSideNavigation" key="Maintenance" text="{i18n>main.sideNavigation.maintenancePanel}" icon="sap-icon://settings" visible="false">
+                    <tnt:NavigationListItem id="MaintenancePanelSideNavigation" key="Maintenance" text="{i18n>main.sideNavigation.maintenancePanel}" icon="sap-icon://settings" visible="true">
                         <tnt:NavigationListItem id="BooksMaintenanceSideNavigation" key="BooksMaintenance" text="{i18n>main.sideNavigation.booksMaintenance}" />
                         <tnt:NavigationListItem id="GenresMaintenanceSideNavigation" key="GenresMaintenance" text="{i18n>main.sideNavigation.genresMaintenance}" />
                         <tnt:NavigationListItem id="AuthorsMaintenanceSideNavigation" key="AuthorsMaintenance" text="{i18n>main.sideNavigation.authorsMaintenance}" />

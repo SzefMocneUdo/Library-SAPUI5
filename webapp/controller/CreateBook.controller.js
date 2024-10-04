@@ -38,7 +38,7 @@ sap.ui.define([
                 this.getView().getModel().submitChanges({
                     success: () => {
                         sap.m.MessageToast.show("Successfully saved!");
-                        this.onNavTo("Main");
+                        Base.onNavBack();
                     },
                     error: () => {
                         sap.m.MessageToast.show("An error occured!");

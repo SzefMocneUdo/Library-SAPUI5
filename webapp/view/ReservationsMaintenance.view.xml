@@ -1,0 +1,51 @@
+<mvc:View
+ controllerName="zkzilibraryproject.controller.ReservationsMaintenance"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns="sap.m">
+    <Page id="ReservationsMaintenance" title="{i18n>ReservationsTitle}">
+        <content>
+            <Table id="main_table_reservationsmaintenance" headerText="{i18n>ReservationsTitle.tableHeader}" items="{/ReservationSet}" growing="true" growingThreshold="200" alternateRowColors="true">
+                <columns>
+                    <Column id="ReservationsMaintenanceId">
+                        <header>
+                            <Text id="reservationsmaintenance_text_id" text="{/#Reservation/Reservationid/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="ReservationsMaintenanceCustomer">
+                        <header>
+                            <Text id="reservationsmaintenance_text_customer" text="{/#Reservation/Reader/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="ReservationsMaintenanceStartDate">
+                        <header>
+                            <Text id="reservationsmaintenance_text_startdate" text="{/#Reservation/StartDate/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="ReservationsMaintenanceEndDate">
+                        <header>
+                            <Text id="reservationsmaintenance_text_enddate" text="{/#Reservation/EndDate/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="ReservationsMaintenanceStatus">
+                        <header>
+                            <Text id="reservationsmaintenance_text_status" text="{/#Reservation/Status/@sap:label}"/>
+                        </header>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="reservationsmaintenance_columnlistitem_template" press="onDetailsDialog" type="Navigation">
+                        <cells>
+                            <Text id="reservationsmaintenance_text_idtemplate" text="{Reservationid}"/>
+                            <Text id="reservationsmaintenance_text_customertemplate" text="{Reader}"/>
+                            <Text id="reservationsmaintenance_text_startdatetemplate" text="{path: 'StartDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
+                            <Text id="reservationsmaintenance_text_enddatetemplate" text="{path: 'EndDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
+                            <Text id="reservationsmaintenance_text_statustemplate" text="{Status}"/>
+                            </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+            
+            <Button id="CreateReservationsMaintenance" press="onCreateReservation" text="Create" />
+        </content>
+    </Page>
+</mvc:View>

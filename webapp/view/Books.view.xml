@@ -20,24 +20,34 @@
                             <Text id="main_text_title" text="{/#Book/Title/@sap:label}"/>
                         </header>
                     </Column>
-                    <!-- <Column id="Rating">
+
+                    <Column id="Authors">
                         <header>
-                            <Text id="main_text_rating" text="{/#Book/Rating/@sap:label}"/>
+                            <Text id="main_text_genre" text="{/#Book/Genres/@sap:label}"/>
                         </header>
-                    </Column> -->
-                    <!-- <Column id="Language">
+                    </Column>
+
+                    <Column id="Genres">
                         <header>
-                            <Text id="main_text_language" text="{/#Book/Language/@sap:label}"/>
+                            <Text id="main_text_authors" text="{/#Book/Authors/@sap:label}"/>
                         </header>
-                    </Column> -->
-                    <!-- <Column id="PublicationDate">
-                        <header>
-                            <Text id="main_text_puublicationdate" text="{/#Book/PublicationDate/@sap:label}"/>
-                        </header>
-                    </Column> -->
+                    </Column>
+                    
                     <Column id="Description">
                         <header>
                             <Text id="main_text_description" text="{/#Book/Description/@sap:label}"/>
+                        </header>
+                    </Column>
+
+                    <Column id="Language">
+                        <header>
+                            <Text id="main_text_language" text="{/#Book/Language/@sap:label}"/>
+                        </header>
+                    </Column>
+
+                    <Column id="Rating">
+                        <header>
+                            <Text id="main_text_rating" text="{/#Book/Rating/@sap:label}"/>
                         </header>
                     </Column>
                 </columns>
@@ -46,10 +56,11 @@
                         <cells>
                             <!-- <Text id="main_text_isbntemplate" text="{ISBN}"/> -->
                             <Text id="main_text_titletemplate" text="{Title}"/>
-                            <!-- <Text id="main_text_ratingtemplate" text="{Rating}"/>
-                            <Text id="main_text_languagetemplate" text="{Language}"/>
-                            <Text id="main_text_publicationdatetemplate" text="{path: 'PublicationDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/> -->
+                            <Text id="main_text_authorstemplate" text="{Authors}"/>
+                            <Text id="main_text_genrestemplate" text="{Genres}"/>
                             <Text id="main_text_descriptiontemplate" text="{Description}"/>
+                            <Text id="main_text_languagetemplate" text="{Language}"/>
+                            <RatingIndicator id="main_text_ratingtemplate" class="sapUiNoMargin" maxValue="10" displayOnly="true" iconSize="1rem" value="{Rating}"/>
                             </cells>
                     </ColumnListItem>
                 </items>

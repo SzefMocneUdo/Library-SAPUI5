@@ -2,7 +2,7 @@
  controllerName="zkzilibraryproject.controller.Reservations"
  xmlns:mvc="sap.ui.core.mvc"
  xmlns="sap.m">
-    <Page id="UserReservations" title="{i18n>UserReservationsTitle}">
+    <Page id="UserReservations" title="{i18n>ReservationsTitle}">
         <content>
             <Table id="main_table_reservations" headerText="{i18n>UserReservationsTitle.tableHeader}" items="{/ReservationSet}" growing="true" growingThreshold="200" alternateRowColors="true">
                 <columns>

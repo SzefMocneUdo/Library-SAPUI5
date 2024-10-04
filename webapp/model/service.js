@@ -19,14 +19,21 @@ sap.ui.define([], () => class Service {
 
     static updateBook(model, book) {
         return new Promise(function (resolve, reject) {
-            model.update("/BookSet", {
+            model.update(`/BookSet('${book.ISBN}')`, {
                 ISBN: book.ISBN,
                 Title: book.Title,
                 Language: book.Language,
                 PublicationDate: book.PublicationDate,
                 Description: book.Description
             }, {
-                success: resolve,
+                success: function () {
+                    let oTable = sap.ui.getCore().byId("main_table_books");
+                    if(oTable) {
+                        oTable.getBinding("items").refresh();
+                    }
+
+                    resolve();
+                },
                 error: function (oError) {
                     console.error("Błąd podczas aktualizacji książki:", oError);
                     reject(oError);
@@ -60,9 +67,10 @@ sap.ui.define([], () => class Service {
         });
     };
 
-    static deleteAuthBook(model, isbn) {
+    static deleteAuthBook(model, isbn, authorid) {
         return new Promise(function (resolve, reject) {
-            model.delete("/AuthorBookSet", {
+            model.remove(`/AuthorBookSet(Authorid=guid'${authorid}',ISBN='${isbn}')`, {
+                Authorid: authorid,
                 ISBN: isbn
             }, {
                 success: resolve,
@@ -71,14 +79,66 @@ sap.ui.define([], () => class Service {
         });
     };
 
-    static deleteBookGenre(model, isbn) {
+    static deleteBookGenre(model, isbn, genreid) {
         return new Promise(function (resolve, reject) {
-            model.delete("/BookGenreSet", {
-                ISBN: isbn
+            model.remove(`/BookGenreSet(ISBN='${isbn}',Genreid=guid'${genreid}')`, {
+                ISBN: isbn,
+                Genreid: genreid
             }, {
                 success: resolve,
                 error: reject
             });
         });
     };
+
+    static deleteAllAuthorsByISBN(model, isbn) {
+        return new Promise(function (resolve, reject) {
+            model.read("/BookSet('" + isbn + "')/ToAuthorBookSet", {
+                success: function (data) {
+                    if (data.results && data.results.length > 0) {
+                        let deletePromises = data.results.map(function (author) {
+                            Service.deleteAuthBook(model, isbn, author.Authorid);
+                        });
+    
+                        Promise.all(deletePromises)
+                            .then(() => {
+                                resolve();
+                            })
+                            .catch(reject);
+                    } else {
+                        resolve();
+                    }
+                },
+                error: function (err) {
+                    reject(err);
+                }
+            });
+        });
+    }
+
+    static deleteAllGenresByISBN(model, isbn) {
+        return new Promise(function (resolve, reject) {
+            model.read("/BookSet('" + isbn + "')/ToBookGenreSet", {
+                success: function (data) {
+                    if (data.results && data.results.length > 0) {
+                        let deletePromises = data.results.map(function (genre) {
+                            Service.deleteBookGenre(model, isbn, genre.Genreid);
+                        });
+    
+                        Promise.all(deletePromises)
+                            .then(() => {
+                                resolve();
+                            })
+                            .catch(reject);
+                    } else {
+                        resolve();
+                    }
+                },
+                error: function (err) {
+                    reject(err);
+                }
+            });
+        });
+    }
+    
 });

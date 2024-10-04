@@ -1,10 +1,11 @@
 sap.ui.define([
     "zkzilibraryproject/controller/Base.controller",
     "sap/m/MessageBox",
-    "sap/ui/core/format/DateFormat"
+    "sap/ui/core/format/DateFormat",
+    "zkzilibraryproject/model/service"
 ],
 
-    function (Base, MessageBox, DateFormat){
+    function (Base, MessageBox, DateFormat, Service){
         "use strict";
         return Base.extend("zkzilibraryproject.controller.BookEdit", {
             onInit: function(){
@@ -60,34 +61,34 @@ sap.ui.define([
                 }
 
 
-                const authors = this.getView().byId("bookedit_authorsMultiComboBox").getSelectedKeys();
-                const genres = this.getView().byId("bookedit_genresMultiComboBox").getSelectedKeys();
+                const newauthors = this.getView().byId("bookedit_authorsMultiComboBox").getSelectedKeys();
+                const newgenres = this.getView().byId("bookedit_genresMultiComboBox").getSelectedKeys();
 
-                console.log(authors);
-                console.log(genres);
+                await Service.updateBook(this.getOwnerComponent().getModel(), book);
 
-                // await Service.updateBook(this.getOwnerComponent().getModel(), book);
-
-                // await Service.deleteAuthBook(this.getOwnerComponent().getModel(), book.ISBN);
-                // await Service.deleteBookGenre(this.getOwnerComponent().getModel(), book.ISBN);
+                await Service.deleteAllAuthorsByISBN(this.getOwnerComponent().getModel(), book.ISBN);
+                await Service.deleteAllGenresByISBN(this.getOwnerComponent().getModel(), book.ISBN);
                 
-                // for(let i = 0; i < authors.length; i++){
-                //     await Service.createAuthBook(this.getOwnerComponent().getModel(), book.ISBN, authors[i]);
-                // };
+                for(let i = 0; i < newauthors.length; i++){
+                    await Service.createAuthBook(this.getOwnerComponent().getModel(), book.ISBN, newauthors[i]);
+                };
 
-                // for(let i = 0; i < genres.length; i++){
-                //     await Service.createBookGenre(this.getOwnerComponent().getModel(), book.ISBN, genres[i]);
-                // };
+                for(let i = 0; i < newgenres.length; i++){
+                    await Service.createBookGenre(this.getOwnerComponent().getModel(), book.ISBN, newgenres[i]);
+                };
 
-                // this.getView().getModel().submitChanges({
-                //     success: () => {
-                //         sap.m.MessageToast.show("Successfully saved!");
-                //         this.onNavBack();
-                //     },
-                //     error: () => {
-                //         sap.m.MessageToast.show("An error occured!");
-                //     }
-                // })
+                this.getView().getModel().submitChanges({
+                    success: () => {
+                        sap.m.MessageToast.show("Successfully saved!");
+                        
+                        this.getOwnerComponent().getModel().refresh(true);
+
+                        this.getOwnerComponent().getRouter().navTo("Books");
+                    },
+                    error: () => {
+                        sap.m.MessageToast.show("An error occured!");
+                    }
+                })
             },
 
             onCancelPressed: function() {

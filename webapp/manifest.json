@@ -116,6 +116,30 @@
           "target": ["UserReservations"]
         },
         {
+          "name": "BooksMaintenance",
+          "pattern": "BooksMaintenance",
+          "target": ["BooksMaintenance"]
+        },
+        {
+          "name": "GenresMaintenance",
+          "pattern": "GenresMaintenance",
+          "target": ["GenresMaintenance"]
+        },{
+          "name": "AuthorsMaintenance",
+          "pattern": "AuthorsMaintenance",
+          "target": ["AuthorsMaintenance"]
+        },
+        {
+          "name": "ReservationsMaintenance",
+          "pattern": "ReservationsMaintenance",
+          "target": ["ReservationsMaintenance"]
+        },
+        {
+          "name": "LoansMaintenance",
+          "pattern": "LoansMaintenance",
+          "target": ["LoansMaintenance"]
+        },
+        {
           "name": "CreateBook",
           "pattern": "CreateBook",
           "target": ["CreateBook"]
@@ -162,6 +186,41 @@
         "clearControlAggregation": false,
         "viewId": "UserReservations",
         "viewName": "UserReservations"
+      },
+      "BooksMaintenance": {
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "BooksMaintenance",
+        "viewName": "BooksMaintenance"
+      },
+      "GenresMaintenance": {
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "GenresMaintenance",
+        "viewName": "GenresMaintenance"
+      },
+      "AuthorsMaintenance": {
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "AuthorsMaintenance",
+        "viewName": "AuthorsMaintenance"
+      },
+      "ReservationsMaintenance": {
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "ReservationsMaintenance",
+        "viewName": "ReservationsMaintenance"
+      },
+      "LoansMaintenance": {
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "LoansMaintenance",
+        "viewName": "LoansMaintenance"
       },
       "CreateBook": {
         "viewType": "XML",

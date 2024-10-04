@@ -3,7 +3,7 @@
  xmlns:core="sap.ui.core"
  xmlns:mvc="sap.ui.core.mvc" 
  controllerName="zkzilibraryproject.controller.CreateBook">
-<Page id="CreateBook">
+<Page id="CreateBook" title="{i18n>CreateBookTitle}">
     <f:SimpleForm id="bookcreate_simpleform" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
     labelSpanS="12" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" >
         <f:content>

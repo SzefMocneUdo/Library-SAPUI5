@@ -1,0 +1,51 @@
+<mvc:View
+ controllerName="zkzilibraryproject.controller.Loans"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns="sap.m">
+    <Page id="LoansMaintenance" title="{i18n>LoansTitle}">
+        <content>
+            <Table id="main_table_loansmaintenance" headerText="{i18n>LoansTitle.tableHeader}" items="{/LoanSet}" growing="true" growingThreshold="200" alternateRowColors="true">
+                <columns>
+                    <Column id="LoansMaintenanceId">
+                        <header>
+                            <Text id="loansmaintenance_text_id" text="{/#Loan/Loanid/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="LoansMaintenanceCustomer">
+                        <header>
+                            <Text id="loansmaintenance_text_customer" text="{/#Loan/Reader/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="LoansMaintenanceStartDate">
+                        <header>
+                            <Text id="loansmaintenance_text_startdate" text="{/#Loan/StartDate/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="LoansMaintenanceEndDate">
+                        <header>
+                            <Text id="loansmaintenance_text_enddate" text="{/#Loan/EndDate/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="LoansMaintenanceStatus">
+                        <header>
+                            <Text id="loansmaintenance_text_status" text="{/#Loan/Status/@sap:label}"/>
+                        </header>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="loansmaintenance_columnlistitem_template" press="onDetailsDialog" type="Navigation">
+                        <cells>
+                            <Text id="loansmaintenance_text_idtemplate" text="{Loanid}"/>
+                            <Text id="loansmaintenance_text_customertemplate" text="{Reader}"/>
+                            <Text id="loansmaintenance_text_startdatetemplate" text="{path: 'StartDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
+                            <Text id="loansmaintenance_text_enddatetemplate" text="{path: 'EndDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
+                            <Text id="loansmaintenance_text_statustemplate" text="{Status}"/>
+                            </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+            
+            <Button id="CreateLoansMaintenance" press="onCreateLoan" text="Create" />
+        </content>
+    </Page>
+</mvc:View>

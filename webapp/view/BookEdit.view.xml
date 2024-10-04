@@ -13,7 +13,7 @@
             <Label id="bookedit_label_title" required="true" text="{/#Book/Title/@sap:label}" />
             <Input id="bookedit_input_title" value="{Title}" />
             <Label id="bookedit_label_authors" required="true" text="{/#Book/Authors/@sap:label}"/>
-            <MultiComboBox id="bookedit_authorsMultiComboBox" required="true" showSecondaryValues= "true" items="{/AuthorSet}"  valueStateText="{i18n>bookManagement.authorsEmptiness}" selectionChange="onAuthorsChange" selectedKeys="{Authors}" value="{Authors}">
+            <MultiComboBox id="bookedit_authorsMultiComboBox" required="true" showSecondaryValues= "true" items="{/AuthorSet}"  valueStateText="{i18n>bookManagement.authorsEmptiness}" selectionChange="onAuthorsChange" selectedKeys="{Book/Authors}">
                 <core:ListItem id="bookedit_input_authors" key="{parts:['Authorid'], formatter:'sap.ui.base.ManagedObject.escapeSettingsValue'}" text="{Name} {Surname}" additionalText="{Authorid}"/>
             </MultiComboBox>
             <Label id="bookedit_label_genres" text="{/#Book/Genres/@sap:label}"/>
