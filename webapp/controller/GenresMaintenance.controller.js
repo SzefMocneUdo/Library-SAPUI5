@@ -20,35 +20,33 @@ function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button) {
         },        
 
         onDetailsDialog: function(oEvent) {
-            var oReservation = oEvent.getSource().getBindingContext().getObject();
+            var oGenre = oEvent.getSource().getBindingContext().getObject();
             
             if (!this.oFixedSizeDialog) {
                 this.oFixedSizeDialog = new Dialog({
-                    title: this.getView().getModel("i18n").getResourceBundle().getText("ReservationDetails"),
+                    title: this.getView().getModel("i18n").getResourceBundle().getText("GenreDetails"),
                     contentWidth: "550px",
                     contentHeight: "300px",
                     content: [
                         new StandardListItem({
-                            title: "Reservation ID",
-                            description: "{/Reservationid}"
+                            title: "Genre ID",
+                            description: "{/Genreid}"
                         }),
                         new StandardListItem({
-                            title: "Status",
-                            description: "{/Status}"
+                            title: "Name",
+                            description: "{/Name}"
                         }),
                         new StandardListItem({
-                            title: "Books",
-                            description: "{/Books}"
-                        }),
-                        new StandardListItem({
-                            title: "Start Date",
-                            description: "{/FormattedStartDate}" 
-                        }),
-                        new StandardListItem({
-                            title: "End Date",
-                            description: "{/FormattedEndDate}"
+                            title: "Description",
+                            description: "{/Description}"
                         })
                     ],
+                    subHeader : new sap.m.Bar({
+                        contentRight : [new sap.m.Button({text : "Save", type:"Transparent", press:"onSave"}),
+                            new sap.m.Button({text : "Edit", type:"Transparent", press:"onEdit"}),
+                            new sap.m.Button({text : "Cancel", type:"Transparent", press:"onCancel"})
+                        ],
+                    }),
                     endButton: new Button({
                         type: ButtonType.Emphasized,
                         text: "Close",
@@ -61,19 +59,11 @@ function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button) {
                 this.getView().addDependent(this.oFixedSizeDialog);
             }
         
-            
-            const startDate = new Date(oReservation.StartDate);
-            const endDate = new Date(oReservation.EndDate);
-            const options = { day: '2-digit', month: 'long', year: 'numeric' };
-            const formattedStartDate = startDate.toLocaleDateString('pl-PL', options);
-            const formattedEndDate = endDate.toLocaleDateString('pl-PL', options);
         
             var oDialogModel = new sap.ui.model.json.JSONModel({
-                Reservationid: oReservation.Reservationid,
-                Status: oReservation.Status,
-                Books: oReservation.Books,
-                FormattedStartDate: formattedStartDate,
-                FormattedEndDate: formattedEndDate
+                Genreid: oGenre.Genreid,
+                Name: oGenre.Name,
+                Description: oGenre.Description
             });
         
             this.oFixedSizeDialog.setModel(oDialogModel);

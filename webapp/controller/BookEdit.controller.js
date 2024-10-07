@@ -14,6 +14,41 @@ sap.ui.define([
                 
                 oRoute.attachPatternMatched(this.onPatternMatched, this);
 
+                let oModel = this.getOwnerComponent().getModel();
+                console.log(oModel.getObject());
+                
+
+                //this.getView().byId("bookedit_authorsMultiComboBox").setSelectedKeys();
+
+                // oModel.read("/BookSet('1111111111111')/ToAuthorBookSet", {
+                //     success: function (oData) {
+                //         let aSelectedAuthorsIds = oData.ToAuthorBookSet.results.map(function (author) {
+                //             console.log(aSelectedAuthorsIds)
+                //             return author.Authorid;
+                //         });
+
+                //         this.getView().byId("bookedit_authorsMultiComboBox").setSelectedKeys(aSelectedAuthorsIds);
+
+                //         let oLocalModel = new sap.ui.model.json.JSONModel({
+                //             selectedAuthors: aSelectedAuthorsIds,
+                //             AllAuthors: []
+                //         });
+                //         this.getView().setModel(oLocalModel);
+
+                //         oModel.read("/AuthorSet", {
+                //             success: function (oAuthorsData) {
+                //                 oLocalModel.setProperty("/AllAuthors", oAuthorsData.results);
+                //             },
+                //             error: function() {
+                //                 sap.m.MessageToast.show("Nie udało się pobrać listy autorów");
+                //             }
+                //         });
+                //     }.bind(this),
+                //     error: function () {
+                //         sap.m.MessageToast.show("Nie udało się pobrać danych książki");
+                //     }
+                // });
+
                 //this.getView().byId("bookedit_authorsMultiComboBox").setItems(this.getSelectedKeys())
 
                 // const authors = this.getView().byId("bookdetails_authorsMultiComboBox").getSelectedKeys();
@@ -40,11 +75,17 @@ sap.ui.define([
                 // mcb.placeAt('BookEdit')
             },
 
+            onBeforeRendering: function() {
+                let isbn = this.getView().byId("bookedit_text_isbn")
+                console.log(isbn);
+            },
+
             onPatternMatched: function(oEvent) {
                 let oArguments = oEvent.getParameters().arguments,
                     sPath = decodeURIComponent(oArguments.path);
 
-                this.getView().bindElement(sPath);
+                this.getView().bindElement(sPath,{ expand: "ToBookGenreSet,ToAuthorBookSet" });
+                //console.log(oEvent.getSource().getBindingContext().getObject().ISBN)
             },
 
             onSavePressed: async function(){
@@ -56,7 +97,7 @@ sap.ui.define([
                     PublicationDate: publicationDate === "" ? null : `${DateFormat.getDateInstance({
                        pattern: "yyyy-MM-dd"
                     }).format(new Date(publicationDate))}T00:00:00`,
-                    Language: this.getView().byId("bookedit_input_language").getValue(),
+                    Language: this.getView().byId("bookedit_languageComboBox").getSelectedKey(),
                     Description: this.getView().byId("bookedit_input_description").getValue()
                 }
 
@@ -64,31 +105,35 @@ sap.ui.define([
                 const newauthors = this.getView().byId("bookedit_authorsMultiComboBox").getSelectedKeys();
                 const newgenres = this.getView().byId("bookedit_genresMultiComboBox").getSelectedKeys();
 
-                await Service.updateBook(this.getOwnerComponent().getModel(), book);
+                console.log(book);
+                console.log(newauthors);
+                console.log(newgenres);
 
-                await Service.deleteAllAuthorsByISBN(this.getOwnerComponent().getModel(), book.ISBN);
-                await Service.deleteAllGenresByISBN(this.getOwnerComponent().getModel(), book.ISBN);
+                // await Service.updateBook(this.getOwnerComponent().getModel(), book);
+
+                // await Service.deleteAllAuthorsByISBN(this.getOwnerComponent().getModel(), book.ISBN);
+                // await Service.deleteAllGenresByISBN(this.getOwnerComponent().getModel(), book.ISBN);
                 
-                for(let i = 0; i < newauthors.length; i++){
-                    await Service.createAuthBook(this.getOwnerComponent().getModel(), book.ISBN, newauthors[i]);
-                };
+                // for(let i = 0; i < newauthors.length; i++){
+                //     await Service.createAuthBook(this.getOwnerComponent().getModel(), book.ISBN, newauthors[i]);
+                // };
 
-                for(let i = 0; i < newgenres.length; i++){
-                    await Service.createBookGenre(this.getOwnerComponent().getModel(), book.ISBN, newgenres[i]);
-                };
+                // for(let i = 0; i < newgenres.length; i++){
+                //     await Service.createBookGenre(this.getOwnerComponent().getModel(), book.ISBN, newgenres[i]);
+                // };
 
-                this.getView().getModel().submitChanges({
-                    success: () => {
-                        sap.m.MessageToast.show("Successfully saved!");
+                // this.getView().getModel().submitChanges({
+                //     success: () => {
+                //         sap.m.MessageToast.show("Successfully saved!");
                         
-                        this.getOwnerComponent().getModel().refresh(true);
+                //         this.getOwnerComponent().getModel().refresh(true);
 
-                        this.getOwnerComponent().getRouter().navTo("Books");
-                    },
-                    error: () => {
-                        sap.m.MessageToast.show("An error occured!");
-                    }
-                })
+                //         this.getOwnerComponent().getRouter().navTo("Books");
+                //     },
+                //     error: () => {
+                //         sap.m.MessageToast.show("An error occured!");
+                //     }
+                // })
             },
 
             onCancelPressed: function() {
