@@ -15,77 +15,60 @@ sap.ui.define([
                 oRoute.attachPatternMatched(this.onPatternMatched, this);
 
                 let oModel = this.getOwnerComponent().getModel();
-                console.log(oModel.getObject());
-                
+                console.log(oModel.oData);
 
-                //this.getView().byId("bookedit_authorsMultiComboBox").setSelectedKeys();
-
-                // oModel.read("/BookSet('1111111111111')/ToAuthorBookSet", {
-                //     success: function (oData) {
-                //         let aSelectedAuthorsIds = oData.ToAuthorBookSet.results.map(function (author) {
-                //             console.log(aSelectedAuthorsIds)
-                //             return author.Authorid;
-                //         });
-
-                //         this.getView().byId("bookedit_authorsMultiComboBox").setSelectedKeys(aSelectedAuthorsIds);
-
-                //         let oLocalModel = new sap.ui.model.json.JSONModel({
-                //             selectedAuthors: aSelectedAuthorsIds,
-                //             AllAuthors: []
-                //         });
-                //         this.getView().setModel(oLocalModel);
-
-                //         oModel.read("/AuthorSet", {
-                //             success: function (oAuthorsData) {
-                //                 oLocalModel.setProperty("/AllAuthors", oAuthorsData.results);
-                //             },
-                //             error: function() {
-                //                 sap.m.MessageToast.show("Nie udało się pobrać listy autorów");
-                //             }
-                //         });
-                //     }.bind(this),
-                //     error: function () {
-                //         sap.m.MessageToast.show("Nie udało się pobrać danych książki");
-                //     }
-                // });
-
-                //this.getView().byId("bookedit_authorsMultiComboBox").setItems(this.getSelectedKeys())
-
-                // const authors = this.getView().byId("bookdetails_authorsMultiComboBox").getSelectedKeys();
-                
-                // let oDataModelAuthors = new sap.ui.model.odata.v2.ODataModel("/AuthorSet");
-
-                // let oItemTemplate = new sap.ui.core.Item({
-                //     key: "{Authorid}",
-                //     text: "{Name}"
-                // });
-
-                
-
-                // let mcb = new sap.m.MultiComboBox({
-                //     id: "mcb",
-                //     items: {
-                //         path: "/AuthorSet",
-                //         template: oItemTemplate
-                //     },
-                //     selectedKeys: authors
-                // });
-
-                // mcb.setModel(oDataModelAuthors);
-                // mcb.placeAt('BookEdit')
-            },
-
-            onBeforeRendering: function() {
-                let isbn = this.getView().byId("bookedit_text_isbn")
-                console.log(isbn);
+                this.getView().addEventDelegate({
+                    onBeforeShow: this.onBeforeShow
+                }, this);
             },
 
             onPatternMatched: function(oEvent) {
                 let oArguments = oEvent.getParameters().arguments,
                     sPath = decodeURIComponent(oArguments.path);
 
-                this.getView().bindElement(sPath,{ expand: "ToBookGenreSet,ToAuthorBookSet" });
-                //console.log(oEvent.getSource().getBindingContext().getObject().ISBN)
+                this.getView().bindElement(sPath);
+
+                //Setting author keys in authors MultiComboBox
+
+                let oAuthControl = this.byId("bookedit_authorsMultiComboBox");
+                let oModel = this.getView().getModel();
+                let aSelectedKeys = [];
+
+                oModel.read(sPath + "/ToAuthorBookSet", {
+                    success: function(oData) {
+                        aSelectedKeys = oData.results.map(author => author.Authorid);
+                        oAuthControl.setSelectedKeys(aSelectedKeys);
+                    },
+                    error: function(oError) {
+                        console.error("Błąd podczas pobierania autorów", oError);
+                    }
+                });
+
+                var oBinding = oAuthControl.getBinding("items");
+                oBinding.attachDataReceived(function(){
+                    oAuthControl.setSelectedKeys(aSelectedKeys);
+                })
+
+                //Setting genre keys in genres MultiComboBox
+
+                let oGenreControl = this.byId("bookedit_genresMultiComboBox");
+                let gSelectedKeys = [];
+
+                oModel.read(sPath + "/ToBookGenreSet", {
+                    success: function(oData) {
+                        gSelectedKeys = oData.results.map(genre => genre.Genreid);
+                        oGenreControl.setSelectedKeys(gSelectedKeys);
+                    },
+                    error: function(oError) {
+                        console.error("Błąd podczas pobierania autorów", oError);
+                    }
+                });
+
+                oBinding = oGenreControl.getBinding("items");
+                oBinding.attachDataReceived(function(){
+                    oGenreControl.setSelectedKeys(gSelectedKeys);
+                })
+
             },
 
             onSavePressed: async function(){
@@ -106,8 +89,6 @@ sap.ui.define([
                 const newgenres = this.getView().byId("bookedit_genresMultiComboBox").getSelectedKeys();
 
                 console.log(book);
-                console.log(newauthors);
-                console.log(newgenres);
 
                 // await Service.updateBook(this.getOwnerComponent().getModel(), book);
 

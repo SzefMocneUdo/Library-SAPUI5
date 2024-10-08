@@ -103,7 +103,7 @@ sap.ui.define([
                                     this.onNavBack();
                                 },
                                 error: (oError) => {
-                                    sap.m.MessageToast.show("An error occured!");
+                                    sap.m.MessageToast.show("An error occured!", oError);
                                 }
                             })
                         }
