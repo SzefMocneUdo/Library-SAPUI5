@@ -1,0 +1,27 @@
+<mvc:View
+ controllerName="zkzilibraryproject.controller.GenreEdit"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns:core="sap.ui.core"
+ xmlns="sap.m"
+ xmlns:f="sap.ui.layout.form">
+    <Page id="GenreEdit" title="{i18n>page.genresMaintenance}">
+        <f:SimpleForm id="genretranslation_simpleform" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+                        labelSpanS="12" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" >
+                        <Label id="GenreTranslationGenreidlabel" text="{/#GenreText/Spras/@sap:label}" />
+                        <Input id="GenreTranslationLanguageText" value="{Spras}" enabled="false" />
+                            
+                        <Label id="GenreTranslationLanguagelabel" text="{/#Genre/Name/@sap:label}" />
+                        <Input id="GenreTranslationNameinput" required="true" value="{Name}" maxLength="20"/>
+
+                        <Label id="GenreTranslationDescriptionlabel" text="{/#Genre/Description/@sap:label}" />
+                        <Input id="GenreTranslationDescriptioninput" required="true" value="{Description}" maxLength="100" />
+                    </f:SimpleForm>
+                    <OverflowToolbar id="genretranslation_toolbar_footer">
+                        <ToolbarSpacer id="genretranslation_spacer_footer" />
+                        <Button id="genretranslation_button_delete" text="Delete" press="onDeletePressed" type="Negative" />
+                        <ToolbarSpacer id="genretranslation_spacer_deletebutton" width="30px" />
+                        <Button id="genretranslation_button_save" text="Save" press="onSavePressed" type="Accept"/>
+                        <Button id="genretranslation_button_cancel" text="Cancel" press="onCancelPressed" type="Reject"/>
+                    </OverflowToolbar>
+    </Page>
+</mvc:View>

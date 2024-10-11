@@ -2,18 +2,14 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/Dialog",
     "sap/m/library",
-    "sap/m/List",
     "sap/m/StandardListItem",
     "sap/m/Button"
 ],
-function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button) {
+function (Controller, Dialog, mobileLibrary, StandardListItem, Button) {
     "use strict";
 
-    // shortcut for sap.m.ButtonType
 	var ButtonType = mobileLibrary.ButtonType;
 
-	// shortcut for sap.m.DialogType
-	var DialogType = mobileLibrary.DialogType;
 
     return Controller.extend("zkzilibraryproject.controller.Reservations", {
         onInit: function () {

@@ -73,7 +73,7 @@ sap.ui.define([
 
             onSavePressed: async function(){
                 const publicationDate = this.getView().byId("bookedit_input_publication_date").getValue();
-                const isbn = this.getView().byId("bookedit_text_isbn").getText();
+                const isbn = this.getView().byId("bookedit_text_isbn").getValue();
                 const book = {
                     ISBN: isbn,
                     Title: this.getView().byId("bookedit_input_title").getValue(),

@@ -1,0 +1,27 @@
+<mvc:View
+ controllerName="zkzilibraryproject.controller.CreateGenreTranslation"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns:core="sap.ui.core"
+ xmlns="sap.m"
+ xmlns:f="sap.ui.layout.form">
+    <Page id="CreateGenreTranslation" title="{i18n>page.genresMaintenance}">
+        <f:SimpleForm id="creategenretranslation_simpleform" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+                        labelSpanS="12" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" >
+        <Label id="CreateGenreTranslationGenreidlabel" text="{/#GenreText/Spras/@sap:label}" />
+        <ComboBox id="CreateGenreTranslation_LanguageComboBox" required="true" showSecondaryValues= "true" items="{/LanguageSet}" valueStateText="{i18n>bookManagement.genresEmptiness}" selectionChange="onLanguageChange" >
+            <core:ListItem id="CreateGenreTranslation_input_language" key="{parts:['LanguageKey'], formatter:'sap.ui.base.ManagedObject.escapeSettingsValue'}" text="{Text}" additionalText="{LanguageKey}"/>
+        </ComboBox>
+                            
+        <Label id="CreateGenreTranslationLanguagelabel" text="{/#Genre/Name/@sap:label}" />
+        <Input id="CreateGenreTranslationNameinput" required="true" maxLength="20"/>
+
+        <Label id="CreateGenreTranslationDescriptionlabel" text="{/#Genre/Description/@sap:label}" />
+        <Input id="CreateGenreTranslationDescriptioninput" required="true" maxLength="100" />
+    </f:SimpleForm>
+    <OverflowToolbar id="creategenretranslation_toolbar_footer">
+        <ToolbarSpacer id="creategenretranslation_spacer_footer" />
+        <Button id="creategenretranslation_button_save" text="Save" press="onSavePressed" type="Accept"/>
+        <Button id="creategenretranslation_button_cancel" text="Cancel" press="onCancelPressed" type="Reject"/>
+    </OverflowToolbar>
+    </Page>
+</mvc:View>

@@ -45,6 +45,7 @@
   },
   "sap.ui5": {
     "flexEnabled": true,
+    "handleValidation": true,
     "dependencies": {
       "minUI5Version": "1.84.33",
       "libs": {
@@ -124,7 +125,23 @@
           "name": "GenresMaintenance",
           "pattern": "GenresMaintenance",
           "target": ["GenresMaintenance"]
-        },{
+        },
+        {
+          "name": "GenreDetails",
+          "pattern": "GenreDetails/{path}",
+          "target": ["GenreDetails"]
+        },
+        {
+          "name": "CreateGenreTranslation",
+          "pattern": "CreateGenreTranslation/{path}",
+          "target": ["CreateGenreTranslation"]
+        },
+        {
+          "name": "GenreEdit",
+          "pattern": "GenreEdit/{path}",
+          "target": ["GenreEdit"]
+        },
+        {
           "name": "AuthorsMaintenance",
           "pattern": "AuthorsMaintenance",
           "target": ["AuthorsMaintenance"]
@@ -148,7 +165,7 @@
           "name": "BookEdit",
           "pattern": "BookEdit/{path}",
           "target": ["BookEdit"]
-        }
+        }        
       ],
       "targets": {
 
@@ -194,12 +211,40 @@
         "viewId": "BooksMaintenance",
         "viewName": "BooksMaintenance"
       },
+      "CreateBook": {
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "CreateBook",
+        "viewName": "CreateBook"
+      },
       "GenresMaintenance": {
         "viewType": "XML",
         "transition": "slide",
         "clearControlAggregation": false,
         "viewId": "GenresMaintenance",
         "viewName": "GenresMaintenance"
+      },
+      "GenreDetails": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "GenreDetails",
+          "viewName": "GenreDetails"
+      },
+      "CreateGenreTranslation": {
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "CreateGenreTranslation",
+        "viewName": "CreateGenreTranslation"
+      },
+      "GenreEdit": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "GenreEdit",
+          "viewName": "GenreEdit"
       },
       "AuthorsMaintenance": {
         "viewType": "XML",
@@ -221,13 +266,6 @@
         "clearControlAggregation": false,
         "viewId": "LoansMaintenance",
         "viewName": "LoansMaintenance"
-      },
-      "CreateBook": {
-        "viewType": "XML",
-        "transition": "slide",
-        "clearControlAggregation": false,
-        "viewId": "CreateBook",
-        "viewName": "CreateBook"
       }
     }
     },

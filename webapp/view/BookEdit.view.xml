@@ -9,7 +9,7 @@
         labelSpanS="12" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" >
         <f:content>
             <Label id="bookedit_label_isbn" text="{/#Book/ISBN/@sap:label}" />
-            <Text id="bookedit_text_isbn" text="{ISBN}" />
+            <Input id="bookedit_text_isbn" value="{ISBN}" enabled="false" />
             <Label id="bookedit_label_title" required="true" text="{/#Book/Title/@sap:label}" />
             <Input id="bookedit_input_title" value="{Title}" />
             <Label id="bookedit_label_authors" required="true" text="{/#Book/Authors/@sap:label}"/>

@@ -1,0 +1,76 @@
+<mvc:View
+ controllerName="zkzilibraryproject.controller.GenreDetails"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns:core="sap.ui.core"
+ xmlns="sap.m"
+ xmlns:smartForm="sap.ui.comp.smartform"
+ xmlns:smartField="sap.ui.comp.smartfield"
+ xmlns:f="sap.ui.layout.form">
+    <Page id="GenreDetails" title="{i18n>page.genresMaintenance}" >
+        <IconTabBar id="IconTabBarGenreDetails" class="sapUiResponsiveContentPadding">
+            <items>
+                <IconTabFilter id="IconTabFilterGenreDetailsDefinition" text="Definition" key="definition">
+                    <content>
+                        <smartForm:SmartForm id="genredetails_smartform">
+                            <smartForm:Group id="genredetails_group">
+                                <smartForm:GroupElement id="genredetails_element_genreid" label="{/#Genre/Genreid/@sap:label}">
+                                    <smartField:SmartField id="genredetails_field_genreid" value="{Genreid}" />
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="genredetails_element_name" label="{/#Genre/Name/@sap:label}">
+                                    <smartField:SmartField id="genredetails_field_name" value="{Name}" />
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="genredetails_element_authors" label="{/#Genre/Description/@sap:label}">
+                                    <smartField:SmartField id="genredetails_field_description" value="{Description}" />
+                                </smartForm:GroupElement>
+                            </smartForm:Group>
+                        </smartForm:SmartForm>
+                        <OverflowToolbar id="genredetails_toolbar_footer" visible="{editModel>/editMode}">
+                            <ToolbarSpacer id="genredetails_spacer_footer" />
+                            <Button id="genredetails_button_cancel" text="Delete" press="onDeletePressed" type="Negative" visible="{editModel>/editMode}" />
+                        </OverflowToolbar>
+                    </content>
+                </IconTabFilter>
+                <IconTabFilter id="IconTabFilterGenresMaintenanceTranslations" text="Translations" key="translations">
+                    <content>
+                        <Table id="table_genresmaintenance_translations" headerText="{i18n>GenresTranslationsTitle.tableHeader}" items="{ToGenreTextSet}" growing="true" growingThreshold="200" alternateRowColors="true" >
+                <headerToolbar>
+                    <Toolbar id="Genres_Translations_Table_Toolbar">
+                        <Title id="Genres_Translations_table_title" text="{i18n>GenreTranslations.tableHeader}" />
+                        <ToolbarSpacer id="Genres_Translations_table_toolbarspacer" />
+                        <Button id="Genres_Translations_table_createbutton" text="{i18n>genres.createTranslationButton}" press="onCreateTranslationPressed"></Button>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="GenresTranslations_Language">
+                        <header>
+                            <Text id="genrestranslations_text_language" text="{/GenreTextSet/Spras/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="GenresTranslations_Name">
+                        <header>
+                            <Text id="genrestranslations_text_customer" text="{/GenreTextSet/Name/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="GenresTranslations_Description">
+                        <header>
+                            <Text id="genrestranslations_text_startdate" text="{/GenreTextSet/Description/@sap:label}"/>
+                        </header>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="genrestranslations_columnlistitem_template" press="onEditPressed" type="Navigation">
+                        <cells>
+                            <Text id="genrestranslations_text_idtemplate" text="{Spras}"/>
+                            <Text id="genrestranslations_text_nametemplate" text="{Name}"/>
+                            <Text id="genrestranslations_textdescriptiontemplate" text="{Description}"/>
+                            </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+                    </content>
+                    
+                </IconTabFilter>
+            </items>
+        </IconTabBar>
+    </Page>
+</mvc:View>

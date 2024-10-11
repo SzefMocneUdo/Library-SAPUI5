@@ -1,75 +1,72 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
-    "sap/m/Dialog",
-    "sap/m/library",
-    "sap/m/List",
-    "sap/m/StandardListItem",
-    "sap/m/Button"
+    "sap/ui/core/Fragment",
+    "zkzilibraryproject/model/service",
+    "zkzilibraryproject/controller/Base.controller"
 ],
-function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button) {
+function ( Fragment, Service, Base) {
     "use strict";
 
-    // shortcut for sap.m.ButtonType
-	var ButtonType = mobileLibrary.ButtonType;
-
-	// shortcut for sap.m.DialogType
-	var DialogType = mobileLibrary.DialogType;
-
-    return Controller.extend("zkzilibraryproject.controller.GenresMaintenance", {
+    return Base.extend("zkzilibraryproject.controller.GenresMaintenance", {
         onInit: function () {
         },        
 
-        onDetailsDialog: function(oEvent) {
-            var oGenre = oEvent.getSource().getBindingContext().getObject();
-            
-            if (!this.oFixedSizeDialog) {
-                this.oFixedSizeDialog = new Dialog({
-                    title: this.getView().getModel("i18n").getResourceBundle().getText("GenreDetails"),
-                    contentWidth: "550px",
-                    contentHeight: "300px",
-                    content: [
-                        new StandardListItem({
-                            title: "Genre ID",
-                            description: "{/Genreid}"
-                        }),
-                        new StandardListItem({
-                            title: "Name",
-                            description: "{/Name}"
-                        }),
-                        new StandardListItem({
-                            title: "Description",
-                            description: "{/Description}"
-                        })
-                    ],
-                    subHeader : new sap.m.Bar({
-                        contentRight : [new sap.m.Button({text : "Save", type:"Transparent", press:"onSave"}),
-                            new sap.m.Button({text : "Edit", type:"Transparent", press:"onEdit"}),
-                            new sap.m.Button({text : "Cancel", type:"Transparent", press:"onCancel"})
-                        ],
-                    }),
-                    endButton: new Button({
-                        type: ButtonType.Emphasized,
-                        text: "Close",
-                        press: function () {
-                            this.oFixedSizeDialog.close();
-                        }.bind(this)
-                    })
-                });
-                
-                this.getView().addDependent(this.oFixedSizeDialog);
-            }
-        
-        
-            var oDialogModel = new sap.ui.model.json.JSONModel({
-                Genreid: oGenre.Genreid,
-                Name: oGenre.Name,
-                Description: oGenre.Description
+        onNavToDetail: function(oEvent){
+            let oRouter = this.getOwnerComponent().getRouter();
+            const sPath = oEvent.getSource().getBindingContext().getPath();
+
+            oRouter.navTo("GenreDetails", {
+                path: encodeURIComponent(sPath)
             });
-        
-            this.oFixedSizeDialog.setModel(oDialogModel);
-            
-            this.oFixedSizeDialog.open();
         },
+
+        onCreatePressed: async function () {
+            this.oDialog ??= await Fragment.load({
+                id: this.getView().getId(),
+                name: "zkzilibraryproject.view.CreateGenreDialog",
+                controller: this
+            });
+
+            this.oDialog.open();
+        },
+
+        onCancelPressed: function () {
+            this.oDialog.close();
+        },
+
+        onSavePressed: async function () {
+            let Name = this.byId("CreateGenreNameDialogInput").getValue();
+            let Description = this.byId("CreateGenreDescriptionDialogInput").getValue();
+
+            try{
+                if (Name === "") {
+                    sap.m.MessageToast.show("Name cannot be empty");
+                }
+                else if (Description === "") {
+                    sap.m.MessageToast.show("Description cannot be empty");
+                }
+                else {
+                    await Service.createGenre(this.getOwnerComponent().getModel(), Name, Description);
+
+                    this.getView().getModel().submitChanges({
+                        success: () => {
+                            sap.m.MessageToast.show("Successfully saved!");
+                            
+                            this.getOwnerComponent().getModel().refresh(true);
+        
+                            // this.onNavBack();
+                            this.oDialog.close();
+                        },
+                        error: () => {
+                            sap.m.MessageToast.show("An error occured!");
+                        }
+                    })
+                } 
+            } catch (oError){
+                console.log(oError)
+            }
+
+            
+        }
         
     });
 });
