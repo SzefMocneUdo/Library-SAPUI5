@@ -78,33 +78,45 @@ sap.ui.define([
                     let genreid = oEvent.getSource().getBindingContext().getProperty("Genreid");
                     let spras = this.getView().byId("GenreTranslationLanguageText").getValue();
 
-                try{
-                    MessageBox.confirm(sText, {
-                        actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-                        emphasizedAction: MessageBox.Action.YES,
-                        onClose: (sAction) => {
-                            if (MessageBox.Action.YES === sAction) {
+                    Service.deleteGenreText(this.getOwnerComponent().getModel(), genreid, spras)
+                    .then(() => {
+                      console.log("log")
+                      sap.m.MessageBox.success("asdfsdf")
+                      })
+                    .catch((oError) => {
+                      console.log("log")
+                      sap.m.MessageBox.success("oError")
+                    });
+
+                    // MessageBox.confirm(sText, {
+                    //     actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                    //     emphasizedAction: MessageBox.Action.YES,
+                    //     onClose: (sAction) => {
+                    //         if (MessageBox.Action.YES === sAction) {
+
+                            // try{
                                 
-                                Service.deleteGenreText(this.getOwnerComponent().getModel(), genreid, spras);
+                                
     
-                                this.getView().getModel().submitChanges({
-                                    success: () => {
-                                        sap.m.MessageToast.show("Successfully deleted!");
+                                // this.getView().getModel().submitChanges({
+                                //     success: () => {
+                                //         sap.m.MessageToast.show("Successfully deleted!");
                                         
-                                        this.getOwnerComponent().getModel().refresh(true);
+                                //         this.getOwnerComponent().getModel().refresh(true);
                 
-                                        //this.onNavBack();
-                                    },
-                                    error: () => {
-                                        sap.m.MessageToast.show("An error occured!");
-                                    }
-                                })
-                            }
-                        }
-                    })
-                } catch (oError) {
-                    sap.m.MessageToast(oError)
-                }
+                                //         //this.onNavBack();
+                                //     },
+                                //     error: () => {
+                                //         sap.m.MessageToast.show("An error occured!");
+                                //     }
+                                // })
+                            // } catch (oError) {
+                            //     sap.m.MessageToast(oError)
+                            // }
+                    //         }
+                    //     }
+                    // })
+                
             },
         });
     });

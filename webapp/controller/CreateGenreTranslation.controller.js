@@ -32,31 +32,31 @@ sap.ui.define([
 
                 try{
                     console.log(translation)
-                    // if (translation.Spras === "") {
-                    //     sap.m.MessageToast.show("Language cannot be empty");
-                    // }
-                    // else if (translation.Name === ""){
-                    //     sap.m.MessageToast.show("Name cannot be empty");
-                    // }
-                    // else if (translation.Description === ""){
-                    //     sap.m.MessageToast.show("Description cannot be empty");
-                    // }
-                    // else{
-                    //     await Service.createGenreText(this.getOwnerComponent().getModel(), translation);
+                    if (translation.Spras === "") {
+                        sap.m.MessageToast.show("Language cannot be empty");
+                    }
+                    else if (translation.Name === ""){
+                        sap.m.MessageToast.show("Name cannot be empty");
+                    }
+                    else if (translation.Description === ""){
+                        sap.m.MessageToast.show("Description cannot be empty");
+                    }
+                    else{
+                        await Service.createGenreText(this.getOwnerComponent().getModel(), translation);
 
-                    //     this.getView().getModel().submitChanges({
-                    //         success: () => {
-                    //             sap.m.MessageToast.show("Successfully saved!");
+                        this.getView().getModel().submitChanges({
+                            success: () => {
+                                sap.m.MessageToast.show("Successfully saved!");
                         
-                    //             this.getOwnerComponent().getModel().refresh(true);
+                                this.getOwnerComponent().getModel().refresh(true);
 
-                    //             this.onNavBack();
-                    //         },
-                    //         error: () => {
-                    //             sap.m.MessageToast.show("An error occured!");
-                    //         }
-                    //     })
-                    // }
+                                this.onNavBack();
+                            },
+                            error: () => {
+                                sap.m.MessageToast.show("An error occured!");
+                            }
+                        })
+                    }
                 } catch (oError) {
                     sap.m.MessageToast.show(oError);
                 }

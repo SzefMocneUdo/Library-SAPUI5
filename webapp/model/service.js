@@ -222,12 +222,7 @@ sap.ui.define([
                 Genreid: genreid
             }, {
                 success: resolve,
-                error: function (oError) {
-                    // var a = JSON.parse(response.responseText);
-                    // var errDetails = a.error.inererror.errordetails;
-                    // BaseAudioContext.manageErrors(errDetails);
-                    reject
-                }
+                error: reject
             });
         });
     };
