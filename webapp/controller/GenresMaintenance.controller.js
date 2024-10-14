@@ -20,6 +20,9 @@ function ( Fragment, Service, Base) {
         },
 
         onCreatePressed: async function () {
+            let i18nModel = this.getView().getModel("i18n");
+            sap.ui.getCore().setModel(i18nModel, "i18n");
+
             this.oDialog ??= await Fragment.load({
                 id: this.getView().getId(),
                 name: "zkzilibraryproject.view.CreateGenreDialog",
@@ -62,11 +65,8 @@ function ( Fragment, Service, Base) {
                     })
                 } 
             } catch (oError){
-                console.log(oError)
-            }
-
-            
-        }
-        
+                sap.m.MessageToast.show(this.getErrorMessage(oError));
+            }            
+        }        
     });
 });

@@ -88,33 +88,31 @@ sap.ui.define([
                 const newauthors = this.getView().byId("bookedit_authorsMultiComboBox").getSelectedKeys();
                 const newgenres = this.getView().byId("bookedit_genresMultiComboBox").getSelectedKeys();
 
-                console.log(book);
+                await Service.updateBook(this.getOwnerComponent().getModel(), book);
 
-                // await Service.updateBook(this.getOwnerComponent().getModel(), book);
-
-                // await Service.deleteAllAuthorsByISBN(this.getOwnerComponent().getModel(), book.ISBN);
-                // await Service.deleteAllGenresByISBN(this.getOwnerComponent().getModel(), book.ISBN);
+                await Service.deleteAllAuthorsByISBN(this.getOwnerComponent().getModel(), book.ISBN);
+                await Service.deleteAllGenresByISBN(this.getOwnerComponent().getModel(), book.ISBN);
                 
-                // for(let i = 0; i < newauthors.length; i++){
-                //     await Service.createAuthBook(this.getOwnerComponent().getModel(), book.ISBN, newauthors[i]);
-                // };
+                for(let i = 0; i < newauthors.length; i++){
+                    await Service.createAuthBook(this.getOwnerComponent().getModel(), book.ISBN, newauthors[i]);
+                };
 
-                // for(let i = 0; i < newgenres.length; i++){
-                //     await Service.createBookGenre(this.getOwnerComponent().getModel(), book.ISBN, newgenres[i]);
-                // };
+                for(let i = 0; i < newgenres.length; i++){
+                    await Service.createBookGenre(this.getOwnerComponent().getModel(), book.ISBN, newgenres[i]);
+                };
 
-                // this.getView().getModel().submitChanges({
-                //     success: () => {
-                //         sap.m.MessageToast.show("Successfully saved!");
+                this.getView().getModel().submitChanges({
+                    success: () => {
+                        sap.m.MessageToast.show("Successfully saved!");
                         
-                //         this.getOwnerComponent().getModel().refresh(true);
+                        this.getOwnerComponent().getModel().refresh(true);
 
-                //         this.getOwnerComponent().getRouter().navTo("Books");
-                //     },
-                //     error: () => {
-                //         sap.m.MessageToast.show("An error occured!");
-                //     }
-                // })
+                        this.getOwnerComponent().getRouter().navTo("Books");
+                    },
+                    error: () => {
+                        sap.m.MessageToast.show("An error occured!");
+                    }
+                })
             },
 
             onCancelPressed: function() {

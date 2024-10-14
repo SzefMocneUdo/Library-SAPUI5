@@ -1,11 +1,10 @@
 sap.ui.define([
     "zkzilibraryproject/controller/Base.controller",
     "sap/m/MessageBox",
-    "sap/ui/core/format/DateFormat",
     "zkzilibraryproject/model/service"
 ],
 
-    function (Base, MessageBox, DateFormat, Service){
+    function (Base, MessageBox, Service){
         "use strict";
         return Base.extend("zkzilibraryproject.controller.GenreEdit", {
             onInit: function(){
@@ -52,13 +51,13 @@ sap.ui.define([
 
                                 this.onNavBack();
                             },
-                            error: () => {
-                                sap.m.MessageToast.show("An error occured!");
+                            error: (oError) => {
+                                sap.m.MessageToast.show(this.getErrorMessage(oError));
                             }
                         })
                     }
                 } catch (oError) {
-                    sap.m.MessageToast.show(oError);
+                    sap.m.MessageToast.show(this.getErrorMessage(oError));
                 }
 
                 
@@ -71,51 +70,30 @@ sap.ui.define([
             },
 
             onDeletePressed: function(oEvent){
-                let i18nModel = this.getView().getModel("i18n"),
-                    oResourceBundle = i18nModel.getResourceBundle(),
-                    sText = oResourceBundle.getText("deleteQuestion");
+                    const oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+                    let sText = oResourceBundle.getText("deleteQuestion"); //"{i18n>deleteQuestion}"; => to działa
 
                     let genreid = oEvent.getSource().getBindingContext().getProperty("Genreid");
                     let spras = this.getView().byId("GenreTranslationLanguageText").getValue();
 
-                    Service.deleteGenreText(this.getOwnerComponent().getModel(), genreid, spras)
-                    .then(() => {
-                      console.log("log")
-                      sap.m.MessageBox.success("asdfsdf")
-                      })
-                    .catch((oError) => {
-                      console.log("log")
-                      sap.m.MessageBox.success("oError")
-                    });
+                    
 
-                    // MessageBox.confirm(sText, {
-                    //     actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-                    //     emphasizedAction: MessageBox.Action.YES,
-                    //     onClose: (sAction) => {
-                    //         if (MessageBox.Action.YES === sAction) {
-
-                            // try{
-                                
-                                
-    
-                                // this.getView().getModel().submitChanges({
-                                //     success: () => {
-                                //         sap.m.MessageToast.show("Successfully deleted!");
-                                        
-                                //         this.getOwnerComponent().getModel().refresh(true);
-                
-                                //         //this.onNavBack();
-                                //     },
-                                //     error: () => {
-                                //         sap.m.MessageToast.show("An error occured!");
-                                //     }
-                                // })
-                            // } catch (oError) {
-                            //     sap.m.MessageToast(oError)
-                            // }
-                    //         }
-                    //     }
-                    // })
+                    MessageBox.confirm(sText, {
+                        actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                        emphasizedAction: MessageBox.Action.YES,
+                        onClose: (sAction) => {
+                            if (MessageBox.Action.YES === sAction) {
+                                Service.deleteGenreText(this.getOwnerComponent().getModel(), genreid, spras)
+                                .then(() => {
+                                    sText = oResourceBundle.getText("Success");
+                                    sap.m.MessageToast.show(sText)
+                                })
+                                .catch((oError) => {
+                                    sap.m.MessageToast.show(this.getErrorMessage(oError))
+                                });
+                            }
+                        }
+                    })
                 
             },
         });

@@ -7,10 +7,10 @@
         <f:SimpleForm id="creategenredialog_simpleform" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
                         labelSpanS="12" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" >
                             
-        <Label id="CreateGenreNameDialoglabel" text="{/#Genre/Name/@sap:label}" />
+        <Label id="CreateGenreNameDialoglabel" text="{i18n>GenreName}" />
         <Input id="CreateGenreNameDialogInput" required="true" maxLength="20"/>
 
-        <Label id="CreateGenreDescriptionDialoglabel" text="{/#Genre/Description/@sap:label}" />
+        <Label id="CreateGenreDescriptionDialoglabel" text="{i18n>GenreDescription}" />
         <Input id="CreateGenreDescriptionDialogInput" required="true" maxLength="100" />
     </f:SimpleForm>
     <OverflowToolbar id="creategenredialog_toolbar_footer">

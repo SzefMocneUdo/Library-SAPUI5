@@ -218,9 +218,6 @@ sap.ui.define([
     static deleteGenreText(model, genreid, spras) {
         return new Promise(function (resolve, reject) {
             model.remove(`/GenreTextSet(Spras='${spras}',Genreid=guid'${genreid}')`, {
-                Spras: spras,
-                Genreid: genreid
-            }, {
                 success: resolve,
                 error: reject
             });
