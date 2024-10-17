@@ -37,7 +37,7 @@
                     <Toolbar id="Genres_Translations_Table_Toolbar">
                         <Title id="Genres_Translations_table_title" text="{i18n>GenreTranslations.tableHeader}" />
                         <ToolbarSpacer id="Genres_Translations_table_toolbarspacer" />
-                        <Button id="Genres_Translations_table_createbutton" text="{i18n>genres.createTranslationButton}" press="onCreateTranslationPressed"></Button>
+                        <Button id="Genres_Translations_table_createbutton" text="{i18n>button.createTranslationButton}" press="onCreateTranslationPressed"></Button>
                     </Toolbar>
                 </headerToolbar>
                 <columns>

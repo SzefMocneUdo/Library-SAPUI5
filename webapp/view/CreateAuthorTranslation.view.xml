@@ -1,0 +1,30 @@
+<mvc:View
+ controllerName="zkzilibraryproject.controller.CreateAuthorTranslation"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns:core="sap.ui.core"
+ xmlns="sap.m"
+ xmlns:f="sap.ui.layout.form">
+    <Page id="CreateAuthorTranslation" title="{i18n>page.authorsMaintenance}">
+        <f:SimpleForm id="createauthortranslation_simpleform" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+                        labelSpanS="12" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" >
+        <Label id="CreateAuthorTranslationLanguagelabel" text="{/#AuthorTextSet/Spras/@sap:label}" />
+        <ComboBox id="CreateAuthorTranslation_LanguageComboBox" required="true" showSecondaryValues= "true" items="{/LanguageSet}" valueStateText="{i18n>bookManagement.authorsEmptiness}" selectionChange="onLanguageChange" >
+            <core:ListItem id="CreateAuthorTranslation_input_language" key="{parts:['LanguageKey'], formatter:'sap.ui.base.ManagedObject.escapeSettingsValue'}" text="{Text}" additionalText="{LanguageKey}"/>
+        </ComboBox>
+                            
+        <Label id="CreateAuthorTranslationNamelabel" text="{/#Author/Name/@sap:label}" />
+        <Input id="CreateAuthorTranslationNameinput" maxLength="20" value="{Name}" enabled="false"/>
+
+        <Label id="CreateAuthorTranslationSurnamelabel" text="{/#Author/Surname/@sap:label}" />
+        <Input id="CreateAuthorTranslationSurnameinput" maxLength="20" value="{Surname}" enabled="false"/>
+
+        <Label id="CreateAuthorTranslationDescriptionlabel" text="{/#Author/Description/@sap:label}" />
+        <Input id="CreateAuthorTranslationDescriptioninput" required="true" maxLength="100" />
+    </f:SimpleForm>
+    <OverflowToolbar id="createauthortranslation_toolbar_footer">
+        <ToolbarSpacer id="createauthortranslation_spacer_footer" />
+        <Button id="createauthortranslation_button_save" text="Save" press="onSavePressed" type="Accept"/>
+        <Button id="createauthortranslation_button_cancel" text="Cancel" press="onCancelPressed" type="Reject"/>
+    </OverflowToolbar>
+    </Page>
+</mvc:View>

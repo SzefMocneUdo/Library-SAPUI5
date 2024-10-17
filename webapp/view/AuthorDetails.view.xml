@@ -1,0 +1,93 @@
+<mvc:View
+ controllerName="zkzilibraryproject.controller.AuthorDetails"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns:core="sap.ui.core"
+ xmlns="sap.m"
+ xmlns:smartForm="sap.ui.comp.smartform"
+ xmlns:smartField="sap.ui.comp.smartfield"
+ xmlns:f="sap.ui.layout.form">
+    <Page id="AuthorDetails" title="{i18n>page.authorsMaintenance}" >
+        <IconTabBar id="IconTabBarAuthorDetails" class="sapUiResponsiveContentPadding">
+            <items>
+                <IconTabFilter id="IconTabFilterAuthorDetailsDefinition" text="Definition" key="definition">
+                    <content>
+                        <smartForm:SmartForm id="authordetails_smartform">
+                            <smartForm:Group id="authordetails_group">
+                                <smartForm:GroupElement id="authordetails_element_authorid" label="{/#Author/Authorid/@sap:label}">
+                                    <smartField:SmartField id="authordetails_field_authorid" value="{Authorid}" />
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="authordetails_element_name" label="{/#Author/Name/@sap:label}">
+                                    <smartField:SmartField id="authordetails_field_name" value="{Name}" />
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="authordetails_element_surname" label="{/#Author/Surname/@sap:label}">
+                                    <smartField:SmartField id="authordetails_field_surname" value="{Surname}" />
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="authordetails_element_nationality" label="{/#Author/Nationality/@sap:label}">
+                                    <smartField:SmartField id="authordetails_field_nationality" value="{Nationality}" />
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="authordetails_element_description" label="{/#Author/Description/@sap:label}">
+                                    <smartField:SmartField id="authordetails_field_description" value="{Description}" />
+                                </smartForm:GroupElement>
+                            </smartForm:Group>
+                        </smartForm:SmartForm>
+                        <OverflowToolbar id="authordetails_toolbar_footer" visible="{editModel>/editMode}">
+                            <ToolbarSpacer id="authordetails_spacer_footer" />
+                            <Button id="authordetailsv_button_cancel" text="Delete" press="onDeletePressed" type="Negative" visible="{editModel>/editMode}" />
+                        </OverflowToolbar>
+                    </content>
+                </IconTabFilter>
+                <IconTabFilter id="IconTabFilterAuthorsMaintenanceTranslations" text="Translations" key="translations">
+                    <content>
+                        <Table id="table_auhtorsmaintenance_translations" headerText="{i18n>AuthorsTranslationsTitle.tableHeader}" items="{AuthorTextSet}" growing="true" growingThreshold="200" alternateRowColors="true" >
+                <headerToolbar>
+                    <Toolbar id="Authors_Translations_Table_Toolbar">
+                        <Title id="Authors_Translations_table_title" text="{i18n>AuthorTranslations.tableHeader}" />
+                        <ToolbarSpacer id="Authors_Translations_table_toolbarspacer" />
+                        <Button id="Authors_Translations_table_createbutton" text="{i18n>button.createTranslationButton}" press="onCreateTranslationPressed"></Button>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="AuthorsTranslations_Language">
+                        <header>
+                            <Text id="auhtorstranslations_text_language" text="{/AuthorTextSet/Spras/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="AuthorsTranslations_Name">
+                        <header>
+                            <Text id="auhtorstranslations_text_name" text="{/AuthorTextSet/Name/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="AuthorsTranslations_Surname">
+                        <header>
+                            <Text id="auhtorstranslations_text_surname" text="{/AuthorTextSet/Surname/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="AuthorsTranslations_Nationality">
+                        <header>
+                            <Text id="auhtorstranslations_text_nationality" text="{/AuthorSet/Nationality/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="AuthorsTranslations_Description">
+                        <header>
+                            <Text id="auhtorstranslations_text_startdate" text="{/AuthorTextSet/Description/@sap:label}"/>
+                        </header>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="auhtorstranslations_columnlistitem_template" press="onEditPressed" type="Navigation">
+                        <cells>
+                            <Text id="auhtorstranslations_text_idtemplate" text="{Spras}"/>
+                            <Text id="auhtorstranslations_text_nametemplate" text="{Name}"/>
+                            <Text id="auhtorstranslations_text_surnametemplate" text="{Surname}"/>
+                            <Text id="auhtorstranslations_textdescriptiontemplate" text="{Description}"/>
+                            </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+                    </content>
+                    
+                </IconTabFilter>
+            </items>
+        </IconTabBar>
+    </Page>
+</mvc:View>

@@ -6,6 +6,7 @@ function (Controller) {
 
     return Controller.extend("zkzilibraryproject.controller.Books", {
         onInit: function () {
+            //console.log(this.getView().getModel());
         },
 
         onNavToDetail: function(oEvent){

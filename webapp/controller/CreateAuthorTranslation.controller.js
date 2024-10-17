@@ -6,12 +6,13 @@ sap.ui.define([
 
     function (Base, MessageBox, Service){
         "use strict";
-        return Base.extend("zkzilibraryproject.controller.GenreEdit", {
+        return Base.extend("zkzilibraryproject.controller.CreateAuthorTranslation", {
             onInit: function(){
                 let oRouter = this.getOwnerComponent().getRouter(),
-                    oRoute = oRouter.getRoute("GenreEdit");
+                    oRoute = oRouter.getRoute("CreateAuthorTranslation");
                 
                 oRoute.attachPatternMatched(this.onPatternMatched, this);
+
             },
 
             onPatternMatched: function(oEvent) {
@@ -23,10 +24,11 @@ sap.ui.define([
 
             onSavePressed: async function(oEvent){
                 const translation = {
-                    Genreid: oEvent.getSource().getBindingContext().getProperty("Genreid"),
-                    Spras: this.getView().byId("GenreTranslationLanguageText").getValue(),
-                    Name: this.getView().byId("GenreTranslationNameinput").getValue(),
-                    Description: this.getView().byId("GenreTranslationDescriptioninput").getValue()
+                    Authorid: oEvent.getSource().getBindingContext().getProperty("Authorid"),
+                    Spras: this.getView().byId("CreateAuthorTranslation_LanguageComboBox").getSelectedKey(),
+                    Name: this.getView().byId("CreateAuthorTranslationNameinput").getValue(),
+                    Surname: this.getView().byId("CreateAuthorTranslationSurnameinput").getValue(),
+                    Description: this.getView().byId("CreateAuthorTranslationDescriptioninput").getValue()
                 }
 
                 try{
@@ -36,11 +38,14 @@ sap.ui.define([
                     else if (translation.Name === ""){
                         sap.m.MessageToast.show("Name cannot be empty");
                     }
+                    else if (translation.Surname === ""){
+                        sap.m.MessageToast.show("Name cannot be empty");
+                    }
                     else if (translation.Description === ""){
                         sap.m.MessageToast.show("Description cannot be empty");
                     }
                     else{
-                        await Service.updateGenreText(this.getOwnerComponent().getModel(), translation);
+                        await Service.createAuthorText(this.getOwnerComponent().getModel(), translation);
 
                         this.getView().getModel().submitChanges({
                             success: () => {
@@ -50,8 +55,8 @@ sap.ui.define([
 
                                 this.onNavBack();
                             },
-                            error: (oError) => {
-                                sap.m.MessageToast.show(this.getErrorMessage(oError));
+                            error: () => {
+                                sap.m.MessageToast.show("An error occured!");
                             }
                         })
                     }
@@ -66,30 +71,28 @@ sap.ui.define([
                 });
             },
 
-            onDeletePressed: function(oEvent){
-                    const oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
-                    let sText = oResourceBundle.getText("deleteQuestion");
+            onDeletePressed: function(){
+                let sPath = this.getView().getElementBinding().getPath(),
+                    i18nModel = this.getView().getModel("i18n"),
+                    oResourceBundle = i18nModel.getResourceBundle(),
+                    sText = oResourceBundle.getText("deleteQuestion");
 
-                    let genreid = oEvent.getSource().getBindingContext().getProperty("Genreid");
-                    let spras = this.getView().byId("GenreTranslationLanguageText").getValue();
-
-                    MessageBox.confirm(sText, {
-                        actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-                        emphasizedAction: MessageBox.Action.YES,
-                        onClose: (sAction) => {
-                            if (MessageBox.Action.YES === sAction) {
-                                Service.deleteGenreText(this.getOwnerComponent().getModel(), genreid, spras)
-                                .then(() => {
-                                    sText = oResourceBundle.getText("Success");
-                                    sap.m.MessageToast.show(sText);
+                MessageBox.confirm(sText, {
+                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                    emphasizedAction: MessageBox.Action.YES,
+                    onClose: (sAction) => {
+                        if (MessageBox.Action.YES === sAction) {
+                            this.getView().getModel().remove(sPath, {
+                                success: () => {
                                     this.onNavBack();
-                                })
-                                .catch((oError) => {
-                                    sap.m.MessageToast.show(this.getErrorMessage(oError))
-                                });
-                            }
+                                },
+                                error: (oError) => {
+                                    sap.m.MessageToast.show(this.getErrorMessage(oError));
+                                }
+                            })
                         }
-                    })
+                    }
+                })
             },
         });
     });

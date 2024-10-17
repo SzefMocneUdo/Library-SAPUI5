@@ -21,12 +21,12 @@
                     </Column>
                     <Column id="GenresMaintenanceName">
                         <header>
-                            <Text id="genresmaintenance_text_customer" text="{/#Genre/Name/@sap:label}"/>
+                            <Text id="genresmaintenance_text_name" text="{/#Genre/Name/@sap:label}"/>
                         </header>
                     </Column>
                     <Column id="GenresMaintenanceDescription">
                         <header>
-                            <Text id="genresmaintenance_text_startdate" text="{/#Genre/Description/@sap:label}"/>
+                            <Text id="genresmaintenance_text_description" text="{/#Genre/Description/@sap:label}"/>
                         </header>
                     </Column>
                 </columns>

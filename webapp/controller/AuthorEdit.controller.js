@@ -6,10 +6,10 @@ sap.ui.define([
 
     function (Base, MessageBox, Service){
         "use strict";
-        return Base.extend("zkzilibraryproject.controller.GenreEdit", {
+        return Base.extend("zkzilibraryproject.controller.AuthorEdit", {
             onInit: function(){
                 let oRouter = this.getOwnerComponent().getRouter(),
-                    oRoute = oRouter.getRoute("GenreEdit");
+                    oRoute = oRouter.getRoute("AuthorEdit");
                 
                 oRoute.attachPatternMatched(this.onPatternMatched, this);
             },
@@ -19,33 +19,41 @@ sap.ui.define([
                     sPath = decodeURIComponent(oArguments.path);
 
                 this.getView().bindElement(sPath);
+
+                const regex = /guid'([0-9a-fA-F-]{36})'/;
+                const match = sPath.match(regex);
+
+                let oModel = this.getOwnerComponent().getModel();
+                oModel.read(`/AuthorSet(${match[0]})`, {
+                    success: function(oData) {
+                        let oModelList = new sap.ui.model.json.JSONModel();
+                        oModelList.setData(oData);
+                        this.getOwnerComponent().setModel(oModelList, "test");
+                    }.bind(this)
+                })
             },
 
             onSavePressed: async function(oEvent){
                 const translation = {
-                    Genreid: oEvent.getSource().getBindingContext().getProperty("Genreid"),
-                    Spras: this.getView().byId("GenreTranslationLanguageText").getValue(),
-                    Name: this.getView().byId("GenreTranslationNameinput").getValue(),
-                    Description: this.getView().byId("GenreTranslationDescriptioninput").getValue()
+                    Authorid: oEvent.getSource().getBindingContext().getProperty("Authorid"),
+                    Spras: this.getView().byId("AuthorTranslationLanguageText").getValue(),
+                    Description: this.getView().byId("AuthorTranslationDescriptioninput").getValue()
                 }
 
                 try{
                     if (translation.Spras === "") {
                         sap.m.MessageToast.show("Language cannot be empty");
                     }
-                    else if (translation.Name === ""){
-                        sap.m.MessageToast.show("Name cannot be empty");
-                    }
                     else if (translation.Description === ""){
                         sap.m.MessageToast.show("Description cannot be empty");
                     }
                     else{
-                        await Service.updateGenreText(this.getOwnerComponent().getModel(), translation);
+                        await Service.updateAuthorText(this.getOwnerComponent().getModel(), translation);
 
                         this.getView().getModel().submitChanges({
                             success: () => {
                                 sap.m.MessageToast.show("Successfully saved!");
-                        
+
                                 this.getOwnerComponent().getModel().refresh(true);
 
                                 this.onNavBack();
@@ -57,7 +65,7 @@ sap.ui.define([
                     }
                 } catch (oError) {
                     sap.m.MessageToast.show(this.getErrorMessage(oError));
-                }
+                }          
             },
 
             onCancelPressed: function() {
@@ -70,15 +78,15 @@ sap.ui.define([
                     const oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
                     let sText = oResourceBundle.getText("deleteQuestion");
 
-                    let genreid = oEvent.getSource().getBindingContext().getProperty("Genreid");
-                    let spras = this.getView().byId("GenreTranslationLanguageText").getValue();
+                    let authorid = oEvent.getSource().getBindingContext().getProperty("Authorid");
+                    let spras = this.getView().byId("AuthorTranslationLanguageText").getValue();
 
                     MessageBox.confirm(sText, {
                         actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                         emphasizedAction: MessageBox.Action.YES,
                         onClose: (sAction) => {
                             if (MessageBox.Action.YES === sAction) {
-                                Service.deleteGenreText(this.getOwnerComponent().getModel(), genreid, spras)
+                                Service.deleteAuthorText(this.getOwnerComponent().getModel(), authorid, spras)
                                 .then(() => {
                                     sText = oResourceBundle.getText("Success");
                                     sap.m.MessageToast.show(sText);

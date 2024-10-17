@@ -167,6 +167,15 @@ sap.ui.define([
         })
     }
 
+    static deleteGenre(model, genreid) {
+        return new Promise(function (resolve, reject) {
+            model.remove(`/GenreSet(guid'${genreid}')`, {
+                success: resolve,
+                error: reject
+            });
+        });
+    };
+
     static createGenreText(model, translation) {
         return new Promise(function (resolve, reject) {
             model.create("/GenreTextSet", {
@@ -207,10 +216,7 @@ sap.ui.define([
 
                     resolve();
                 },
-                error: function (oError) {
-                    console.error("Błąd podczas aktualizacji translacji:", oError);
-                    reject(oError);
-                }
+                error: reject
             });
         });
     };
@@ -224,4 +230,84 @@ sap.ui.define([
         });
     };
     
+
+    static createAuthor(model, Author) {
+        return new Promise(function (resolve, reject) {
+            model.create("/AuthorSet", {
+                Name: Author.Name,
+                Surname: Author.Surname,
+                Nationality: Author.Nationality,
+                Description: Author.Description
+            }, {
+                success: function() {
+                    let oTable = sap.ui.getCore().byId("main_table_authorsmaintenance");
+                    if(oTable) {
+                        oTable.getBinding("items").refresh();
+                    }
+
+                    resolve();
+                },
+                error: function (oError) {
+                    reject(oError);
+                }
+            })
+        })
+    };
+
+    static deleteAuthor(model, authorid) {
+        return new Promise(function (resolve, reject) {
+            model.remove(`/AuthorSet(guid'${authorid}')`, {
+                success: resolve,
+                error: reject
+            });
+        });
+    };
+
+    static createAuthorText(model, translation) {
+        return new Promise(function (resolve, reject) {
+            model.create("/AuthorTextSet", {
+                Spras: translation.Spras,
+                Authorid: translation.Authorid,
+                Description: translation.Description
+            }, {
+                success: function() {
+                    let oTable = sap.ui.getCore().byId("table_authorsmaintenance_translations");
+                    if(oTable) {
+                        oTable.getBinding("items").refresh();
+                    }
+                    resolve();
+                },
+                error: reject
+            });
+        });
+    };
+
+    static updateAuthorText(model, translation) {
+        return new Promise(function (resolve, reject) {
+            model.update(`/AuthorTextSet(Spras='${translation.Spras}',Authorid=guid'${translation.Authorid}')`, {
+                Spras: translation.Spras,
+                Authorid: translation.Authorid,
+                Description: translation.Description
+            }, {
+                success: function () {
+                    let oTable = sap.ui.getCore().byId("table_authorsmaintenance_translations");
+                    if(oTable) {
+                        oTable.getBinding("items").refresh();
+                    }
+
+                    resolve();
+                },
+                error: reject
+            });
+        });
+    };
+
+    static deleteAuthorText(model, authorid, spras) {
+        return new Promise(function (resolve, reject) {
+            model.remove(`/AuthorTextSet(Spras='${spras}',Authorid=guid'${authorid}')`, {
+                success: resolve,
+                error: reject
+            });
+        });
+    };
 });

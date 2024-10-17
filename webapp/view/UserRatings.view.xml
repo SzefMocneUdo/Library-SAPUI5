@@ -1,0 +1,105 @@
+<mvc:View
+ controllerName="zkzilibraryproject.controller.Loans"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns:semantic="sap.f.semantic"
+ xmlns="sap.m">
+    <semantic:SemanticPage id="UserRatings" headerPinnable="false" toggleHeaderOnTitleClick="false" >
+
+        <semantic:titleHeading>
+            <Title id="UserRatingsTitle" text="{i18n>LoansTitle}" />
+        </semantic:titleHeading>
+
+        <semantic:headerContent>
+            <IconTabBar
+				id="iconTabBarUserRatings"
+				select=".onQuickFilter"
+				expandable="false">
+				<items>
+					<IconTabFilter id="_IDGenIconTabFilter1UserRatings"
+						key="all"
+						showAll="true"
+						count="{worklistView>/countAll}"
+						text="{i18n>WorklistFilterUserLoansAll}"/>
+					<IconTabSeparator id="_IDGenIconTabSeparatorUserRatings"/>
+					<IconTabFilter id="_IDGenIconTabFilter2UserRatings"
+						key="finished"
+						icon="sap-icon://message-success"
+						iconColor="Positive"
+						count="{worklistView>/finished}"
+						text="{i18n>WorklistFilterUserLoansFinished}"/>
+					<IconTabFilter id="_IDGenIconTabFilter3UserRatings"
+						key="inprogress"
+						icon="sap-icon://message-warning"
+						iconColor="Critical"
+						count="{worklistView>/inprogress}"
+						text="{i18n>WorklistFilterUserLoansInProgress}"/>
+					<IconTabFilter id="_IDGenIconTabFilter4UserRatings"
+						key="delayed"
+						icon="sap-icon://message-error"
+						iconColor="Negative"
+						count="{worklistView>/delayed}"
+						text="{i18n>WorklistFilterUserLoansDelayed}"/>
+				</items>
+                <content>
+            <Table
+                id="main_table_UserRatings"
+                headerText="{i18n>UserLoans.tableHeader}"
+                items="{/LoanSet}"
+                growing="true"
+                growingThreshold="200"
+                width="auto"
+                alternateRowColors="true">
+
+                <headerToolbar>
+						<Toolbar id="_IDGenToolbarUserRatings">
+							<Title
+								id="tableHeaderUserRatings"
+								text="{worklistView>worklistTableTitleUserLoans}"/>
+							<ToolbarSpacer id="_IDGenToolbarSpacerUserRatings"/>
+							<SearchField
+								id="searchFieldUserRatings"
+								tooltip="{i18n>worklistSearchTooltip}"
+								search=".onSearch"
+								width="auto">
+							</SearchField>
+						</Toolbar>
+					</headerToolbar>
+
+                <columns>
+                    <Column id="UserRatings_Id">
+                        <header>
+                            <Text id="UserRatings_text_id" text="{/#Loan/Loanid/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="UserRatings_StartDate">
+                        <header>
+                            <Text id="UserRatings_text_startdate" text="{/#Loan/StartDate/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="UserRatings_EndDate">
+                        <header>
+                            <Text id="UserRatings_text_enddate" text="{/#Loan/EndDate/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="UserRatings_Status">
+                        <header>
+                            <Text id="UserRatings_text_status" text="{/#Loan/Status/@sap:label}"/>
+                        </header>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="UserRatings_columnlistitem_template" press="onDetailsDialog" type="Navigation">
+                        <cells>
+                            <Text id="UserRatings_text_idtemplate" text="{Loanid}"/>
+                            <Text id="UserRatings_text_startdatetemplate" text="{path: 'StartDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
+                            <Text id="UserRatings_text_enddatetemplate" text="{path: 'EndDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
+                            <Text id="UserRatings_text_statustemplate" text="{Status}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+            </IconTabBar>
+        </semantic:headerContent>
+    </semantic:SemanticPage>
+</mvc:View>

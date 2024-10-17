@@ -1,0 +1,6 @@
+<mvc:View
+ controllerName="zkzilibraryproject.controller.Books"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns="sap.m">
+
+ </mvc:View>

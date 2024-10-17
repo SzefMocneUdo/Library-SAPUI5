@@ -31,7 +31,6 @@ sap.ui.define([
                 }
 
                 try{
-                    console.log(translation)
                     if (translation.Spras === "") {
                         sap.m.MessageToast.show("Language cannot be empty");
                     }
@@ -58,7 +57,7 @@ sap.ui.define([
                         })
                     }
                 } catch (oError) {
-                    sap.m.MessageToast.show(oError);
+                    sap.m.MessageToast.show(this.getErrorMessage(oError));
                 }
             },
 
@@ -84,7 +83,7 @@ sap.ui.define([
                                     this.onNavBack();
                                 },
                                 error: (oError) => {
-                                    sap.m.MessageToast.show("An error occured!");
+                                    sap.m.MessageToast.show(this.getErrorMessage(oError));
                                 }
                             })
                         }

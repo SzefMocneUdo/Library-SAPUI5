@@ -147,6 +147,21 @@
           "target": ["AuthorsMaintenance"]
         },
         {
+          "name": "AuthorDetails",
+          "pattern": "AuthorDetails/{path}",
+          "target": ["AuthorDetails"]
+        },
+        {
+          "name": "CreateAuthorTranslation",
+          "pattern": "CreateAuthorTranslation/{path}",
+          "target": ["CreateAuthorTranslation"]
+        },
+        {
+          "name": "AuthorEdit",
+          "pattern": "AuthorEdit/{path}",
+          "target": ["AuthorEdit"]
+        },
+        {
           "name": "ReservationsMaintenance",
           "pattern": "ReservationsMaintenance",
           "target": ["ReservationsMaintenance"]
@@ -252,6 +267,27 @@
         "clearControlAggregation": false,
         "viewId": "AuthorsMaintenance",
         "viewName": "AuthorsMaintenance"
+      },
+      "AuthorDetails": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "AuthorDetails",
+          "viewName": "AuthorDetails"
+      },
+      "CreateAuthorTranslation": {
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "CreateAuthorTranslation",
+        "viewName": "CreateAuthorTranslation"
+      },
+      "AuthorEdit": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "AuthorEdit",
+          "viewName": "AuthorEdit"
       },
       "ReservationsMaintenance": {
         "viewType": "XML",

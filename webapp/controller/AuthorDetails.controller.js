@@ -6,10 +6,10 @@ sap.ui.define([
 
     function (Base, MessageBox, Service){
         "use strict";
-        return Base.extend("zkzilibraryproject.controller.GenreDetails", {
+        return Base.extend("zkzilibraryproject.controller.AuthorDetails", {
             onInit: function(){
                 let oRouter = this.getOwnerComponent().getRouter(),
-                    oRoute = oRouter.getRoute("GenreDetails");
+                    oRoute = oRouter.getRoute("AuthorDetails");
                 
                 oRoute.attachPatternMatched(this.onPatternMatched, this);
             },
@@ -28,7 +28,7 @@ sap.ui.define([
 
                 const path = oEvent.getSource().getBindingContext().getPath();
 
-                oRouter.navTo("GenreEdit", {
+                oRouter.navTo("AuthorEdit", {
                     path: encodeURIComponent(path)
                 });
             },
@@ -38,14 +38,14 @@ sap.ui.define([
                     i18nModel = this.getView().getModel("i18n"),
                     oResourceBundle = i18nModel.getResourceBundle(),
                     sText = oResourceBundle.getText("Are You sure?"),
-                    genreid = this.getView().byId("genredetails_field_genreid").getValue();
+                    authorid = this.getView().byId("authordetails_field_authorid").getValue();
 
                 MessageBox.confirm(sText, {
                     actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                     emphasizedAction: MessageBox.Action.YES,
                     onClose: (sAction) => {
                         if (MessageBox.Action.YES === sAction) {
-                            Service.deleteGenre(this.getOwnerComponent().getModel(), genreid)
+                            Service.deleteAuthor(this.getOwnerComponent().getModel(), authorid)
                                 .then(() => {
                                     sText = oResourceBundle.getText("Success");
                                     sap.m.MessageToast.show(sText);
@@ -64,7 +64,7 @@ sap.ui.define([
 
                 const path = oEvent.getSource().getBindingContext().getPath();
 
-                oRouter.navTo("CreateGenreTranslation", {
+                oRouter.navTo("CreateAuthorTranslation", {
                     path: encodeURIComponent(path)
                 });
             }

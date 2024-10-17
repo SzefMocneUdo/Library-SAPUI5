@@ -1,0 +1,33 @@
+<mvc:View
+ controllerName="zkzilibraryproject.controller.AuthorEdit"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns:core="sap.ui.core"
+ xmlns="sap.m"
+ xmlns:f="sap.ui.layout.form">
+    <Page id="AuthorEdit" title="{i18n>page.authorsMaintenance}">
+        <f:SimpleForm id="authortranslation_simpleform" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+                        labelSpanS="12" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" >
+                        <Label id="AuthorTranslationAuthoridlabel" text="{/#AuthorTextSet/Spras/@sap:label}" />
+                        <Input id="AuthorTranslationLanguageText" value="{Spras}" enabled="false" />
+                            
+                        <Label id="AuthorTranslationNamelabel" text="{/#Author/Name/@sap:label}" />
+                        <Input id="AuthorTranslationNameinput" value="{test>/Name}" maxLength="20" enabled="false"/>
+
+                        <Label id="AuthorTranslationSurnamelabel" text="{/#Author/Surname/@sap:label}" />
+                        <Input id="AuthorTranslationSurnameinput" value="{test>/Surname}" maxLength="20" enabled="false"/>
+
+                        <Label id="AuthorTranslationNationalitylabel" text="{/#Author/Nationality/@sap:label}" />
+                        <Input id="AuthorTranslationNationalityinput" value="{test>/Nationality}" maxLength="20" enabled="false"/>
+
+                        <Label id="AuthorTranslationDescriptionlabel" text="{/#Author/Description/@sap:label}" />
+                        <Input id="AuthorTranslationDescriptioninput" required="true" value="{Description}" maxLength="100" />
+                    </f:SimpleForm>
+                    <OverflowToolbar id="authortranslation_toolbar_footer">
+                        <ToolbarSpacer id="authortranslation_spacer_footer" />
+                        <Button id="authortranslation_button_delete" text="Delete" press="onDeletePressed" type="Negative" />
+                        <ToolbarSpacer id="authortranslation_spacer_deletebutton" width="30px" />
+                        <Button id="authortranslation_button_save" text="Save" press="onSavePressed" type="Accept"/>
+                        <Button id="authortranslation_button_cancel" text="Cancel" press="onCancelPressed" type="Reject"/>
+                    </OverflowToolbar>
+    </Page>
+</mvc:View>

@@ -3,7 +3,7 @@ sap.ui.define([
     "zkzilibraryproject/model/service",
     "zkzilibraryproject/controller/Base.controller"
 ],
-function ( Fragment, Service, Base) {
+function (Fragment, Service, Base) {
     "use strict";
 
     return Base.extend("zkzilibraryproject.controller.GenresMaintenance", {
@@ -25,7 +25,7 @@ function ( Fragment, Service, Base) {
 
             this.oDialog ??= await Fragment.load({
                 id: this.getView().getId(),
-                name: "zkzilibraryproject.view.CreateGenreDialog",
+                name: "zkzilibraryproject.fragment.CreateGenreDialog",
                 controller: this
             });
 

@@ -1,0 +1,56 @@
+<mvc:View
+ controllerName="zkzilibraryproject.controller.AuthorsMaintenance"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns:core="sap.ui.core"
+ xmlns="sap.m"
+ xmlns:f="sap.ui.layout.form">
+    <Page id="AuthorsMaintenance" title="{i18n>page.authorsMaintenance}">
+            <Table id="main_table_authorsmaintenance" headerText="{i18n>AuthorsTitle.tableHeader}" items="{/AuthorSet}" growing="true" growingThreshold="200" alternateRowColors="true" >
+                <headerToolbar>
+                    <Toolbar id="Authors_Table_Toolbar">
+                        <Title id="Authors_table_title" text="{i18n>AuthorsTitle.tableHeader}" />
+                        <ToolbarSpacer id="Authors_table_toolbarspacer" />
+                        <Button id="Authors_table_createbutton" text="{i18n>authors.createAuthorButton}" press="onCreatePressed"></Button>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="AuthorsMaintenanceId">
+                        <header>
+                            <Text id="authorsmaintenance_text_id" text="{/#Author/Authorid/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="AuthorsMaintenanceName">
+                        <header>
+                            <Text id="authorsmaintenance_text_name" text="{/#Author/Name/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="AuthorsMaintenanceSurname">
+                        <header>
+                            <Text id="authorsmaintenance_text_surname" text="{/#Author/Surname/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="AuthorsMaintenanceNationality">
+                        <header>
+                            <Text id="authorsmaintenance_text_nationality" text="{/#Author/Nationality/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="AuthorsMaintenanceDescription">
+                        <header>
+                            <Text id="authorsmaintenance_text_description" text="{/#Author/Description/@sap:label}"/>
+                        </header>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="authorsmaintenance_columnlistitem_template" press="onNavToDetail" type="Navigation">
+                        <cells>
+                            <Text id="authorsmaintenance_text_idtemplate" text="{Authorid}"/>
+                            <Text id="authorsmaintenance_text_nametemplate" text="{Name}"/>
+                            <Text id="authorsmaintenance_text_surnametemplate" text="{Surname}"/>
+                            <Text id="authorsmaintenance_text_nationalitytemplate" text="{Nationality}"/>
+                            <Text id="authorsmaintenance_textdescriptiontemplate" text="{Description}"/>
+                            </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+    </Page>
+</mvc:View>
