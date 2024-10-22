@@ -10,11 +10,15 @@ sap.ui.define([
                 PublicationDate: book.PublicationDate,
                 Description: book.Description
             }, {
-                success: resolve,
-                error: function (oError) {
-                    console.error("Błąd podczas tworzenia książki:", oError);
-                    reject(oError);
-                }
+                success: function () {
+                    let oTable = sap.ui.getCore().byId("booksmaintenance_table_books");
+                    if(oTable) {
+                        oTable.getBinding("items").refresh();
+                    }
+
+                    resolve();
+                },
+                error: reject
             });
         });
     };
@@ -29,29 +33,48 @@ sap.ui.define([
                 Description: book.Description
             }, {
                 success: function () {
-                    let oTable = sap.ui.getCore().byId("main_table_books");
+                    let oTable = sap.ui.getCore().byId("booksmaintenance_table_books");
                     if(oTable) {
                         oTable.getBinding("items").refresh();
                     }
 
                     resolve();
                 },
-                error: function (oError) {
-                    console.error("Błąd podczas aktualizacji książki:", oError);
-                    reject(oError);
-                }
+                error: reject
+            });
+        });
+    };
+
+    static deleteBook(model, ISBN) {
+        return new Promise(function (resolve, reject) {
+            model.remove(`/BookSet('${ISBN}')`, {
+                success: function () {
+                    let oTable = sap.ui.getCore().byId("booksmaintenance_table_books");
+                    if(oTable) {
+                        oTable.getBinding("items").refresh();
+                    }
+
+                    resolve();
+                },
+                error: reject
             });
         });
     };
     
-
     static createAuthBook(model, isbn, authorid) {
         return new Promise(function (resolve, reject) {
             model.create("/AuthorBookSet", {
                 Authorid: authorid,
                 ISBN: isbn
             }, {
-                success: resolve,
+                success: function () {
+                    let oTable = sap.ui.getCore().byId("booksmaintenance_table_books");
+                    if(oTable) {
+                        oTable.getBinding("items").refresh();
+                    }
+
+                    resolve();
+                },
                 error: reject
             });
         });
@@ -63,7 +86,14 @@ sap.ui.define([
                 ISBN: isbn,
                 Genreid: genreid
             }, {
-                success: resolve,
+                success: function () {
+                    let oTable = sap.ui.getCore().byId("booksmaintenance_table_books");
+                    if(oTable) {
+                        oTable.getBinding("items").refresh();
+                    }
+
+                    resolve();
+                },
                 error: reject
             });
         });
@@ -71,10 +101,7 @@ sap.ui.define([
 
     static deleteAuthBook(model, isbn, authorid) {
         return new Promise(function (resolve, reject) {
-            model.remove(`/AuthorBookSet(Authorid=guid'${authorid}',ISBN='${isbn}')`, {
-                Authorid: authorid,
-                ISBN: isbn
-            }, {
+            model.remove(`/AuthorBookSet(Authorid=guid'${authorid}',ISBN='${isbn}')`,  {
                 success: resolve,
                 error: reject
             });
@@ -84,64 +111,56 @@ sap.ui.define([
     static deleteBookGenre(model, isbn, genreid) {
         return new Promise(function (resolve, reject) {
             model.remove(`/BookGenreSet(ISBN='${isbn}',Genreid=guid'${genreid}')`, {
-                ISBN: isbn,
-                Genreid: genreid
-            }, {
                 success: resolve,
                 error: reject
             });
         });
     };
 
-    static deleteAllAuthorsByISBN(model, isbn) {
-        return new Promise(function (resolve, reject) {
-            model.read("/BookSet('" + isbn + "')/ToAuthorBookSet", {
-                success: function (data) {
-                    if (data.results && data.results.length > 0) {
-                        let deletePromises = data.results.map(function (author) {
-                            Service.deleteAuthBook(model, isbn, author.Authorid);
-                        });
+    // static deleteAllAuthorsByISBN(model, isbn) {
+    //     return new Promise(function (resolve, reject) {
+    //         model.read("/BookSet('" + isbn + "')/ToAuthorBookSet", {
+    //             success: function (data) {
+    //                 if (data.results && data.results.length > 0) {
+    //                         for (let i = 0; i < data.results.length; i++) {
+    //                             let author = data.results[i];
+    //                             Service.deleteAuthBook(model, isbn, author.Authorid);
+    //                             this.getView().getModel().submitChanges({
+    //                                 success: resolve,
+    //                                 error: () => sap.m.MessageToast.show("Error deleting authors!")
+    //                             });
+    //                     }
+    //                 } else {
+    //                     resolve(); // Brak autorów do usunięcia
+    //                 }
+    //             },
+    //             error: reject
+    //         });
+    //     });
+    // }
     
-                        Promise.all(deletePromises)
-                            .then(() => {
-                                resolve();
-                            })
-                            .catch(reject);
-                    } else {
-                        resolve();
-                    }
-                },
-                error: function (err) {
-                    reject(err);
-                }
-            });
-        });
-    }
 
-    static deleteAllGenresByISBN(model, isbn) {
-        return new Promise(function (resolve, reject) {
-            model.read("/BookSet('" + isbn + "')/ToBookGenreSet", {
-                success: function (data) {
-                    if (data.results && data.results.length > 0) {
-                        let deletePromises = data.results.map(function (genre) {
-                            Service.deleteBookGenre(model, isbn, genre.Genreid);
-                        });
-    
-                        Promise.all(deletePromises)
-                            .then(() => {
-                                resolve();
-                            })
-                            .catch(reject);
-                    } else {
-                        resolve();
-                    }
-                },
-                error: function (err) {
-                    reject(err);
-                }
-            });
-        });
-    }
+    // static deleteAllGenresByISBN(model, isbn) {
+    //     return new Promise(function (resolve, reject) {
+    //         model.read("/BookSet('" + isbn + "')/ToBookGenreSet", {
+    //             success: function (data) {
+    //                 if (data.results && data.results.length > 0) {
+    //                         for(let i = 0; i < data.results.length; i++){
+    //                             const genre = data.results[i];
+    //                             Service.deleteBookGenre(model, isbn, genre.Genreid);
+    //                             this.getView().getModel().submitChanges({
+    //                                 success: resolve,
+    //                                 error: () => sap.m.MessageToast.show("Error deleting authors!")
+    //                             });
+    //                         }
+    //                 } else {
+    //                     resolve();
+    //                 }
+    //             },
+    //             error: reject
+    //         });
+    //     });
+    // }
 
     static createGenre(model, name, description) {
         return new Promise(function (resolve, reject) {
@@ -157,12 +176,7 @@ sap.ui.define([
 
                     resolve();
                 },
-                error: function (oError) {
-                    console.error("Error during a new genre creation:", oError);
-                    let messageText = oError.responseText.split('message')[3];
-	                sap.m.MessageToast.show(messageText);
-                    reject(oError);
-                }
+                error: reject
             })
         })
     }
@@ -192,10 +206,7 @@ sap.ui.define([
 
                     resolve();
                 },
-                error: function (oError) {
-                    console.error("Błąd podczas tworzenia książki:", oError);
-                    reject(oError);
-                }
+                error: reject
             });
         });
     };
@@ -247,9 +258,7 @@ sap.ui.define([
 
                     resolve();
                 },
-                error: function (oError) {
-                    reject(oError);
-                }
+                error: reject
             })
         })
     };
@@ -310,4 +319,102 @@ sap.ui.define([
             });
         });
     };
+
+    static createBookText(model, translation) {
+        return new Promise(function (resolve, reject) {
+            model.create("/BookTextSet", {
+                Spras: translation.Spras,
+                ISBN: translation.ISBN,
+                Title: translation.Title,
+                Description: translation.Description
+            }, {
+                success: function() {
+                    let oTable = sap.ui.getCore().byId("table_booksmaintenance_translations");
+                    if(oTable) {
+                        oTable.getBinding("items").refresh();
+                    }
+                    resolve();
+                },
+                error: reject
+            });
+        });
+    };
+
+    static updateBookText(model, translation) {
+        return new Promise(function (resolve, reject) {
+            model.update(`/BookTextSet(Spras='${translation.Spras}',ISBN='${translation.ISBN}')`, {
+                Spras: translation.Spras,
+                ISBN: translation.ISBN,
+                Title: translation.title,
+                Description: translation.Description
+            }, {
+                success: function () {
+                    let oTable = sap.ui.getCore().byId("table_booksmaintenance_translations");
+                    if(oTable) {
+                        oTable.getBinding("items").refresh();
+                    }
+
+                    resolve();
+                },
+                error: reject
+            });
+        });
+    };
+
+    static deleteBookText(model, ISBN, spras) {
+        return new Promise(function (resolve, reject) {
+            model.remove(`/BookTextSet(Spras='${spras}',ISBN='${ISBN}')`, {
+                success: resolve,
+                error: reject
+            });
+        });
+    };
+
+    static updateBookCopy(model, book) {
+        return new Promise(function (resolve, reject) {
+            model.update(`/Book_copySet(guid'${book.Bookid}')`, {
+                Bookid: book.Bookid,
+                Availability: book.Availability
+            }, {
+                success: function () {
+                    let oTable = sap.ui.getCore().byId("table_booksmaintenance_copy");
+                    if(oTable) {
+                        oTable.getBinding("items").refresh();
+                    }
+
+                    resolve();
+                },
+                error: reject
+            });
+        });
+    };
+
+    static createBookCopy(model, ISBN, Availability) {
+        return new Promise(function (resolve, reject) {
+            model.create('/Book_copySet', {
+                ISBN: ISBN,
+                Availability: Availability
+            }, {
+                success: function () {
+                    let oTable = sap.ui.getCore().byId("table_booksmaintenance_copy");
+                    if(oTable) {
+                        oTable.getBinding("items").refresh();
+                    }
+
+                    resolve();
+                },
+                error: reject
+            });
+        });
+    };
+
+    static deleteBookCopy(model, Bookid) {
+        return new Promise(function (resolve, reject) {
+            model.remove(`/Book_copySet(guid'${Bookid}')`, {
+                success: resolve,
+                error: reject
+            });
+        });
+    };
+
 });

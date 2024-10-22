@@ -2,10 +2,11 @@ sap.ui.define([
     "zkzilibraryproject/controller/Base.controller",
     "sap/m/MessageBox",
     "sap/ui/core/format/DateFormat",
-    "zkzilibraryproject/model/service"
+    "zkzilibraryproject/model/service",
+    "sap/m/MessageToast"
 ],
 
-    function (Base, MessageBox, DateFormat, Service){
+    function (Base, MessageBox, DateFormat, Service, MessageToast){
         "use strict";
         return Base.extend("zkzilibraryproject.controller.BookEdit", {
             onInit: function(){
@@ -15,7 +16,6 @@ sap.ui.define([
                 oRoute.attachPatternMatched(this.onPatternMatched, this);
 
                 let oModel = this.getOwnerComponent().getModel();
-                console.log(oModel.oData);
 
                 this.getView().addEventDelegate({
                     onBeforeShow: this.onBeforeShow
@@ -71,78 +71,127 @@ sap.ui.define([
 
             },
 
-            onSavePressed: async function(){
+            onSavePressed: async function() {
                 const publicationDate = this.getView().byId("bookedit_input_publication_date").getValue();
-                const isbn = this.getView().byId("bookedit_text_isbn").getValue();
+                const ISBN = this.getView().byId("bookedit_text_isbn").getValue();
                 const book = {
-                    ISBN: isbn,
+                    ISBN: ISBN,
                     Title: this.getView().byId("bookedit_input_title").getValue(),
                     PublicationDate: publicationDate === "" ? null : `${DateFormat.getDateInstance({
                        pattern: "yyyy-MM-dd"
                     }).format(new Date(publicationDate))}T00:00:00`,
                     Language: this.getView().byId("bookedit_languageComboBox").getSelectedKey(),
                     Description: this.getView().byId("bookedit_input_description").getValue()
-                }
+                };
 
+                let oModel = this.getOwnerComponent().getModel();
 
+                const authors = [];
+                const genres = [];
+                let sPathAuthorBook = "/BookSet('" + ISBN + "')/ToAuthorBookSet";
+                let sPathBookGenre = "/BookSet('" + ISBN + "')/ToBookGenreSet";
+            
                 const newauthors = this.getView().byId("bookedit_authorsMultiComboBox").getSelectedKeys();
                 const newgenres = this.getView().byId("bookedit_genresMultiComboBox").getSelectedKeys();
+            
+                try {
 
-                await Service.updateBook(this.getOwnerComponent().getModel(), book);
-
-                await Service.deleteAllAuthorsByISBN(this.getOwnerComponent().getModel(), book.ISBN);
-                await Service.deleteAllGenresByISBN(this.getOwnerComponent().getModel(), book.ISBN);
-                
-                for(let i = 0; i < newauthors.length; i++){
-                    await Service.createAuthBook(this.getOwnerComponent().getModel(), book.ISBN, newauthors[i]);
-                };
-
-                for(let i = 0; i < newgenres.length; i++){
-                    await Service.createBookGenre(this.getOwnerComponent().getModel(), book.ISBN, newgenres[i]);
-                };
-
-                this.getView().getModel().submitChanges({
-                    success: () => {
-                        sap.m.MessageToast.show("Successfully saved!");
-                        
-                        this.getOwnerComponent().getModel().refresh(true);
-
-                        this.getOwnerComponent().getRouter().navTo("Books");
-                    },
-                    error: () => {
-                        sap.m.MessageToast.show("An error occured!");
+                    // Walidacja pól
+                    if (book.ISBN === "") {
+                        MessageToast.show("ISBN cannot be empty");
+                        return;
                     }
-                })
+                    if (book.Title === "") {
+                        MessageToast.show("Title cannot be empty");
+                        return;
+                    }
+                    if (newauthors.length === 0) {
+                        MessageToast.show("Authors cannot be empty");
+                        return;
+                    }
+                    if (newgenres.length === 0) {
+                        MessageToast.show("Genres cannot be empty");
+                        return;
+                    }
+                    if (book.PublicationDate === "") {
+                        MessageToast.show("Publication Date cannot be empty");
+                        return;
+                    }
+                    if (book.Language === "") {
+                        MessageToast.show("Language cannot be empty");
+                        return;
+                    }
+                    if (book.Description === "") {
+                        MessageToast.show("Description cannot be empty");
+                        return;
+                    }
+
+                    await new Promise((resolve, reject) => {
+                        oModel.read(sPathAuthorBook, {
+                            success: function (oData) {
+                                oData.results.forEach(element => {
+                                    authors.push(element.Authorid);
+                                });
+                                resolve();
+                            },
+                            error: function (oError) {
+                                reject(oError);
+                            }
+                        });
+                    });
+
+                    for (let i = 0; i < authors.length; i++) {
+                        await Service.deleteAuthBook(oModel, ISBN, authors[i]);
+                    }
+
+                    await new Promise((resolve, reject) => {
+                        oModel.read(sPathBookGenre, {
+                            success: function (oData) {
+                                oData.results.forEach(element => {
+                                    genres.push(element.Genreid);
+                                });
+                                resolve();
+                            },
+                            error: function (oError) {
+                                reject(oError);
+                            }
+                        });
+                    });
+
+                    for (let i = 0; i < genres.length; i++) {
+                        await Service.deleteBookGenre(oModel, ISBN, genres[i]);
+                    }
+            
+                    for (let i = 0; i < newauthors.length; i++) {
+                        await Service.createAuthBook(oModel, book.ISBN, newauthors[i]);
+                    }
+            
+                    for (let i = 0; i < newgenres.length; i++) {
+                        await Service.createBookGenre(oModel, book.ISBN, newgenres[i]);
+                    
+                    }
+
+                    await Service.updateBook(this.getOwnerComponent().getModel(), book);
+                    await this.getView().getModel().submitChanges({
+                        success: () => {
+                            MessageToast.show("Book updated successfully!");
+                            this.getOwnerComponent().getModel().refresh(true);
+                            this.onNavBack();
+                        },
+                        error: () => {
+                            MessageToast.show("Error updating book!");
+                        }
+                    });
+            
+                } catch (oError) {
+                    MessageToast.show(this.getErrorMessage(oError));
+                }
             },
 
             onCancelPressed: function() {
                 this.getView().getModel().resetChanges().then(() => {
                     this.onNavBack();
                 });
-            },
-
-            onDeletePressed: function(){
-                let sPath = this.getView().getElementBinding().getPath(),
-                    i18nModel = this.getView().getModel("i18n"),
-                    oResourceBundle = i18nModel.getResourceBundle(),
-                    sText = oResourceBundle.getText("deleteQuestion");
-
-                MessageBox.confirm(sText, {
-                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-                    emphasizedAction: MessageBox.Action.YES,
-                    onClose: (sAction) => {
-                        if (MessageBox.Action.YES === sAction) {
-                            this.getView().getModel().remove(sPath, {
-                                success: () => {
-                                    this.onNavBack();
-                                },
-                                error: (oError) => {
-                                    sap.m.MessageToast.show("An error occured!");
-                                }
-                            })
-                        }
-                    }
-                })
-            },
+            }
         });
     });

@@ -1,6 +1,70 @@
 <mvc:View
- controllerName="zkzilibraryproject.controller.Books"
+ controllerName="zkzilibraryproject.controller.BooksMaintenance"
  xmlns:mvc="sap.ui.core.mvc"
  xmlns="sap.m">
+    <Page id="BooksMaintenance" title="{i18n>title}">
+        <content>
+            <Table id="booksmaintenance_table_books" headerText="{i18n>main.tableHeader}" items="{/BookSet}" growing="true" growingThreshold="200" alternateRowColors="true">
+                
+                <headerToolbar>
+                    <Toolbar id="BooksMaintenance_Table_Toolbar">
+                        <Title id="BooksMaintenance_table_title" text="{i18n>main.tableHeader}" />
+                        <ToolbarSpacer id="BooksMaintenance_table_toolbarspacer" />
+                        <Button id="BooksMaintenance_table_createbutton" text="{i18n>books.createButton}" type="Emphasized" press="onCreatePressed"></Button>
+                    </Toolbar>
+                </headerToolbar>
+                
+                <columns>
+                    <Column id="BooksMaintenance_Title">
+                        <header>
+                            <Text id="booksmaintenance_text_title" text="{/#Book/Title/@sap:label}"/>
+                        </header>
+                    </Column>
 
- </mvc:View>
+                    <Column id="BooksMaintenance_Authors">
+                        <header>
+                            <Text id="booksmaintenance_text_genre" text="{/#Book/Genres/@sap:label}"/>
+                        </header>
+                    </Column>
+
+                    <Column id="BooksMaintenance_Genres">
+                        <header>
+                            <Text id="booksmaintenance_text_authors" text="{/#Book/Authors/@sap:label}"/>
+                        </header>
+                    </Column>
+                    
+                    <Column id="BooksMaintenance_Description">
+                        <header>
+                            <Text id="booksmaintenance_text_description" text="{/#Book/Description/@sap:label}"/>
+                        </header>
+                    </Column>
+
+                    <Column id="BooksMaintenance_Language">
+                        <header>
+                            <Text id="booksmaintenance_text_language" text="{/#Book/Language/@sap:label}"/>
+                        </header>
+                    </Column>
+
+                    <Column id="BooksMaintenance_Rating">
+                        <header>
+                            <Text id="booksmaintenance_text_rating" text="{/#Book/Rating/@sap:label}"/>
+                        </header>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="booksmaintenance_columnlistitem_template" press="onNavToDetail" type="Navigation">
+                        <cells>
+                            <!-- <Text id="main_text_isbntemplate" text="{ISBN}"/> -->
+                            <Text id="booksmaintenance_text_titletemplate" text="{Title}"/>
+                            <Text id="booksmaintenance_text_authorstemplate" text="{Authors}"/>
+                            <Text id="booksmaintenance_text_genrestemplate" text="{Genres}"/>
+                            <Text id="booksmaintenance_text_descriptiontemplate" text="{Description}"/>
+                            <Text id="booksmaintenance_text_languagetemplate" text="{Language}"/>
+                            <RatingIndicator id="booksmaintenance_text_ratingtemplate" class="sapUiNoMargin" maxValue="10" displayOnly="true" iconSize="1rem" value="{Rating}"/>
+                            </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>  
+</mvc:View>

@@ -43,7 +43,7 @@
                     <Toolbar id="Authors_Translations_Table_Toolbar">
                         <Title id="Authors_Translations_table_title" text="{i18n>AuthorTranslations.tableHeader}" />
                         <ToolbarSpacer id="Authors_Translations_table_toolbarspacer" />
-                        <Button id="Authors_Translations_table_createbutton" text="{i18n>button.createTranslationButton}" press="onCreateTranslationPressed"></Button>
+                        <Button id="Authors_Translations_table_createbutton" text="{i18n>button.createTranslationButton}" type="Emphasized" press="onCreateTranslationPressed"></Button>
                     </Toolbar>
                 </headerToolbar>
                 <columns>

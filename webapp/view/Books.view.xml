@@ -5,12 +5,10 @@
     <Page id="Books" title="{i18n>title}">
         <content>
             <Table id="main_table_books" headerText="{i18n>main.tableHeader}" items="{/BookSet}" growing="true" growingThreshold="200" alternateRowColors="true">
-                
                 <headerToolbar>
                     <Toolbar id="Books_Table_Toolbar">
                         <Title id="Books_table_title" text="{i18n>main.tableHeader}" />
                         <ToolbarSpacer id="Books_table_toolbarspacer" />
-                        <Button id="Books_table_createbutton" text="{i18n>books.createButton}" press="onCreatePressed"></Button>
                     </Toolbar>
                 </headerToolbar>
                 

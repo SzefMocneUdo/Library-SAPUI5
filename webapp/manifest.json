@@ -102,6 +102,21 @@
           "target": ["BookDetails"]
         },
         {
+          "name": "BookCopy",
+          "pattern": "BookCopy/{path}",
+          "target": ["BookCopy"]
+        },
+        {
+          "name": "CreateBookTranslation",
+          "pattern": "CreateBookTranslation/{path}",
+          "target": ["CreateBookTranslation"]
+        },
+        {
+          "name": "BookDisplay",
+          "pattern": "BookDisplay/{path}",
+          "target": ["BookDisplay"]
+        },
+        {
           "name": "Books",
           "pattern": "Books",
           "target": ["Books"]
@@ -180,7 +195,12 @@
           "name": "BookEdit",
           "pattern": "BookEdit/{path}",
           "target": ["BookEdit"]
-        }        
+        },
+        {
+          "name": "BookTranslationEdit",
+          "pattern": "BookTranslationEdit/{path}",
+          "target": ["BookTranslationEdit"]
+        }   
       ],
       "targets": {
 
@@ -191,12 +211,40 @@
           "viewId": "BookDetails",
           "viewName": "BookDetails"
       },
+      "BookCopy": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "BookCopy",
+          "viewName": "BookCopy"
+      },
+      "BookDisplay": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "BookDisplay",
+          "viewName": "BookDisplay"
+      },
       "BookEdit": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
           "viewId": "BookEdit",
           "viewName": "BookEdit"
+      },
+      "CreateBookTranslation": {
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "CreateBookTranslation",
+        "viewName": "CreateBookTranslation"
+      },
+      "BookTranslationEdit": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "BookTranslationEdit",
+          "viewName": "BookTranslationEdit"
       },
       "Books": {
         "viewType": "XML",

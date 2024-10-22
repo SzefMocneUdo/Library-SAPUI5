@@ -7,10 +7,10 @@
     <Page id="GenreEdit" title="{i18n>page.genresMaintenance}">
         <f:SimpleForm id="genretranslation_simpleform" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
                         labelSpanS="12" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" >
-                        <Label id="GenreTranslationGenreidlabel" text="{/#GenreText/Spras/@sap:label}" />
+                        <Label id="GenreTranslationLanguagelabel" text="{/#GenreText/Spras/@sap:label}" />
                         <Input id="GenreTranslationLanguageText" value="{Spras}" enabled="false" />
                             
-                        <Label id="GenreTranslationLanguagelabel" text="{/#Genre/Name/@sap:label}" />
+                        <Label id="GenreTranslationNamelabel" text="{/#Genre/Name/@sap:label}" />
                         <Input id="GenreTranslationNameinput" required="true" value="{Name}" maxLength="20"/>
 
                         <Label id="GenreTranslationDescriptionlabel" text="{/#Genre/Description/@sap:label}" />

@@ -6,42 +6,135 @@
  xmlns:smartForm="sap.ui.comp.smartform"
  xmlns:smartField="sap.ui.comp.smartfield"
  xmlns:f="sap.ui.layout.form">
-        <Page id="BookDetails" >
-        <customHeader>
-            <OverflowToolbar id="bookdetails_toolbar_header">
-                <Title id="bookdetails_title_header" text="{i18n>BookDetails}"/>
-                <ToolbarSpacer id="bookdetails_spacer_header" />
-                <Button id="bookdetails_button_edit" text="Edit" type="Emphasized" press="onEditPressed"/>
-            </OverflowToolbar>
-        </customHeader>
+    <Page id="BookDetails" >
+        <IconTabBar id="IconTabBarBookDetails" class="sapUiResponsiveContentPadding">
+            <items>
+                <IconTabFilter id="IconTabFilterBookDetailsDefinition" text="Definition" key="definition">
+                    <content>
+                        <OverflowToolbar id="bookdetails_toolbar_header">
+                            <Title id="bookdetails_title_header" text="{i18n>BookDetails}"/>
+                            <ToolbarSpacer id="bookdetails_spacer_header" />
+                            <Button id="bookdetails_button_edit" text="Edit" type="Emphasized" press="onEditPressed"/>
+                        </OverflowToolbar>
         
-        <smartForm:SmartForm id="bookdetails_smartform">
-            <smartForm:Group id="bookdetails_group">
-                <smartForm:GroupElement id="bookdetails_element_isbn" label="{/#Book/ISBN/@sap:label}">
-                    <smartField:SmartField id="bookdetails_field_isbn" value="{ISBN}" />
-                </smartForm:GroupElement>
-                <smartForm:GroupElement id="bookdetails_element_title" label="{/#Book/Title/@sap:label}">
-                    <smartField:SmartField id="bookdetails_field_title" value="{Title}" />
-                </smartForm:GroupElement>
-                <smartForm:GroupElement id="bookdetails_element_authors" label="{/#Book/Authors/@sap:label}">
-                    <smartField:SmartField id="bookdetails_field_authors" value="{Authors}" />
-                </smartForm:GroupElement>
-                <smartForm:GroupElement id="bookdetails_element_genres" label="{/#Book/Genres/@sap:label}">
-                    <smartField:SmartField id="bookdetails_field_genres" value="{Genres}" />
-                </smartForm:GroupElement>
-                <smartForm:GroupElement id="bookdetails_element_description" label="{/#Book/Description/@sap:label}">
-                    <smartField:SmartField id="bookdetails_field_description" value="{Description}" />
-                </smartForm:GroupElement>
-                <smartForm:GroupElement id="bookdetails_element_language" label="{/#Book/Language/@sap:label}">
-                    <smartField:SmartField id="bookdetails_field_language" value="{Language}" />
-                </smartForm:GroupElement>
-                <smartForm:GroupElement id="bookdetails_element_rating" label="{/#Book/Rating/@sap:label}">
-                    <RatingIndicator id="bookdetails_field_rating" class="sapUiNoMargin" maxValue="10" displayOnly="true" iconSize="1rem" value="{Rating}"/>
-                </smartForm:GroupElement>
-                <smartForm:GroupElement id="bookdetails_element_publication_date" label="{/#Book/PublicationDate/@sap:label}">
-                    <smartField:SmartField id="bookdetails_field_publication_date" value="{path:'PublicationDate', type:'sap.ui.model.odata.type.Date', formatOptions: { pattern: 'dd MMMM yyyy'}}" />
-                </smartForm:GroupElement>
-            </smartForm:Group>
-        </smartForm:SmartForm>
+                        <smartForm:SmartForm id="bookdetails_smartform">
+                            <smartForm:Group id="bookdetails_group">
+                                <smartForm:GroupElement id="bookdetails_element_isbn" label="{/#Book/ISBN/@sap:label}">
+                                    <smartField:SmartField id="bookdetails_field_isbn" value="{ISBN}" />
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="bookdetails_element_title" label="{/#Book/Title/@sap:label}">
+                                    <smartField:SmartField id="bookdetails_field_title" value="{Title}" />
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="bookdetails_element_authors" label="{/#Book/Authors/@sap:label}">
+                                    <smartField:SmartField id="bookdetails_field_authors" value="{Authors}" />
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="bookdetails_element_genres" label="{/#Book/Genres/@sap:label}">
+                                    <smartField:SmartField id="bookdetails_field_genres" value="{Genres}" />
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="bookdetails_element_description" label="{/#Book/Description/@sap:label}">
+                                    <smartField:SmartField id="bookdetails_field_description" value="{Description}" />
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="bookdetails_element_language" label="{/#Book/Language/@sap:label}">
+                                    <smartField:SmartField id="bookdetails_field_language" value="{Language}" />
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="bookdetails_element_rating" label="{/#Book/Rating/@sap:label}">
+                                    <RatingIndicator id="bookdetails_field_rating" class="sapUiNoMargin" maxValue="10" displayOnly="true" iconSize="1rem" value="{Rating}"/>
+                                </smartForm:GroupElement>
+                                <smartForm:GroupElement id="bookdetails_element_publication_date" label="{/#Book/PublicationDate/@sap:label}">
+                                    <smartField:SmartField id="bookdetails_field_publication_date" value="{path:'PublicationDate', type:'sap.ui.model.odata.type.Date', formatOptions: { pattern: 'dd MMMM yyyy'}}" />
+                                </smartForm:GroupElement>
+                            </smartForm:Group>
+                        </smartForm:SmartForm>
+                        <OverflowToolbar id="bookdetails_toolbar_footer">
+                            <ToolbarSpacer id="bookdetails_spacer_footer" />
+                            <Button id="bookdetails_button_cancel" text="Delete" press="onDeletePressed" type="Negative" />
+                        </OverflowToolbar>
+                    </content>
+                </IconTabFilter>
+
+                <IconTabFilter id="IconTabFilterBookDetailsTranslation" text="Translations" key="translations">
+                    <content>
+                        <Table id="table_booksmaintenance_translations" headerText="{i18n>BooksTranslationsTitle.tableHeader}" items="{BookTextSet}" growing="true" growingThreshold="200" alternateRowColors="true" >
+                            <headerToolbar>
+                                <Toolbar id="Books_Translations_Table_Toolbar">
+                                    <Title id="Books_Translations_table_title" text="{i18n>BooksTranslations.tableHeader}" />
+                                    <ToolbarSpacer id="Books_Translations_table_toolbarspacer" />
+                                    <Button id="Books_Translations_table_createbutton" text="{i18n>button.createTranslationButton}" type="Emphasized" press="onCreateTranslationPressed"></Button>
+                                </Toolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column id="BooksTranslations_Language">
+                                    <header>
+                                        <Text id="bookstranslations_text_language" text="{/BookTextSet/Spras/@sap:label}"/>
+                                    </header>
+                                </Column>
+                                <Column id="BooksTranslations_Name">
+                                    <header>
+                                        <Text id="bookstranslations_text_customer" text="{/BookTextSet/Title/@sap:label}"/>
+                                    </header>
+                                </Column>
+                                <Column id="BooksTranslations_Description">
+                                    <header>
+                                        <Text id="bookstranslations_text_startdate" text="{/BookTextSet/Description/@sap:label}"/>
+                                    </header>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem id="bookstranslations_columnlistitem_template" press="onEditTranslationPressed" type="Navigation">
+                                    <cells>
+                                        <Text id="bookstranslations_text_idtemplate" text="{Spras}"/>
+                                        <Text id="bookstranslations_text_nametemplate" text="{Name}"/>
+                                        <Text id="bookstranslations_textdescriptiontemplate" text="{Description}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </IconTabFilter>
+
+                <IconTabFilter id="IconTabFilterBookDetailsCopies" text="Book copies" key="bookcopies">
+                    <content>
+                        <Table id="table_booksmaintenance_copy" headerText="{i18n>BooksTranslationsTitle.tableHeader}" items="{ToBook_copySet}" growing="true" growingThreshold="200" alternateRowColors="true" >
+                            <headerToolbar>
+                                <Toolbar id="Books_Copy_Table_Toolbar">
+                                    <Title id="Books_Copy_table_title" text="{i18n>BooksTranslations.tableHeader}" />
+                                    <ToolbarSpacer id="Books_Copy_table_toolbarspacer" />
+                                    <Button id="Books_Copy_table_createbutton" text="{i18n>button.createCopyButton}" type="Emphasized" press="onCreateCopyPressed"></Button>
+                                </Toolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column id="BooksCopy_Bookid">
+                                    <header>
+                                        <Text id="bookscopy_text_id" text="{/#Book_copy/Bookid/@sap:label}"/>
+                                    </header>
+                                </Column>
+                                <Column id="BooksCopy_ISBN">
+                                    <header>
+                                        <Text id="bookscopy_text_isbn" text="{/#Book_copy/ISBN/@sap:label}"/>
+                                    </header>
+                                </Column>
+                                <Column id="BooksCopy_Availability">
+                                    <header>
+                                        <Text id="bookscopy_text_availability" text="{/#Book_copy/Availability/@sap:label}"/>
+                                    </header>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem id="bookscopy_columnlistitem_template" press="onDisplayCopyPressed" type="Navigation">
+                                    <cells>
+                                    <Text id="bookscopy_text_bookidtemplate" text="{Bookid}"/>
+                                    <Text id="bookstcopy_text_isbntemplate" text="{ISBN}"/>
+                                    <ObjectStatus id="bookscopy_text_availabilitytemplate"
+                                        text="{Availability}"
+                                        state="{parts: ['Availability'], formatter: '.stateAvailabilityFormatter'}"
+                                        icon="{parts: ['Availability'], formatter: '.iconAvailabilityFormatter'}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </IconTabFilter>
+            </items>
+        </IconTabBar>
     </Page>
 </mvc:View>

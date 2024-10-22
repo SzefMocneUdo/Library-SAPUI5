@@ -4,7 +4,7 @@ sap.ui.define([
 function (Controller) {
     "use strict";
 
-    return Controller.extend("zkzilibraryproject.controller.Books", {
+    return Controller.extend("zkzilibraryproject.controller.BooksMaintenance", {
         onInit: function () {
         },
 
@@ -12,9 +12,14 @@ function (Controller) {
             let oRouter = this.getOwnerComponent().getRouter();
             const sPath = oEvent.getSource().getBindingContext().getPath();
 
-            oRouter.navTo("BookDisplay", {
+            oRouter.navTo("BookDetails", {
                 path: encodeURIComponent(sPath)
             });
+        },
+
+        onCreatePressed: function () {
+            let oRouter = this.getOwnerComponent().getRouter();
+            oRouter.navTo("CreateBook");
         }
     });
 });

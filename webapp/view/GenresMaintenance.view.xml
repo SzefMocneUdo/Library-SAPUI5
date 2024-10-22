@@ -10,7 +10,7 @@
                     <Toolbar id="Genres_Table_Toolbar">
                         <Title id="Genres_table_title" text="{i18n>GenresTitle.tableHeader}" />
                         <ToolbarSpacer id="Genres_table_toolbarspacer" />
-                        <Button id="Genres_table_createbutton" text="{i18n>genres.createGenreButton}" press="onCreatePressed"></Button>
+                        <Button id="Genres_table_createbutton" text="{i18n>genres.createGenreButton}" type="Emphasized" press="onCreatePressed"></Button>
                     </Toolbar>
                 </headerToolbar>
                 <columns>

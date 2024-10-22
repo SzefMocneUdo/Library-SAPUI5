@@ -10,7 +10,7 @@
                     <Toolbar id="Authors_Table_Toolbar">
                         <Title id="Authors_table_title" text="{i18n>AuthorsTitle.tableHeader}" />
                         <ToolbarSpacer id="Authors_table_toolbarspacer" />
-                        <Button id="Authors_table_createbutton" text="{i18n>authors.createAuthorButton}" press="onCreatePressed"></Button>
+                        <Button id="Authors_table_createbutton" text="{i18n>authors.createAuthorButton}" type="Emphasized" press="onCreatePressed"></Button>
                     </Toolbar>
                 </headerToolbar>
                 <columns>

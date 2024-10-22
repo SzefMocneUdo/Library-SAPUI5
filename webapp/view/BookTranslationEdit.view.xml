@@ -1,0 +1,27 @@
+<mvc:View
+ controllerName="zkzilibraryproject.controller.BookTranslationEdit"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns:core="sap.ui.core"
+ xmlns="sap.m"
+ xmlns:f="sap.ui.layout.form">
+    <Page id="BookTranslationEdit" title="{i18n>page.booksMaintenance}">
+        <f:SimpleForm id="booktranslation_simpleform" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+                        labelSpanS="12" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" >
+                        <Label id="BookTranslationEditLanguagelabel" text="{/#BookTextSet/Spras/@sap:label}" />
+                        <Input id="BookTranslationEditLanguageText" value="{Spras}" enabled="false" />
+                            
+                        <Label id="BookTranslationEditTitlelabel" text="{/#Book/Title/@sap:label}" />
+                        <Input id="BookTranslationEditTitleinput" required="true" value="{Title}" maxLength="70"/>
+
+                        <Label id="BookTranslationEditDescriptionlabel" text="{/#Book/Description/@sap:label}" />
+                        <Input id="BookTranslationEditDescriptioninput" required="true" value="{Description}" maxLength="150" />
+                    </f:SimpleForm>
+                    <OverflowToolbar id="booktranslation_toolbar_footer">
+                        <ToolbarSpacer id="booktranslation_spacer_footer" />
+                        <Button id="booktranslation_button_delete" text="Delete" press="onDeletePressed" type="Negative" />
+                        <ToolbarSpacer id="booktranslation_spacer_deletebutton" width="30px" />
+                        <Button id="booktranslation_button_save" text="Save" press="onSavePressed" type="Accept"/>
+                        <Button id="booktranslation_button_cancel" text="Cancel" press="onCancelPressed" type="Reject"/>
+                    </OverflowToolbar>
+    </Page>
+</mvc:View>

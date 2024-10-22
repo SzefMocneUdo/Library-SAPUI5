@@ -23,8 +23,23 @@ sap.ui.define(
       },
 
       getErrorMessage: function (oError) {
-        return JSON.parse(oError.responseText).error.message.value;
-      },
+        let errorMessage = "An unknown error occurred";
+
+        if (oError && oError.responseText) {
+            try {
+                const errorObj = JSON.parse(oError.responseText);
+
+                if (errorObj && errorObj.error && errorObj.error.message && errorObj.error.message.value) {
+                    errorMessage = errorObj.error.message.value;
+                }
+            } catch (e) {
+                console.error("Failed to parse error response as JSON", e);
+            }
+        }
+    
+        return errorMessage;
+    }
+    
     });
   }
 );
