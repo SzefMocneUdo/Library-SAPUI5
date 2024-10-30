@@ -1,10 +1,54 @@
-<mvc:View
- controllerName="zkzilibraryproject.controller.Loans"
+<mvc:View xmlns:internal="sap.landvisz.internal" xmlns:cards="sap.f.cards"
+ controllerName="zkzilibraryproject.controller.LoansMaintenance"
  xmlns:mvc="sap.ui.core.mvc"
+ xmlns:semantic="sap.f.semantic"
  xmlns="sap.m">
-    <Page id="LoansMaintenance" title="{i18n>LoansTitle}">
+    <Page id="LoansMaintenancePage" title="{i18n>page.loansMaintenance}">
+        <headerContent>
+            <Button id="CreateLoansMaintenance" press="onCreateLoan" text="Create" type="Emphasized" />
+        </headerContent>
+        <IconTabBar
+				id="iconTabBarLoansMaintenance"
+				select="onFilterSelect"
+				expandable="false">
+				<items>
+					<IconTabFilter id="LoansMaintenanceIconTabFilter1"
+						key="all"
+						showAll="true"
+						text="{i18n>WorklistFilterLoansAll}"/>
+					<IconTabSeparator id="LoansMaintenanceIconTabSeparator"/>
+					<IconTabFilter id="LoansMaintenanceIconTabFilter2"
+						key="finished"
+						icon="sap-icon://message-success"
+						iconColor="Positive"
+						text="{i18n>WorklistFilterLoansFinished}"/>
+					<IconTabFilter id="LoansMaintenanceIconTabFilter3"
+						key="pickedup"
+						icon="sap-icon://message-warning"
+						iconColor="Critical"
+						text="{i18n>WorklistFilterLoansPickedUp}"/>
+					<IconTabFilter id="LoansMaintenanceIconTabFilter4"
+						key="delayed"
+						icon="sap-icon://message-error"
+						iconColor="Negative"
+						text="{i18n>WorklistFilterLoansDelayed}"/>
+				</items>
         <content>
-            <Table id="main_table_loansmaintenance" headerText="{i18n>LoansTitle.tableHeader}" items="{/LoanSet}" growing="true" growingThreshold="200" alternateRowColors="true">
+            <Table id="main_table_loansmaintenance" headerText="{i18n>LoansMaintenanceTitle.tableHeader}" items="{/LoanSet}" growing="true" growingThreshold="200" alternateRowColors="false">
+                <headerToolbar>
+						<Toolbar id="LoansMaintenanceToolbarLoansMaintenance">
+							<Title
+								id="LoansMaintenancetableHeader"
+								text="{i18n>worklistTableTitleLoansMaintenance}"/>
+							<ToolbarSpacer id="LoansMaintenanceToolbarSpacerLoansMaintenance"/>
+							<SearchField
+								id="LoansMaintenancesearchField"
+								tooltip="{i18n>worklistSearchTooltip}"
+								liveChange="onSearch"
+								width="auto">
+							</SearchField>
+						</Toolbar>
+					</headerToolbar>
                 <columns>
                     <Column id="LoansMaintenanceId">
                         <header>
@@ -35,17 +79,19 @@
                 <items>
                     <ColumnListItem id="loansmaintenance_columnlistitem_template" press="onDetailsDialog" type="Navigation">
                         <cells>
-                            <Text id="loansmaintenance_text_idtemplate" text="{Loanid}"/>
+                            <ObjectIdentifier id="loansmaintenance_text_idtemplate" text="{Loanid}"/>
                             <Text id="loansmaintenance_text_customertemplate" text="{Reader}"/>
                             <Text id="loansmaintenance_text_startdatetemplate" text="{path: 'StartDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
                             <Text id="loansmaintenance_text_enddatetemplate" text="{path: 'EndDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
-                            <Text id="loansmaintenance_text_statustemplate" text="{Status}"/>
+                            <ObjectStatus id="loansmaintenance_text_statustemplate"
+                                        text="{Status}"
+                                        state="{parts: ['Status'], formatter: '.stateStatusFormatter'}"
+                                        icon="{parts: ['Status'], formatter: '.iconStatusFormatter'}" />
                             </cells>
                     </ColumnListItem>
                 </items>
             </Table>
-            
-            <Button id="CreateLoansMaintenance" press="onCreateLoan" text="Create" />
         </content>
+    </IconTabBar>
     </Page>
 </mvc:View>

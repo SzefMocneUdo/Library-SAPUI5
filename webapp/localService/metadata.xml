@@ -110,7 +110,7 @@
                     <PropertyRef Name="Loanid"/>
                 </Key>
                 <Property Name="Loanid" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Loan ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="true"/>
                 <Property Name="Reader" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="User Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="StartDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Loan start date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="EndDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Loan end date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
@@ -249,7 +249,7 @@
                 <EntitySet Name="BookSet" EntityType="ZKZI_LIBRARY_ODATA_SRV_01.Book" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:pageable="false" sap:content-version="1"/>
                 <EntitySet Name="Book_copySet" EntityType="ZKZI_LIBRARY_ODATA_SRV_01.Book_copy" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
                 <EntitySet Name="GenreSet" EntityType="ZKZI_LIBRARY_ODATA_SRV_01.Genre" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
-                <EntitySet Name="LoanSet" EntityType="ZKZI_LIBRARY_ODATA_SRV_01.Loan" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="LoanSet" EntityType="ZKZI_LIBRARY_ODATA_SRV_01.Loan" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:pageable="true" sap:content-version="1"/>
                 <AssociationSet Name="BookToAuthorBookSet" Association="ZKZI_LIBRARY_ODATA_SRV_01.BookToAuthorBook" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="BookSet" Role="FromRole_BookToAuthorBook"/>
                     <End EntitySet="AuthorBookSet" Role="ToRole_BookToAuthorBook"/>

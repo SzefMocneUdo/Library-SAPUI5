@@ -32,7 +32,7 @@
                 </IconTabFilter>
                 <IconTabFilter id="IconTabFilterGenresMaintenanceTranslations" text="Translations" key="translations">
                     <content>
-                        <Table id="table_genresmaintenance_translations" headerText="{i18n>GenresTranslationsTitle.tableHeader}" items="{ToGenreTextSet}" growing="true" growingThreshold="200" alternateRowColors="true" >
+                        <Table id="table_genresmaintenance_translations" headerText="{i18n>GenresTranslationsTitle.tableHeader}" items="{GenreTextSet}" growing="true" growingThreshold="200" alternateRowColors="true" >
                 <headerToolbar>
                     <Toolbar id="Genres_Translations_Table_Toolbar">
                         <Title id="Genres_Translations_table_title" text="{i18n>GenreTranslations.tableHeader}" />

@@ -23,7 +23,7 @@ sap.ui.define([
 
             onSavePressed: async function(){
                 const book = {
-                    Bookid: this.getView().byId("bookcopy_field_title").getValue(),
+                    Bookid: this.getView().byId("bookcopy_field_bookid").getValue(),
                     Availability: this.getView().byId("bookStatusComboBox").getSelectedKey()
                 }
 
@@ -43,7 +43,7 @@ sap.ui.define([
                     }
                 })
                 } catch(oError){
-                    console.log(oError);
+                    sap.m.MessageToast.show(this.getErrorMessage(oError));
                 }  
             },
 
