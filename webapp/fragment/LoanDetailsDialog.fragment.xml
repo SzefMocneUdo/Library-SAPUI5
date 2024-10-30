@@ -17,8 +17,8 @@
 					<f:content>
 						<Label id="LoanDetailsBooksLabel" text="Books" />
 						<Text id="LoanDetailsBooksText" text="{/Books}" wrapping="true" />
-						<Label id="LoanDetailsClientLabel" text="Client" />
-						<Input id="LoanDetailsClientInput" editable="false" value="{/Reader}">
+						<Label id="LoanDetailsCustomerLabel" text="Customer" />
+						<Input id="LoanDetailsCustomerInput" editable="false" value="{/Reader}">
 							<layoutData>
 								<f:ColumnElementData id="LoanDetailsColumnElementData" cellsSmall="8" cellsLarge="8" />
 							</layoutData>

@@ -410,4 +410,41 @@ sap.ui.define([
         });
     };
 
+    static createReservation(model, Reservation) {
+        return new Promise(function (resolve, reject) {
+            model.create('/ReservationSet', {
+                Reader: Reservation.Reader,
+                StartDate: Reservation.StartDate,
+                EndDate: Reservation.EndDate
+            }, {
+                success: resolve,
+                error: reject
+            });
+        });
+    };
+
+    static updateReservation(model, Reservation) {
+        return new Promise(function (resolve, reject) {
+            model.update(`/ReservationSet(guid'${Reservation.Reservationid}')`, {
+                Reservationid: Reservation.Reservationid,
+                Status: Reservation.Status
+            }, {
+                success: resolve,
+                error: reject
+            });
+        });
+    };
+
+    static createBookReservation(model, bookid, Reservationid) {
+        return new Promise(function (resolve, reject) {
+            model.create('/BookReservationSet', {
+                Bookid: bookid,
+                Reservationid: Reservationid
+            }, {
+                success: resolve,
+                error: reject
+            });
+        });
+    };
+
 });

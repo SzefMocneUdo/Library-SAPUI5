@@ -86,10 +86,7 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
         },
         
         onDetailsDialog: function(oEvent) {
-            var oLoan = oEvent.getSource().getBindingContext().getObject();
-            let i18nModel = this.getView().getModel("i18n");
-            console.log(i18nModel.l);
-            
+            var oLoan = oEvent.getSource().getBindingContext().getObject();          
              
             const startDate = new Date(oLoan.StartDate);
             const endDate = new Date(oLoan.EndDate);
@@ -181,7 +178,7 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
                 endDate = this.byId("CreateLoan_input_end_date").getValue();
 
             const loan = {
-                Reader: this.byId("CreateLoanClientInput").getValue(),
+                Reader: this.byId("CreateLoanCustomerInput").getValue(),
                 StartDate: startDate === "" ? null : `${DateFormat.getDateInstance({
                             pattern: "yyyy-MM-dd"
                            }).format(new Date(startDate))}T00:00:00`,
@@ -197,7 +194,7 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
                     sap.m.MessageToast.show("You must select at least one book");
                 }
                 else if (loan.Reader === "") {
-                    sap.m.MessageToast.show("Client cannot be empty");
+                    sap.m.MessageToast.show("Customer cannot be empty");
                 }
                 else{
                     let oModel = this.getOwnerComponent().getModel();
@@ -219,7 +216,7 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
                     });
                 }
             } catch (oError) {
-                sap.m.MessageBox.show(this.getErrorMessage(oError));                
+                sap.m.MessageToast.show(this.getErrorMessage(oError));                
             }
         },
 

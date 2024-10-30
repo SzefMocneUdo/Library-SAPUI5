@@ -1,51 +1,97 @@
-<mvc:View
+<mvc:View xmlns:internal="sap.landvisz.internal" xmlns:cards="sap.f.cards"
  controllerName="zkzilibraryproject.controller.ReservationsMaintenance"
  xmlns:mvc="sap.ui.core.mvc"
+ xmlns:semantic="sap.f.semantic"
  xmlns="sap.m">
-    <Page id="ReservationsMaintenance" title="{i18n>ReservationsTitle}">
+    <Page id="ReservationsMaintenancePage" title="{i18n>page.ReservationsMaintenance}">
+        <headerContent>
+            <Button id="CreateReservationsMaintenance" press="onCreateReservation" text="Create" type="Emphasized" />
+        </headerContent>
+        <IconTabBar
+				id="iconTabBarReservationsMaintenance"
+				select="onFilterSelect"
+				expandable="false">
+				<items>
+					<IconTabFilter id="ReservationsMaintenanceIconTabFilter1"
+						key="all"
+						showAll="true"
+						text="{i18n>WorklistFilterReservationsAll}"/>
+					<IconTabSeparator id="ReservationsMaintenanceIconTabSeparator"/>
+					<IconTabFilter id="ReservationsMaintenanceIconTabFilter2"
+						key="pickedup"
+						icon="sap-icon://message-success"
+						iconColor="Positive"
+						text="{i18n>WorklistFilterReservationsPickedUp}"/>
+					<IconTabFilter id="ReservationsMaintenanceIconTabFilter3"
+						key="reserved"
+						icon="sap-icon://message-warning"
+						iconColor="Critical"
+						text="{i18n>WorklistFilterReservationsReserved}"/>
+					<IconTabFilter id="ReservationsMaintenanceIconTabFilter4"
+						key="canceled"
+						icon="sap-icon://message-error"
+						iconColor="Negative"
+						text="{i18n>WorklistFilterReservationsCanceled}"/>
+				</items>
         <content>
-            <Table id="main_table_reservationsmaintenance" headerText="{i18n>ReservationsTitle.tableHeader}" items="{/ReservationSet}" growing="true" growingThreshold="200" alternateRowColors="true">
+            <Table id="main_table_reservationsmaintenance" headerText="{i18n>ReservationsMaintenanceTitle.tableHeader}" items="{/ReservationSet}" growing="true" growingThreshold="200" alternateRowColors="false">
+                <headerToolbar>
+						<Toolbar id="ReservationsMaintenanceToolbar">
+							<Title
+								id="ReservationsMaintenancetableHeader"
+								text="{i18n>worklistTableTitleReservationsMaintenance}"/>
+							<ToolbarSpacer id="ReservationsMaintenanceToolbarSpacerReservationsMaintenance"/>
+							<SearchField
+								id="ReservationsMaintenancesearchField"
+								tooltip="{i18n>worklistSearchTooltip}"
+								liveChange="onSearch"
+								width="auto">
+							</SearchField>
+						</Toolbar>
+					</headerToolbar>
                 <columns>
                     <Column id="ReservationsMaintenanceId">
                         <header>
-                            <Text id="reservationsmaintenance_text_id" text="{/#Reservation/Reservationid/@sap:label}"/>
+                            <Text id="Reservationsmaintenance_text_id" text="{/#Reservation/Reservationid/@sap:label}"/>
                         </header>
                     </Column>
                     <Column id="ReservationsMaintenanceCustomer">
                         <header>
-                            <Text id="reservationsmaintenance_text_customer" text="{/#Reservation/Reader/@sap:label}"/>
+                            <Text id="Reservationsmaintenance_text_customer" text="{/#Reservation/Reader/@sap:label}"/>
                         </header>
                     </Column>
                     <Column id="ReservationsMaintenanceStartDate">
                         <header>
-                            <Text id="reservationsmaintenance_text_startdate" text="{/#Reservation/StartDate/@sap:label}"/>
+                            <Text id="Reservationsmaintenance_text_startdate" text="{/#Reservation/StartDate/@sap:label}"/>
                         </header>
                     </Column>
                     <Column id="ReservationsMaintenanceEndDate">
                         <header>
-                            <Text id="reservationsmaintenance_text_enddate" text="{/#Reservation/EndDate/@sap:label}"/>
+                            <Text id="Reservationsmaintenance_text_enddate" text="{/#Reservation/EndDate/@sap:label}"/>
                         </header>
                     </Column>
                     <Column id="ReservationsMaintenanceStatus">
                         <header>
-                            <Text id="reservationsmaintenance_text_status" text="{/#Reservation/Status/@sap:label}"/>
+                            <Text id="Reservationsmaintenance_text_status" text="{/#Reservation/Status/@sap:label}"/>
                         </header>
                     </Column>
                 </columns>
                 <items>
-                    <ColumnListItem id="reservationsmaintenance_columnlistitem_template" press="onDetailsDialog" type="Navigation">
+                    <ColumnListItem id="Reservationsmaintenance_columnlistitem_template" press="onDetailsDialog" type="Navigation">
                         <cells>
-                            <Text id="reservationsmaintenance_text_idtemplate" text="{Reservationid}"/>
-                            <Text id="reservationsmaintenance_text_customertemplate" text="{Reader}"/>
-                            <Text id="reservationsmaintenance_text_startdatetemplate" text="{path: 'StartDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
-                            <Text id="reservationsmaintenance_text_enddatetemplate" text="{path: 'EndDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
-                            <Text id="reservationsmaintenance_text_statustemplate" text="{Status}"/>
+                            <ObjectIdentifier id="Reservationsmaintenance_text_idtemplate" text="{Reservationid}"/>
+                            <Text id="Reservationsmaintenance_text_customertemplate" text="{Reader}"/>
+                            <Text id="Reservationsmaintenance_text_startdatetemplate" text="{path: 'StartDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
+                            <Text id="Reservationsmaintenance_text_enddatetemplate" text="{path: 'EndDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
+                            <ObjectStatus id="Reservationsmaintenance_text_statustemplate"
+                                        text="{Status}"
+                                        state="{parts: ['Status'], formatter: '.stateStatusFormatter'}"
+                                        icon="{parts: ['Status'], formatter: '.iconStatusFormatter'}" />
                             </cells>
                     </ColumnListItem>
                 </items>
             </Table>
-            
-            <Button id="CreateReservationsMaintenance" press="onCreateReservation" text="Create" />
         </content>
+    </IconTabBar>
     </Page>
 </mvc:View>

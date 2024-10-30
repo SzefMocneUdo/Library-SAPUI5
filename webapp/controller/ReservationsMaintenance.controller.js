@@ -1,81 +1,239 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
-    "sap/m/Dialog",
-    "sap/m/library",
-    "sap/m/StandardListItem",
-    "sap/m/Button"
+    "zkzilibraryproject/controller/Base.controller",
+    "sap/m/MessageBox",
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/model/Filter",
+    'sap/ui/model/FilterOperator',
+    'sap/ui/core/Fragment',
+    "zkzilibraryproject/model/Service",
+    "sap/ui/core/format/DateFormat"
 ],
-function (Controller, Dialog, mobileLibrary, StandardListItem, Button) {
+function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service, DateFormat) {
     "use strict";
 
-	var ButtonType = mobileLibrary.ButtonType;
+    return Base.extend("zkzilibraryproject.controller.ReservationsMaintenance", {
+        onInit: function () {       
+            // this.countItemsPerFilter();   
+        },
 
+        // countItemsPerFilter: function () {
+        //     var oModel = this.getOwnerComponent().getModel();
+        //     var oData = oModel.oData;
+        //     console.log(oData);   
 
-    return Controller.extend("zkzilibraryproject.controller.Reservations", {
-        onInit: function () {
-        },        
+        //     var iCountAll = 0,
+        //         iCountFinished = 0,
+        //         iCountPickedUp = 0,
+        //         iCountDelayed = 0;
 
-        onDetailsDialog: function(oEvent) {
-            var oReservation = oEvent.getSource().getBindingContext().getObject();
-            
-            if (!this.oFixedSizeDialog) {
-                this.oFixedSizeDialog = new Dialog({
-                    title: this.getView().getModel("i18n").getResourceBundle().getText("ReservationDetails"),
-                    contentWidth: "550px",
-                    contentHeight: "300px",
-                    content: [
-                        new StandardListItem({
-                            title: "Reservation ID",
-                            description: "{/Reservationid}"
-                        }),
-                        new StandardListItem({
-                            title: "Status",
-                            description: "{/Status}"
-                        }),
-                        new StandardListItem({
-                            title: "Books",
-                            description: "{/Books}"
-                        }),
-                        new StandardListItem({
-                            title: "Start Date",
-                            description: "{/FormattedStartDate}" 
-                        }),
-                        new StandardListItem({
-                            title: "End Date",
-                            description: "{/FormattedEndDate}"
-                        })
-                    ],
-                    endButton: new Button({
-                        type: ButtonType.Emphasized,
-                        text: "Close",
-                        press: function () {
-                            this.oFixedSizeDialog.close();
-                        }.bind(this)
-                    })
-                });
-                
-                this.getView().addDependent(this.oFixedSizeDialog);
-            }
+        //     // oData.forEach(function (oLoan) {
+        //     //     iCountAll++;
+        //     //     switch (oLoan.Status) {
+        //     //         case "FINISHED":
+        //     //             iCountFinished++;
+        //     //             break;
+        //     //         case "PICKED UP":
+        //     //             iCountPickedUp++;
+        //     //             break;
+        //     //         case "DELAYED":
+        //     //             iCountDelayed++;
+        //     //             break;
+        //     //         default:
+        //     //             break;
+        //     //     }
+        //     // });
+
+        //     this.getView().byId("LoansMaintenanceIconTabFilter1").setCount(iCountAll);
+        //     this.getView().byId("LoansMaintenanceIconTabFilter2").setCount(iCountFinished);
+        //     this.getView().byId("LoansMaintenanceIconTabFilter3").setCount(iCountPickedUp);
+        //     this.getView().byId("LoansMaintenanceIconTabFilter4").setCount(iCountDelayed);
+        // },
+
+        onFilterSelect: function (oEvent) {
+            var oBinding = this.byId("main_table_reservationsmaintenance").getBinding("items"),
+                sKey = oEvent.getParameter("key"),
+                aFilters = [];
         
+            if (sKey === "pickedup") {
+                aFilters.push(new Filter("Status", FilterOperator.EQ, "PICKED UP"));
+            }
+            else if (sKey === "reserved") {
+                aFilters.push(new Filter("Status", FilterOperator.EQ, "RESERVED"));
+            }
+            else if (sKey === "canceled") {
+                aFilters.push(new Filter("Status", FilterOperator.EQ, "CANCELED"));
+            }
             
+            oBinding.filter(aFilters);
+        },
+
+        onCreateReservation: async function() {
+            let i18nModel = this.getView().getModel("i18n");
+            sap.ui.getCore().setModel(i18nModel, "i18n");
+
+            let oModel = this.getOwnerComponent().getModel();
+            oModel.read("/Book_copySet");
+
+            this.oDialog ??= await Fragment.load({
+                id: this.getView().getId(),
+                name: "zkzilibraryproject.fragment.CreateReservationDialog",
+                controller: this
+            });
+
+            this.oDialog.setModel(oModel);
+
+            this.oDialog.open();
+        },
+        
+        onDetailsDialog: function(oEvent) {
+            var oReservation = oEvent.getSource().getBindingContext().getObject();        
+             
             const startDate = new Date(oReservation.StartDate);
             const endDate = new Date(oReservation.EndDate);
+
             const options = { day: '2-digit', month: 'long', year: 'numeric' };
-            const formattedStartDate = startDate.toLocaleDateString('pl-PL', options);
-            const formattedEndDate = endDate.toLocaleDateString('pl-PL', options);
+            const formattedStartDate = startDate;
+            const formattedEndDate = endDate;
         
-            var oDialogModel = new sap.ui.model.json.JSONModel({
+            var oDialogModel = new JSONModel({
                 Reservationid: oReservation.Reservationid,
                 Status: oReservation.Status,
                 Books: oReservation.Books,
+                Reader: oReservation.Reader,
                 FormattedStartDate: formattedStartDate,
                 FormattedEndDate: formattedEndDate
             });
         
-            this.oFixedSizeDialog.setModel(oDialogModel);
+            if (!this.oDialog) {
+                Fragment.load({
+                    id: this.getView().getId(),
+                    name: "zkzilibraryproject.fragment.ReservationDetailsDialog",
+                    controller: this
+                }).then(function(oDialog) {
+                    this.oDialog = oDialog;
+                    this.getView().addDependent(this.oDialog);
+                    this.oDialog.setModel(oDialogModel);
+                    this.oDialog.open();
+                }.bind(this));
+            } else {
+                this.oDialog.setModel(oDialogModel);
+                this.oDialog.open();
+            }
+        },
+
+        onSearch: function (oEvent) { 
+            let filter;
+			let sQuery = oEvent.getSource().getValue();
+
+			if (sQuery && sQuery.length > 0) {
+                sQuery = sQuery.toUpperCase();
+				filter = new Filter("Status", FilterOperator.Contains, sQuery);
+			}
+            this.getView().byId("main_table_reservationsmaintenance").getBinding("items").filter(filter);
+        },
+
+        onUpdatePressed: async function () {
+            const reservation = {
+                Reservationid: (this.byId("SimpleFormChangeColumn_ReservationDetails").mAggregations.title).slice(-36),
+                Status: this.byId("ReservationStatusComboBox").getSelectedKey()
+            }
+
+                try {
+                    await Service.updateReservation(this.getOwnerComponent().getModel(), reservation);
+
+                    this.getView().getModel().submitChanges({
+                        success: () => {
+                            sap.m.MessageToast.show("Succesfully updated");
+                            this.getOwnerComponent().getModel().refresh(true);
+                            this.closeDialog();
+                        },
+                        error: () => {
+                            sap.m.MessageToast.show("An error occurred!");
+                        }
+                    });
+                } catch (oError) {
+                    sap.m.MessageToast.show(this.getErrorMessage(oError));
+                }
+        },
+
+        onSavePressed: async function () {
+
+            let startDate = this.byId("CreateReservation_input_start_date").getValue(),
+                endDate = this.byId("CreateReservation_input_end_date").getValue();
+
+            const reservation = {
+                Reader: this.byId("CreateReservationCustomerInput").getValue(),
+                StartDate: startDate === "" ? null : `${DateFormat.getDateInstance({
+                            pattern: "yyyy-MM-dd"
+                           }).format(new Date(startDate))}T00:00:00`,
+                EndDate: endDate === "" ? null : `${DateFormat.getDateInstance({
+                    pattern: "yyyy-MM-dd"
+                   }).format(new Date(endDate))}T00:00:00`
+            }
+
+            const books = this.getView().byId("createReservation_booksMultiComboBox").getSelectedKeys();
+
+            try{
+                if (books.length === 0) {
+                    sap.m.MessageToast.show("You must select at least one book");
+                }
+                else if (reservation.Reader === "") {
+                    sap.m.MessageToast.show("Customer cannot be empty");
+                }
+                else{
+                    let oModel = this.getOwnerComponent().getModel();
+                    const createdreservation = await Service.createReservation(oModel, reservation);
+
+                    for(let i = 0; i < books.length; i++){
+                        await Service.createBookReservation(oModel, books[i], createdreservation.Reservationid);
+                    };
             
-            this.oFixedSizeDialog.open();
+                    this.getView().getModel().submitChanges({
+                        success: () => {
+                            MessageBox.information(`A new reservation with ID: '${createdreservation.Reservationid}' has been created`);
+                            this.getOwnerComponent().getModel().refresh(true);
+                            this.closeDialog();
+                        },
+                        error: () => {
+                            sap.m.MessageToast.show("An error occurred!");
+                        }
+                    });
+                }
+            } catch (oError) {
+                sap.m.MessageToast.show(this.getErrorMessage(oError));                
+            }
+        },
+
+        closeDialog: function () {
+            this.oDialog.close();
+            this.oDialog.destroy();
+            this.oDialog = null;
+
+            this.getView().getModel().refresh(true);
         },
         
+        stateStatusFormatter: function(Status){
+            if(Status ===  "PICKED UP"){
+                return "Success";
+            }
+            else if(Status === "RESERVED"){
+                return "Warning";
+            }
+            else{
+                return "Error";
+            }
+        },
+
+        iconStatusFormatter: function(Status){
+            if(Status ===  "PICKED UP"){
+                return "sap-icon://message-success";
+            }
+            else if(Status === "RESERVED"){
+                return "sap-icon://message-warning";
+            }
+            else{
+                return "sap-icon://message-error";
+            }
+        }
     });
 });

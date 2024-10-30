@@ -14,8 +14,8 @@
 						<MultiComboBox id="createloan_booksMultiComboBox" required="true" showSecondaryValues= "true" items="{path:'/Book_copySet', parameters:{expand:'ToBook'}, filters: [{path: 'Availability', operator: 'EQ', value1: 'AVAILABLE'}]}"  valueStateText="{i18n>bookManagement.authorsEmptiness}">
                             <core:ListItem id="createloan_inputbooks" key="{parts:['Bookid'], formatter:'sap.ui.base.ManagedObject.escapeSettingsValue'}" text="{Bookid}" additionalText="{ToBook/Title}"/>
                         </MultiComboBox>
-						<Label id="CreateLoanClientLabel" text="Client" required="true" />
-						<Input id="CreateLoanClientInput">
+						<Label id="CreateLoanCustomerLabel" text="Customer" required="true" />
+						<Input id="CreateLoanCustomerInput">
 							<layoutData>
 								<f:ColumnElementData id="CreateLoanColumnElementData" cellsSmall="8" cellsLarge="8" />
 							</layoutData>
