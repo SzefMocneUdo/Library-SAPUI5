@@ -80,6 +80,8 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
                 controller: this
             });
 
+            oModel.oData.IsMaintainable = true;
+
             this.oDialog.setModel(oModel);
 
             this.oDialog.open();
@@ -101,8 +103,15 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
                 Books: oReservation.Books,
                 Reader: oReservation.Reader,
                 FormattedStartDate: formattedStartDate,
-                FormattedEndDate: formattedEndDate
+                FormattedEndDate: formattedEndDate,
+                IsMaintainable: true
             });
+
+            if(oDialogModel.oData.Status === "RESERVED") {
+                oDialogModel.oData.IsMaintainable = true;
+            } else {
+                oDialogModel.oData.IsMaintainable = false;
+            }
         
             if (!this.oDialog) {
                 Fragment.load({

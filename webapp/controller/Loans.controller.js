@@ -64,8 +64,6 @@ function (Base, JSONModel, Filter, FilterOperator, Fragment, Service, DateFormat
             this.username = ""; 
             this.setUserName().then(() => {
                 this.setDataFilter();
-            }).then(() => {
-                this.setDataFilter(); 
             });          
         },
 
@@ -90,7 +88,12 @@ function (Base, JSONModel, Filter, FilterOperator, Fragment, Service, DateFormat
                 aFilters.push(new Filter("Reader", FilterOperator.EQ, this.username));
             }
             
-            oBinding.filter(aFilters);
+            oBinding.filter(new Filter({
+                filters: aFilters,
+                and: true
+            }));
+
+            console.log(this.getOwnerComponent().getModel());
         },
 
         setDataFilter: async function () {

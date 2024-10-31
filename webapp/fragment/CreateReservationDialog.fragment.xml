@@ -7,7 +7,7 @@
 		id="CreateReservation"
 		title="{i18n>title.CreateNewReservation}">
 		<content>
-			<VBox class="sapUiSmallMargin" id="CreateReservationformContainer" height="350px" width="400px">
+			<VBox class="sapUiSmallMargin" id="CreateReservationformContainer"  width="400px">
 				<f:SimpleForm id="SimpleFormChangeColumn_CreateReservation">
 					<f:content>
 						<Label id="CreateReservationBooksLabel" text="Books" />
@@ -15,15 +15,15 @@
                             <core:ListItem id="createReservation_inputbooks" key="{parts:['Bookid'], formatter:'sap.ui.base.ManagedObject.escapeSettingsValue'}" text="{Bookid}" additionalText="{ToBook/Title}"/>
                         </MultiComboBox>
 						<Label id="CreateReservationCustomerLabel" text="Customer" required="true" />
-						<Input id="CreateReservationCustomerInput">
+						<Input id="CreateReservationCustomerInput" visible="{= ${/IsMaintainable} === true }">
 							<layoutData>
 								<f:ColumnElementData id="CreateReservationColumnElementData" cellsSmall="8" cellsLarge="8" />
 							</layoutData>
 						</Input>
 						<Label id="CreateReservationStartDateLabel" text="Start Date" />
-						<DatePicker id="CreateReservation_input_start_date" maxDate="{ todayDate }" displayFormat="dd MMMM yyyy" />
+						<DatePicker id="CreateReservation_input_start_date" displayFormat="dd MMMM yyyy" visible="{= ${/IsMaintainable} === true }" />
 						<Label id="CreateReservationEndDateLabel" text="End Date" />
-						<DatePicker id="CreateReservation_input_end_date" maxDate="{ todayDate }" displayFormat="dd MMMM yyyy" />
+						<DatePicker id="CreateReservation_input_end_date" displayFormat="dd MMMM yyyy" visible="{= ${/IsMaintainable} === true }" />
 					</f:content>
 				</f:SimpleForm>
 			</VBox>
