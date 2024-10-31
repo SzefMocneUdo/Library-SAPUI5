@@ -1,110 +1,105 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
-    "sap/m/Dialog",
-    "sap/m/library",
-    "sap/m/List",
-    "sap/m/StandardListItem",
-    "sap/m/Button",
-    "sap/ui/model/json/JSONModel"
+    "zkzilibraryproject/controller/Base.controller",
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/model/Filter",
+    'sap/ui/model/FilterOperator',
+    'sap/ui/core/Fragment',
+    "zkzilibraryproject/model/Service",
+    "sap/ui/core/format/DateFormat"
 ],
-function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button, JSONModel) {
+function (Base, JSONModel, Filter, FilterOperator, Fragment, Service, DateFormat) {
     "use strict";
 
-    // shortcut for sap.m.ButtonType
-	var ButtonType = mobileLibrary.ButtonType;
+    return Base.extend("zkzilibraryproject.controller.Loans", {
+        onInit: function () {            
+        },
+        
+        setUserName: function () {
+            return new Promise((resolve) => {
+                Service.getUserInfo(this.getOwnerComponent().getModel()).then((uname) => {
+                    this.username = uname.results[0].UserName;                   
+                    resolve();
+                }).catch((oError) => {
+                    console.error(oError);
+                    resolve();
+                });
+            });
+        },
+        
 
-	// shortcut for sap.m.DialogType
-	var DialogType = mobileLibrary.DialogType;
+        // countItemsPerFilter: function () {
+        //     var oModel = this.getOwnerComponent().getModel();
+        //     var oData = oModel.oData;
+        //     console.log(oData);   
 
-    return Controller.extend("zkzilibraryproject.controller.Loans", {
-        onInit: function () {
-            // var oViewModel,
-			// 	iOriginalBusyDelay,
-			// 	oTable = this.byId("main_table_userloans");
+        //     var iCountAll = 0,
+        //         iCountFinished = 0,
+        //         iCountPickedUp = 0,
+        //         iCountDelayed = 0;
 
-			// iOriginalBusyDelay = oTable.getBusyIndicatorDelay();
-			// this._oTable = oTable;
-			// // keeps the search state
-			// this._aTableSearchState = [];
+        //     // oData.forEach(function (oLoan) {
+        //     //     iCountAll++;
+        //     //     switch (oLoan.Status) {
+        //     //         case "FINISHED":
+        //     //             iCountFinished++;
+        //     //             break;
+        //     //         case "PICKED UP":
+        //     //             iCountPickedUp++;
+        //     //             break;
+        //     //         case "DELAYED":
+        //     //             iCountDelayed++;
+        //     //             break;
+        //     //         default:
+        //     //             break;
+        //     //     }
+        //     // });
 
-			// // Model used to manipulate control states
-			// oViewModel = new JSONModel({
-			// 	worklistTableTitle: this.getResourceBundle().getText("worklistTableTitleUserLoans"),
-			// 	shareOnJamTitle: this.getResourceBundle().getText("LoansTitle"),
-			// 	// tableNoDataText: this.getResourceBundle().getText("tableNoDataText"),
-			// 	tableBusyDelay: 0,
-			// 	finished: 0,
-			// 	inprogress: 0,
-			// 	delayed: 0,
-			// 	countAll: 0
-			// });
-			// this.setModel(oViewModel, "worklistView");
-			// // Create an object of filters
-			// this._mFilters = {
-			// 	"finished": [new Filter("UnitsInStock", FilterOperator.GT, 0)],
-			// 	"inprogress": [new Filter("UnitsInStock", FilterOperator.GT, 0)],
-			// 	"delayed": [new Filter("UnitsInStock", FilterOperator.GT, 0)],
-			// 	"all": []
-			// };
+        //     this.getView().byId("UserLoansIconTabFilter1").setCount(iCountAll);
+        //     this.getView().byId("UserLoansIconTabFilter2").setCount(iCountFinished);
+        //     this.getView().byId("UserLoansIconTabFilter3").setCount(iCountPickedUp);
+        //     this.getView().byId("UserLoansIconTabFilter4").setCount(iCountDelayed);
+        // },
 
-			// // Make sure, busy indication is showing immediately so there is no
-			// // break after the busy indication for loading the view's meta data is
-			// // ended (see promise 'oWhenMetadataIsLoaded' in AppController)
-			// oTable.attachEventOnce("updateFinished", function(){
-			// 	// Restore original busy indicator delay for worklist's table
-			// 	oViewModel.setProperty("/tableBusyDelay", iOriginalBusyDelay);
-			// });
+        onBeforeRendering() {
+            this.username = ""; 
+            this.setUserName().then(() => {
+                this.setDataFilter();
+            }).then(() => {
+                this.setDataFilter(); 
+            });          
         },
 
-        onDetailsDialog: function(oEvent) {
-            var oLoan = oEvent.getSource().getBindingContext().getObject();
-            
-            if (!this.oFixedSizeDialog) {
-                this.oFixedSizeDialog = new Dialog({
-                    title: this.getView().getModel("i18n").getResourceBundle().getText("LoanDetails"),
-                    contentWidth: "550px",
-                    contentHeight: "300px",
-                    content: [
-                        new StandardListItem({
-                            title: "Loan ID",
-                            description: "{/Loanid}"
-                        }),
-                        new StandardListItem({
-                            title: "Status",
-                            description: "{/Status}"
-                        }),
-                        new StandardListItem({
-                            title: "Books",
-                            description: "{/Books}"
-                        }),
-                        new StandardListItem({
-                            title: "Start Date",
-                            description: "{/FormattedStartDate}" 
-                        }),
-                        new StandardListItem({
-                            title: "End Date",
-                            description: "{/FormattedEndDate}"
-                        }),
-                        new StandardListItem({
-                            title: "Pickup Date",
-                            description: "{/FormattedPickupDate}" 
-                        }),
-                        new StandardListItem({
-                            title: "Return Date",
-                            description: "{/FormattedReturnDate}"
-                        })
-                    ],
-                    endButton: new Button({
-                        type: ButtonType.Emphasized,
-                        text: "Close",
-                        press: function () {
-                            this.oFixedSizeDialog.close();
-                        }.bind(this)
-                    })
-                });
-                
-                this.getView().addDependent(this.oFixedSizeDialog);
+        onFilterSelect: function (oEvent) {
+            var oBinding = this.byId("main_table_UserLoans").getBinding("items"),
+                sKey = oEvent.getParameter("key"),
+                aFilters = [];                
+        
+            if (sKey === "all") {
+                aFilters.push(new Filter("Reader", FilterOperator.EQ, this.username));
             }
+            else if (sKey === "finished") {
+                aFilters.push(new Filter("Status", FilterOperator.EQ, "FINISHED"));
+                aFilters.push(new Filter("Reader", FilterOperator.EQ, this.username));
+            }
+            else if (sKey === "pickedup") {
+                aFilters.push(new Filter("Status", FilterOperator.EQ, "PICKED UP"));
+                aFilters.push(new Filter("Reader", FilterOperator.EQ, this.username));
+            }
+            else if (sKey === "delayed") {
+                aFilters.push(new Filter("Status", FilterOperator.EQ, "DELAYED"));
+                aFilters.push(new Filter("Reader", FilterOperator.EQ, this.username));
+            }
+            
+            oBinding.filter(aFilters);
+        },
+
+        setDataFilter: async function () {
+            const oBinding = this.byId("main_table_UserLoans").getBinding("items");                        
+            oBinding.filter(new Filter("Reader", FilterOperator.EQ, this.username));
+        },
+        
+        onDetailsDialog: function(oEvent) {
+            var oLoan = oEvent.getSource().getBindingContext().getObject();          
              
             const startDate = new Date(oLoan.StartDate);
             const endDate = new Date(oLoan.EndDate);
@@ -112,45 +107,85 @@ function (Controller, Dialog, mobileLibrary, List, StandardListItem, Button, JSO
             const returnDate = new Date(oLoan.ReturnDate);
 
             const options = { day: '2-digit', month: 'long', year: 'numeric' };
-            const formattedStartDate = startDate.toLocaleDateString('pl-PL', options);
-            const formattedEndDate = endDate.toLocaleDateString('pl-PL', options);
-            const formattedPickupDate = pickupDate.toLocaleDateString('pl-PL', options);
-            const formattedReturnDate = returnDate.toLocaleDateString('pl-PL', options);
+            const formattedStartDate = startDate;
+            const formattedEndDate = endDate;
+            const formattedPickupDate = pickupDate;
+            const formattedReturnDate = returnDate.toLocaleDateString(navigator.language, options);
         
             var oDialogModel = new JSONModel({
                 Loanid: oLoan.Loanid,
                 Status: oLoan.Status,
                 Books: oLoan.Books,
+                Reader: oLoan.Reader,
                 FormattedStartDate: formattedStartDate,
                 FormattedEndDate: formattedEndDate,
                 FormattedPickupDate: formattedPickupDate,
-                FormattedReturnDate: formattedReturnDate
+                FormattedReturnDate: formattedReturnDate,
+                IsMaintainable: false
             });
         
-            this.oFixedSizeDialog.setModel(oDialogModel);
-            
-            this.oFixedSizeDialog.open();
+            if (!this.oDialog) {
+                Fragment.load({
+                    id: this.getView().getId(),
+                    name: "zkzilibraryproject.fragment.LoanDetailsDialog",
+                    controller: this
+                }).then(function(oDialog) {
+                    this.oDialog = oDialog;
+                    this.getView().addDependent(this.oDialog);
+                    this.oDialog.setModel(oDialogModel);
+                    this.oDialog.open();
+                }.bind(this));
+            } else {
+                this.oDialog.setModel(oDialogModel);
+                this.oDialog.open();
+            }
         },
 
-        onQuickFilter: function(oEvent) {
-			var oBinding = this._oTable.getBinding("items"),
-				sKey = oEvent.getParameter("selectedKey");
-			oBinding.filter(this._mFilters[sKey]);
-		},
+        onSearch: function (oEvent) { 
+            let filter;
+			let sQuery = oEvent.getSource().getValue();           
 
-        onSearch : function (oEvent) {
-			if (oEvent.getParameters().refreshButtonPressed) {
-				this.onRefresh();
-			} else {
-				var aTableSearchState = [];
-				var sQuery = oEvent.getParameter("query");
-
-				if (sQuery && sQuery.length > 0) {
-					aTableSearchState = [new Filter("ProductName", FilterOperator.Contains, sQuery)];
-				}
-				this._applySearch(aTableSearchState);
+			if (sQuery && sQuery.length > 0) {
+                sQuery = sQuery.toUpperCase();
+				filter = [new Filter("Status", FilterOperator.Contains, sQuery),
+                    new Filter("Reader", FilterOperator.EQ, this.username)];
 			}
+            else if (sQuery.length === 0) {
+                filter = new Filter("Reader", FilterOperator.EQ, this.username);
+            }
+            this.getView().byId("main_table_UserLoans").getBinding("items").filter(filter);
+        },
 
-		},
+        closeDialog: function () {
+            this.oDialog.close();
+            this.oDialog.destroy();
+            this.oDialog = null;
+
+            this.getView().getModel().refresh(true);
+        },
+        
+        stateStatusFormatter: function(Status){
+            if(Status ===  "FINISHED"){
+                return "Success";
+            }
+            else if(Status === "PICKED UP"){
+                return "Warning";
+            }
+            else{
+                return "Error";
+            }
+        },
+
+        iconStatusFormatter: function(Status){
+            if(Status ===  "FINISHED"){
+                return "sap-icon://message-success";
+            }
+            else if(Status === "PICKED UP"){
+                return "sap-icon://message-warning";
+            }
+            else{
+                return "sap-icon://message-error";
+            }
+        }
     });
 });

@@ -1,105 +1,96 @@
-<mvc:View
+<mvc:View xmlns:internal="sap.landvisz.internal" xmlns:cards="sap.f.cards"
  controllerName="zkzilibraryproject.controller.Loans"
  xmlns:mvc="sap.ui.core.mvc"
  xmlns:semantic="sap.f.semantic"
  xmlns="sap.m">
-    <semantic:SemanticPage id="UserLoans" headerPinnable="false" toggleHeaderOnTitleClick="false" >
-
-        <semantic:titleHeading>
-            <Title id="UserLoansTitle" text="{i18n>LoansTitle}" />
-        </semantic:titleHeading>
-
-        <semantic:headerContent>
-            <IconTabBar
+    <Page id="UserLoansPage" title="{i18n>page.UserLoans}">
+        <headerContent>
+        </headerContent>
+        <IconTabBar
 				id="iconTabBarUserLoans"
-				select=".onQuickFilter"
+				select="onFilterSelect"
 				expandable="false">
 				<items>
-					<IconTabFilter id="_IDGenIconTabFilter1"
+					<IconTabFilter id="UserLoansIconTabFilter1"
 						key="all"
 						showAll="true"
-						count="{worklistView>/countAll}"
-						text="{i18n>WorklistFilterUserLoansAll}"/>
-					<IconTabSeparator id="_IDGenIconTabSeparator"/>
-					<IconTabFilter id="_IDGenIconTabFilter2"
+						text="{i18n>WorklistFilterLoansAll}"/>
+					<IconTabSeparator id="UserLoansIconTabSeparator"/>
+					<IconTabFilter id="UserLoansIconTabFilter2"
 						key="finished"
 						icon="sap-icon://message-success"
 						iconColor="Positive"
-						count="{worklistView>/finished}"
-						text="{i18n>WorklistFilterUserLoansFinished}"/>
-					<IconTabFilter id="_IDGenIconTabFilter3"
-						key="inprogress"
+						text="{i18n>WorklistFilterLoansFinished}"/>
+					<IconTabFilter id="UserLoansIconTabFilter3"
+						key="pickedup"
 						icon="sap-icon://message-warning"
 						iconColor="Critical"
-						count="{worklistView>/inprogress}"
-						text="{i18n>WorklistFilterUserLoansInProgress}"/>
-					<IconTabFilter id="_IDGenIconTabFilter4"
+						text="{i18n>WorklistFilterLoansPickedUp}"/>
+					<IconTabFilter id="UserLoansIconTabFilter4"
 						key="delayed"
 						icon="sap-icon://message-error"
 						iconColor="Negative"
-						count="{worklistView>/delayed}"
-						text="{i18n>WorklistFilterUserLoansDelayed}"/>
+						text="{i18n>WorklistFilterLoansDelayed}"/>
 				</items>
-                <content>
-            <Table
-                id="main_table_userloans"
-                headerText="{i18n>UserLoans.tableHeader}"
-                items="{/LoanSet}"
-                growing="true"
-                growingThreshold="200"
-                width="auto"
-                alternateRowColors="true">
-
+        <content>
+            <Table id="main_table_UserLoans" items="{/LoanSet}" growing="true" growingThreshold="200" alternateRowColors="false">
                 <headerToolbar>
-						<Toolbar id="_IDGenToolbarUserLoans">
+						<Toolbar id="UserLoansToolbarUserLoans">
 							<Title
-								id="tableHeader"
-								text="{worklistView>worklistTableTitleUserLoans}"/>
-							<ToolbarSpacer id="_IDGenToolbarSpacerUserLoans"/>
+								id="UserLoanstableHeader"
+								text="{i18n>worklistTableTitleUserLoans}"/>
+							<ToolbarSpacer id="UserLoansToolbarSpacerUserLoans"/>
 							<SearchField
-								id="searchField"
+								id="UserLoanssearchField"
 								tooltip="{i18n>worklistSearchTooltip}"
-								search=".onSearch"
+								liveChange="onSearch"
 								width="auto">
 							</SearchField>
 						</Toolbar>
 					</headerToolbar>
-
                 <columns>
-                    <Column id="userloan_Id">
+                    <Column id="UserLoansId">
                         <header>
-                            <Text id="userloan_text_id" text="{/#Loan/Loanid/@sap:label}"/>
+                            <Text id="UserLoans_text_id" text="{/#Loan/Loanid/@sap:label}"/>
                         </header>
                     </Column>
-                    <Column id="userloan_StartDate">
+                    <Column id="UserLoansCustomer">
                         <header>
-                            <Text id="userloan_text_startdate" text="{/#Loan/StartDate/@sap:label}"/>
+                            <Text id="UserLoans_text_customer" text="{/#Loan/Reader/@sap:label}"/>
                         </header>
                     </Column>
-                    <Column id="userloan_EndDate">
+                    <Column id="UserLoansStartDate">
                         <header>
-                            <Text id="userloan_text_enddate" text="{/#Loan/EndDate/@sap:label}"/>
+                            <Text id="UserLoans_text_startdate" text="{/#Loan/StartDate/@sap:label}"/>
                         </header>
                     </Column>
-                    <Column id="userloan_Status">
+                    <Column id="UserLoansEndDate">
                         <header>
-                            <Text id="userloan_text_status" text="{/#Loan/Status/@sap:label}"/>
+                            <Text id="UserLoans_text_enddate" text="{/#Loan/EndDate/@sap:label}"/>
+                        </header>
+                    </Column>
+                    <Column id="UserLoansStatus">
+                        <header>
+                            <Text id="UserLoans_text_status" text="{/#Loan/Status/@sap:label}"/>
                         </header>
                     </Column>
                 </columns>
                 <items>
-                    <ColumnListItem id="userloan_columnlistitem_template" press="onDetailsDialog" type="Navigation">
+                    <ColumnListItem id="UserLoans_columnlistitem_template" press="onDetailsDialog" type="Navigation">
                         <cells>
-                            <Text id="userloan_text_idtemplate" text="{Loanid}"/>
-                            <Text id="userloan_text_startdatetemplate" text="{path: 'StartDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
-                            <Text id="userloan_text_enddatetemplate" text="{path: 'EndDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
-                            <Text id="userloan_text_statustemplate" text="{Status}"/>
-                        </cells>
+                            <ObjectIdentifier id="UserLoans_text_idtemplate" text="{Loanid}"/>
+                            <Text id="UserLoans_text_customertemplate" text="{Reader}"/>
+                            <Text id="UserLoans_text_startdatetemplate" text="{path: 'StartDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
+                            <Text id="UserLoans_text_enddatetemplate" text="{path: 'EndDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
+                            <ObjectStatus id="UserLoans_text_statustemplate"
+                                        text="{Status}"
+                                        state="{parts: ['Status'], formatter: '.stateStatusFormatter'}"
+                                        icon="{parts: ['Status'], formatter: '.iconStatusFormatter'}" />
+                            </cells>
                     </ColumnListItem>
                 </items>
             </Table>
         </content>
-            </IconTabBar>
-        </semantic:headerContent>
-    </semantic:SemanticPage>
+    </IconTabBar>
+    </Page>
 </mvc:View>

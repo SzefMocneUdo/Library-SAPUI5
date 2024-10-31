@@ -34,7 +34,7 @@
 						text="{i18n>WorklistFilterLoansDelayed}"/>
 				</items>
         <content>
-            <Table id="main_table_loansmaintenance" headerText="{i18n>LoansMaintenanceTitle.tableHeader}" items="{/LoanSet}" growing="true" growingThreshold="200" alternateRowColors="false">
+            <Table id="main_table_loansmaintenance" items="{/LoanSet}" growing="true" growingThreshold="200" alternateRowColors="false">
                 <headerToolbar>
 						<Toolbar id="LoansMaintenanceToolbarLoansMaintenance">
 							<Title

@@ -29,7 +29,7 @@
 						<DatePicker id="loandetails_input_end_date" maxDate="{ todayDate }" displayFormat="dd MMMM yyyy" editable="false" value="{path:'/FormattedEndDate', type:'sap.ui.model.odata.type.Date', formatOptions: { pattern: 'dd MMMM yyyy'}}" />
 
 						<Label id="LoanDetailsStatusLabel" text="Status" />
-						<ComboBox id="loanStatusComboBox" placeholder="Select Loan Status" editable="{= ${/Status} !== 'FINISHED' }" selectedKey="{ path: '/Status', mode:'OneTime' }">
+						<ComboBox id="loanStatusComboBox" placeholder="Select Loan Status" editable="{= ${/IsMaintainable} === true}" selectedKey="{ path: '/Status', mode:'OneTime' }">
                                     <core:Item id="loan_input_finished" key="FINISHED" text="Finished" />
                                     <core:Item id="loan_input_pickedup" key="PICKED UP" text="Picked Up" />
                                     <core:Item id="loan_input_delayed" key="DELAYED" text="Delayed" />
@@ -37,7 +37,7 @@
 						<Label id="LoanDetailsPickupDateLabel" text="Pickup date" />
 						<DatePicker id="loandetails_input_pickup_date" maxDate="{ todayDate }" displayFormat="dd MMMM yyyy" editable="false" value="{path:'/FormattedPickupDate', type:'sap.ui.model.odata.type.Date', formatOptions: { pattern: 'dd MMMM yyyy'}}" />
 						<Label id="LoanDetailsReturnDateLabel" text="Return date" />
-						<DatePicker id="loandetails_input_return_date" maxDate="{ todayDate }" displayFormat="dd MMMM yyyy" editable="{= ${/Status} !== 'FINISHED' }" value="{= ${/Status} === 'FINISHED' ? ${/FormattedReturnDate} : ''}"  />
+						<DatePicker id="loandetails_input_return_date" maxDate="{ todayDate }" displayFormat="dd MMMM yyyy" editable="{= ${/IsMaintainable} === true}" value="{= ${/Status} === 'FINISHED' ? ${/FormattedReturnDate} : ''}"  />
 					</f:content>
 				</f:SimpleForm>
 			</VBox>
@@ -49,7 +49,7 @@
 						type="Emphasized"
 						press="onUpdatePressed"
 						ariaHasPopup="Dialog"
-						visible="{= ${/Status} !== 'FINISHED' }" />
+						visible="{= ${/IsMaintainable} === true}" />
 					<Button id="LoanDetailsCloseDialog"
 						text="Close"
 						type="Emphasized"

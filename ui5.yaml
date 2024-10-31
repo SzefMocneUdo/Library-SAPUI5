@@ -30,3 +30,8 @@ server:
       configuration:
         component: zkzilibraryproject
         ui5Theme: sap_fiori_3
+framework:
+  name: SAPUI5
+  version: "1.84.33"
+  libraries:
+    - name: sap.ushell

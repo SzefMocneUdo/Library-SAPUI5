@@ -107,8 +107,15 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
                 FormattedStartDate: formattedStartDate,
                 FormattedEndDate: formattedEndDate,
                 FormattedPickupDate: formattedPickupDate,
-                FormattedReturnDate: formattedReturnDate
+                FormattedReturnDate: formattedReturnDate,
+                IsMaintainable: true
             });
+
+            if(oDialogModel.oData.Status !== "FINISHED") {
+                oDialogModel.oData.IsMaintainable = true;
+            } else {
+                oDialogModel.oData.IsMaintainable = false;
+            }
         
             if (!this.oDialog) {
                 Fragment.load({

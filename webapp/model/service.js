@@ -447,4 +447,13 @@ sap.ui.define([
         });
     };
 
+    static getUserInfo(model) {
+        return new Promise(function (resolve, reject) {
+            model.read('/UserInfoSet', {
+                success: resolve,
+                error: reject
+            });
+        });
+    }
+
 });
