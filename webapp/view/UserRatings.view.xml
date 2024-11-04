@@ -1,105 +1,63 @@
-<mvc:View
- controllerName="zkzilibraryproject.controller.Loans"
+<!-- <mvc:View
+ controllerName="zkzilibraryproject.controller.Ratings"
  xmlns:mvc="sap.ui.core.mvc"
- xmlns:semantic="sap.f.semantic"
+ xmlns:smartTable="sap.ui.comp.smarttable"
  xmlns="sap.m">
-    <semantic:SemanticPage id="UserRatings" headerPinnable="false" toggleHeaderOnTitleClick="false" >
+    <VBox id="UserRatingsVBox">
+        <smartTable:SmartTable id="UserRatingsSmartTable" entitySet="RateSet">
+            <smartTable:layoutData>
+					<FlexItemData id="UserRatingsFlexItemData" growFactor="1" baseSize="0%"/>
+				</smartTable:layoutData>
+        </smartTable:SmartTable>
+    </VBox>
+</mvc:View> -->
 
-        <semantic:titleHeading>
-            <Title id="UserRatingsTitle" text="{i18n>LoansTitle}" />
-        </semantic:titleHeading>
-
-        <semantic:headerContent>
-            <IconTabBar
-				id="iconTabBarUserRatings"
-				select=".onQuickFilter"
-				expandable="false">
-				<items>
-					<IconTabFilter id="_IDGenIconTabFilter1UserRatings"
-						key="all"
-						showAll="true"
-						count="{worklistView>/countAll}"
-						text="{i18n>WorklistFilterUserLoansAll}"/>
-					<IconTabSeparator id="_IDGenIconTabSeparatorUserRatings"/>
-					<IconTabFilter id="_IDGenIconTabFilter2UserRatings"
-						key="finished"
-						icon="sap-icon://message-success"
-						iconColor="Positive"
-						count="{worklistView>/finished}"
-						text="{i18n>WorklistFilterUserLoansFinished}"/>
-					<IconTabFilter id="_IDGenIconTabFilter3UserRatings"
-						key="inprogress"
-						icon="sap-icon://message-warning"
-						iconColor="Critical"
-						count="{worklistView>/inprogress}"
-						text="{i18n>WorklistFilterUserLoansInProgress}"/>
-					<IconTabFilter id="_IDGenIconTabFilter4UserRatings"
-						key="delayed"
-						icon="sap-icon://message-error"
-						iconColor="Negative"
-						count="{worklistView>/delayed}"
-						text="{i18n>WorklistFilterUserLoansDelayed}"/>
-				</items>
-                <content>
-            <Table
-                id="main_table_UserRatings"
-                headerText="{i18n>UserLoans.tableHeader}"
-                items="{/LoanSet}"
-                growing="true"
-                growingThreshold="200"
-                width="auto"
-                alternateRowColors="true">
-
+<mvc:View
+ controllerName="zkzilibraryproject.controller.Ratings"
+ xmlns:mvc="sap.ui.core.mvc"
+ xmlns="sap.m">
+    <Page id="UserRatings" title="{i18n>page.UserRatings}">
+        <content>
+            <Table id="main_table_UserRatings" items="{/RateSet}" growing="true" growingThreshold="200" alternateRowColors="true">
                 <headerToolbar>
-						<Toolbar id="_IDGenToolbarUserRatings">
-							<Title
-								id="tableHeaderUserRatings"
-								text="{worklistView>worklistTableTitleUserLoans}"/>
-							<ToolbarSpacer id="_IDGenToolbarSpacerUserRatings"/>
-							<SearchField
-								id="searchFieldUserRatings"
-								tooltip="{i18n>worklistSearchTooltip}"
-								search=".onSearch"
-								width="auto">
-							</SearchField>
-						</Toolbar>
-					</headerToolbar>
-
+                    <Toolbar id="UserRatings_Table_Toolbar">
+                        <Title id="UserRatings_table_title" text="{i18n>worklistTableTitleUserRatings}" />
+                        <ToolbarSpacer id="UserRatings_table_toolbarspacer" />
+                    </Toolbar>
+                </headerToolbar>
+                
                 <columns>
-                    <Column id="UserRatings_Id">
+                    <Column id="UserRating">
                         <header>
-                            <Text id="UserRatings_text_id" text="{/#Loan/Loanid/@sap:label}"/>
+                            <Text id="main_text_Rating" text="{/#Rate/Rating/@sap:label}"/>
                         </header>
                     </Column>
-                    <Column id="UserRatings_StartDate">
+
+                    <Column id="ISBN">
                         <header>
-                            <Text id="UserRatings_text_startdate" text="{/#Loan/StartDate/@sap:label}"/>
+                            <Text id="main_text_ISBN" text="{/#Rate/ISBN/@sap:label}"/>
                         </header>
                     </Column>
-                    <Column id="UserRatings_EndDate">
+
+                    <Column id="Ratingid">
                         <header>
-                            <Text id="UserRatings_text_enddate" text="{/#Loan/EndDate/@sap:label}"/>
+                            <Text id="main_text_Ratingid" text="{/#Rate/Ratingid/@sap:label}"/>
                         </header>
                     </Column>
-                    <Column id="UserRatings_Status">
-                        <header>
-                            <Text id="UserRatings_text_status" text="{/#Loan/Status/@sap:label}"/>
-                        </header>
-                    </Column>
+
+                    <Column id="UserRatingsDeleteColumn" width="50px"/>
                 </columns>
                 <items>
-                    <ColumnListItem id="UserRatings_columnlistitem_template" press="onDetailsDialog" type="Navigation">
+                    <ColumnListItem id="UserRatings_columnlistitem_template">
                         <cells>
-                            <Text id="UserRatings_text_idtemplate" text="{Loanid}"/>
-                            <Text id="UserRatings_text_startdatetemplate" text="{path: 'StartDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
-                            <Text id="UserRatings_text_enddatetemplate" text="{path: 'EndDate', type: 'sap.ui.model.odata.type.Date', constraints: { displayFormat: 'Date'}}"/>
-                            <Text id="UserRatings_text_statustemplate" text="{Status}"/>
-                        </cells>
+                            <RatingIndicator id="main_text_ratingindicatortemplate" class="sapUiNoMargin" maxValue="10" displayOnly="true" iconSize="1rem" value="{Rating}"/>
+                            <Text id="main_text_ISBNtemplate" text="{ISBN}"/>
+                            <Text id="main_text_Ratingidtemplate" text="{Ratingid}"/>
+                            <Button id="UserRatingsDeleteButton" icon="sap-icon://delete" press="deleteRow" type="Reject"/>
+                            </cells>
                     </ColumnListItem>
                 </items>
             </Table>
         </content>
-            </IconTabBar>
-        </semantic:headerContent>
-    </semantic:SemanticPage>
+    </Page>  
 </mvc:View>

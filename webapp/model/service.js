@@ -454,6 +454,15 @@ sap.ui.define([
                 error: reject
             });
         });
-    }
+    };
+
+    static deleteRating(model, path) {
+        return new Promise(function (resolve, reject) {
+            model.remove(path, {
+                success: resolve,
+                error: reject
+            });
+        });
+    };
 
 });

@@ -132,6 +132,11 @@
           "target": ["UserReservations"]
         },
         {
+          "name": "UserRatings",
+          "pattern": "UserRatings",
+          "target": ["UserRatings"]
+        },
+        {
           "name": "BooksMaintenance",
           "pattern": "BooksMaintenance",
           "target": ["BooksMaintenance"]
@@ -266,6 +271,13 @@
         "clearControlAggregation": false,
         "viewId": "UserReservations",
         "viewName": "UserReservations"
+      },
+      "UserRatings": {
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "UserRatings",
+        "viewName": "UserRatings"
       },
       "BooksMaintenance": {
         "viewType": "XML",

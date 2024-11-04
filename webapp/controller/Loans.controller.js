@@ -92,8 +92,6 @@ function (Base, JSONModel, Filter, FilterOperator, Fragment, Service, DateFormat
                 filters: aFilters,
                 and: true
             }));
-
-            console.log(this.getOwnerComponent().getModel());
         },
 
         setDataFilter: async function () {

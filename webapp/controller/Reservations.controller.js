@@ -94,10 +94,7 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
             oBinding.filter(new Filter({
                 filters: aFilters,
                 and: true
-            }));
-
-            console.log(this.getOwnerComponent().getModel());
-            
+            }));            
         },
 
         setDataFilter: async function () {
