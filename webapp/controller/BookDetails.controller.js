@@ -1,12 +1,11 @@
 sap.ui.define([
     "zkzilibraryproject/controller/Base.controller",
     "sap/m/MessageBox",
-    "sap/ui/core/format/DateFormat",
     "zkzilibraryproject/model/Service",
 
 ],
 
-    function (Base, MessageBox, DateFormat, Service){
+    function (Base, MessageBox, Service){
         "use strict";
         return Base.extend("zkzilibraryproject.controller.BookDetails", {
             onInit: function(){
@@ -105,12 +104,32 @@ sap.ui.define([
                     emphasizedAction: MessageBox.Action.YES,
                     onClose: async (sAction) => {
                         if (MessageBox.Action.YES === sAction) {
+                            const copies = [];
                             const authors = [];
                             const genres = [];
+                            let sPathBook_copy = "/BookSet('" + ISBN + "')/ToBook_copySet"
                             let sPathAuthorBook = "/BookSet('" + ISBN + "')/ToAuthorBookSet";
                             let sPathBookGenre = "/BookSet('" + ISBN + "')/ToBookGenreSet";
                             
                             try {
+                                await new Promise((resolve, reject) => {
+                                    oModel.read(sPathBook_copy, {
+                                        success: function (oData) {
+                                            oData.results.forEach(element => {
+                                                copies.push(element.Bookid);
+                                            });
+                                            resolve();
+                                        },
+                                        error: function (oError) {
+                                            reject(oError);
+                                        }
+                                    });
+                                });
+            
+                                for (let i = 0; i < copies.length; i++) {                 
+                                    await Service.deleteBookCopy(oModel, copies[i]);
+                                }
+
                                 await new Promise((resolve, reject) => {
                                     oModel.read(sPathAuthorBook, {
                                         success: function (oData) {
@@ -153,8 +172,9 @@ sap.ui.define([
                                     success: () => sap.m.MessageToast.show("Success"),
                                     error: () => sap.m.MessageToast.show("Error")
                                 });
-            
-                                this.onNavBack();
+                                
+                                let oRouter = this.getOwnerComponent().getRouter();
+                                oRouter.navTo("BooksMaintenance", {}.true);
             
                             } catch (oError) {
                                 sap.m.MessageToast.show(this.getErrorMessage(oError));
