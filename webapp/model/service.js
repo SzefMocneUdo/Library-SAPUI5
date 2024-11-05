@@ -456,6 +456,18 @@ sap.ui.define([
         });
     };
 
+    static createRating(model, isbn, rating) {
+        return new Promise(function (resolve, reject) {
+            model.create('/RateSet', {
+                ISBN: isbn,
+                Rating: rating
+            }, {
+                success: resolve,
+                error: reject
+            });
+        });
+    };
+
     static deleteRating(model, path) {
         return new Promise(function (resolve, reject) {
             model.remove(path, {

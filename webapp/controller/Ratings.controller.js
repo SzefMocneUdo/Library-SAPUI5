@@ -51,8 +51,6 @@ function (Base, Service, Filter, FilterOperator, MessageBox) {
                             await Service.deleteRating(oModel, sPath);
                         } catch (oError) {
                             console.log(oError);
-                            
-                            // sap.m.MessageToast.show(this.getErrorMessage(oError));
                         }
                     }
                 }

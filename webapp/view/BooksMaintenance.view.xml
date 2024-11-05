@@ -56,8 +56,8 @@
                         <cells>
                             <!-- <Text id="main_text_isbntemplate" text="{ISBN}"/> -->
                             <Text id="booksmaintenance_text_titletemplate" text="{Title}"/>
-                            <Text id="booksmaintenance_text_authorstemplate" text="{Authors}"/>
                             <Text id="booksmaintenance_text_genrestemplate" text="{Genres}"/>
+                            <Text id="booksmaintenance_text_authorstemplate" text="{Authors}"/>
                             <Text id="booksmaintenance_text_descriptiontemplate" text="{Description}"/>
                             <Text id="booksmaintenance_text_languagetemplate" text="{Language}"/>
                             <RatingIndicator id="booksmaintenance_text_ratingtemplate" class="sapUiNoMargin" maxValue="10" displayOnly="true" iconSize="1rem" value="{Rating}"/>

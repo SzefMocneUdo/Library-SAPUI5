@@ -130,7 +130,7 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
             }
         },
 
-        onSearch: function (oEvent) { 
+        onSearch: function (oEvent) {
             let filter;
 			let sQuery = oEvent.getSource().getValue();
 
