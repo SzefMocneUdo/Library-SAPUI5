@@ -12,42 +12,8 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
     "use strict";
 
     return Base.extend("zkzilibraryproject.controller.LoansMaintenance", {
-        onInit: function () {       
-            // this.countItemsPerFilter();   
+        onInit: function () { 
         },
-
-        // countItemsPerFilter: function () {
-        //     var oModel = this.getOwnerComponent().getModel();
-        //     var oData = oModel.oData;
-        //     console.log(oData);   
-
-        //     var iCountAll = 0,
-        //         iCountFinished = 0,
-        //         iCountPickedUp = 0,
-        //         iCountDelayed = 0;
-
-        //     // oData.forEach(function (oLoan) {
-        //     //     iCountAll++;
-        //     //     switch (oLoan.Status) {
-        //     //         case "FINISHED":
-        //     //             iCountFinished++;
-        //     //             break;
-        //     //         case "PICKED UP":
-        //     //             iCountPickedUp++;
-        //     //             break;
-        //     //         case "DELAYED":
-        //     //             iCountDelayed++;
-        //     //             break;
-        //     //         default:
-        //     //             break;
-        //     //     }
-        //     // });
-
-        //     this.getView().byId("LoansMaintenanceIconTabFilter1").setCount(iCountAll);
-        //     this.getView().byId("LoansMaintenanceIconTabFilter2").setCount(iCountFinished);
-        //     this.getView().byId("LoansMaintenanceIconTabFilter3").setCount(iCountPickedUp);
-        //     this.getView().byId("LoansMaintenanceIconTabFilter4").setCount(iCountDelayed);
-        // },
 
         onFilterSelect: function (oEvent) {
             var oBinding = this.byId("main_table_loansmaintenance").getBinding("items"),

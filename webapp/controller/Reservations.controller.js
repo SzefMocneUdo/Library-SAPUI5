@@ -27,39 +27,6 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
             });
         },
 
-        // countItemsPerFilter: function () {
-        //     var oModel = this.getOwnerComponent().getModel();
-        //     var oData = oModel.oData;
-        //     console.log(oData);   
-
-        //     var iCountAll = 0,
-        //         iCountFinished = 0,
-        //         iCountPickedUp = 0,
-        //         iCountDelayed = 0;
-
-        //     // oData.forEach(function (oReservation) {
-        //     //     iCountAll++;
-        //     //     switch (oReservation.Status) {
-        //     //         case "FINISHED":
-        //     //             iCountFinished++;
-        //     //             break;
-        //     //         case "PICKED UP":
-        //     //             iCountPickedUp++;
-        //     //             break;
-        //     //         case "DELAYED":
-        //     //             iCountDelayed++;
-        //     //             break;
-        //     //         default:
-        //     //             break;
-        //     //     }
-        //     // });
-
-        //     this.getView().byId("ReservationsMaintenanceIconTabFilter1").setCount(iCountAll);
-        //     this.getView().byId("ReservationsMaintenanceIconTabFilter2").setCount(iCountFinished);
-        //     this.getView().byId("ReservationsMaintenanceIconTabFilter3").setCount(iCountPickedUp);
-        //     this.getView().byId("ReservationsMaintenanceIconTabFilter4").setCount(iCountDelayed);
-        // },
-
         onBeforeRendering() {
             this.username = ""; 
             this.setUserName().then(() => {

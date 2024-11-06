@@ -1,10 +1,9 @@
 sap.ui.define([
     "zkzilibraryproject/controller/Base.controller",
-    "sap/m/MessageBox",
     "zkzilibraryproject/model/service"
 ],
 
-    function (Base, MessageBox, Service){
+    function (Base, Service){
         "use strict";
         return Base.extend("zkzilibraryproject.controller.CreateBookTranslation", {
             onInit: function(){

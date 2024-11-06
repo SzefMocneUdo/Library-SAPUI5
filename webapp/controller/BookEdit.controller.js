@@ -1,12 +1,11 @@
 sap.ui.define([
     "zkzilibraryproject/controller/Base.controller",
-    "sap/m/MessageBox",
     "sap/ui/core/format/DateFormat",
     "zkzilibraryproject/model/service",
     "sap/m/MessageToast"
 ],
 
-    function (Base, MessageBox, DateFormat, Service, MessageToast){
+    function (Base, DateFormat, Service, MessageToast){
         "use strict";
         return Base.extend("zkzilibraryproject.controller.BookEdit", {
             onInit: function(){

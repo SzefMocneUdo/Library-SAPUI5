@@ -25,40 +25,6 @@ function (Base, JSONModel, Filter, FilterOperator, Fragment, Service, DateFormat
                 });
             });
         },
-        
-
-        // countItemsPerFilter: function () {
-        //     var oModel = this.getOwnerComponent().getModel();
-        //     var oData = oModel.oData;
-        //     console.log(oData);   
-
-        //     var iCountAll = 0,
-        //         iCountFinished = 0,
-        //         iCountPickedUp = 0,
-        //         iCountDelayed = 0;
-
-        //     // oData.forEach(function (oLoan) {
-        //     //     iCountAll++;
-        //     //     switch (oLoan.Status) {
-        //     //         case "FINISHED":
-        //     //             iCountFinished++;
-        //     //             break;
-        //     //         case "PICKED UP":
-        //     //             iCountPickedUp++;
-        //     //             break;
-        //     //         case "DELAYED":
-        //     //             iCountDelayed++;
-        //     //             break;
-        //     //         default:
-        //     //             break;
-        //     //     }
-        //     // });
-
-        //     this.getView().byId("UserLoansIconTabFilter1").setCount(iCountAll);
-        //     this.getView().byId("UserLoansIconTabFilter2").setCount(iCountFinished);
-        //     this.getView().byId("UserLoansIconTabFilter3").setCount(iCountPickedUp);
-        //     this.getView().byId("UserLoansIconTabFilter4").setCount(iCountDelayed);
-        // },
 
         onBeforeRendering() {
             this.username = ""; 
