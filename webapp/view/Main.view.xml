@@ -17,12 +17,12 @@
 				<tnt:ToolHeaderUtilitySeparator id="MainToolHeaderUtilitySeparator" />
 				<ToolbarSpacer id="MainToolbarSpacer2">
 					<layoutData>
-						<OverflowToolbarLayoutData id="MainOverflowToolbarLayoutData9" priority="NeverOverflow" minWidth="20px" />
+						<OverflowToolbarLayoutData id="MainOverflowToolbarLayoutData1" priority="NeverOverflow" minWidth="20px" />
 					</layoutData>
 				</ToolbarSpacer>
-				<Button id="MainButton8" text="Alan Smith" type="Transparent" press=".handleUserNamePress" ariaHasPopup="Menu">
+				<Button id="MainButton1" text="Alan Smith" type="Transparent" press=".handleUserNamePress" ariaHasPopup="Menu">
 					<layoutData>
-						<OverflowToolbarLayoutData id="MainOverflowToolbarLayoutData10" priority="NeverOverflow" />
+						<OverflowToolbarLayoutData id="MainOverflowToolbarLayoutData2" priority="NeverOverflow" />
 					</layoutData>
 				</Button>
 			</tnt:ToolHeader>
