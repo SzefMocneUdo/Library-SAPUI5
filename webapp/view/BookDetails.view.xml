@@ -6,7 +6,7 @@
  xmlns:smartForm="sap.ui.comp.smartform"
  xmlns:smartField="sap.ui.comp.smartfield"
  xmlns:f="sap.ui.layout.form">
-    <Page id="BookDetails" >
+    <Page id="BookDetails" title="{i18n>page.booksMaintenance}" >
         <IconTabBar id="IconTabBarBookDetails" class="sapUiResponsiveContentPadding">
             <items>
                 <IconTabFilter id="IconTabFilterBookDetailsDefinition" text="{i18n>Definition}" key="definition">
@@ -65,17 +65,17 @@
                             <columns>
                                 <Column id="BooksTranslations_Language">
                                     <header>
-                                        <Text id="bookstranslations_text_language" text="{/BookTextSet/Spras/@sap:label}"/>
+                                        <Text id="bookstranslations_text_language" text="{/#BookTextSet/Spras/@sap:label}"/>
                                     </header>
                                 </Column>
                                 <Column id="BooksTranslations_Name">
                                     <header>
-                                        <Text id="bookstranslations_text_customer" text="{/BookTextSet/Title/@sap:label}"/>
+                                        <Text id="bookstranslations_text_customer" text="{/#BookTextSet/Title/@sap:label}"/>
                                     </header>
                                 </Column>
                                 <Column id="BooksTranslations_Description">
                                     <header>
-                                        <Text id="bookstranslations_text_startdate" text="{/BookTextSet/Description/@sap:label}"/>
+                                        <Text id="bookstranslations_text_startdate" text="{/#BookTextSet/Description/@sap:label}"/>
                                     </header>
                                 </Column>
                             </columns>
@@ -83,7 +83,7 @@
                                 <ColumnListItem id="bookstranslations_columnlistitem_template" press="onEditTranslationPressed" type="Navigation">
                                     <cells>
                                         <Text id="bookstranslations_text_idtemplate" text="{Spras}"/>
-                                        <Text id="bookstranslations_text_nametemplate" text="{Name}"/>
+                                        <Text id="bookstranslations_text_titletemplate" text="{Title}"/>
                                         <Text id="bookstranslations_textdescriptiontemplate" text="{Description}"/>
                                     </cells>
                                 </ColumnListItem>

@@ -49,27 +49,12 @@
                 <columns>
                     <Column id="AuthorsTranslations_Language">
                         <header>
-                            <Text id="auhtorstranslations_text_language" text="{/AuthorTextSet/Spras/@sap:label}"/>
-                        </header>
-                    </Column>
-                    <Column id="AuthorsTranslations_Name">
-                        <header>
-                            <Text id="auhtorstranslations_text_name" text="{/AuthorTextSet/Name/@sap:label}"/>
-                        </header>
-                    </Column>
-                    <Column id="AuthorsTranslations_Surname">
-                        <header>
-                            <Text id="auhtorstranslations_text_surname" text="{/AuthorTextSet/Surname/@sap:label}"/>
-                        </header>
-                    </Column>
-                    <Column id="AuthorsTranslations_Nationality">
-                        <header>
-                            <Text id="auhtorstranslations_text_nationality" text="{/AuthorSet/Nationality/@sap:label}"/>
+                            <Text id="auhtorstranslations_text_language" text="{i18n>label.Language}"/>
                         </header>
                     </Column>
                     <Column id="AuthorsTranslations_Description">
                         <header>
-                            <Text id="auhtorstranslations_text_startdate" text="{/AuthorTextSet/Description/@sap:label}"/>
+                            <Text id="auhtorstranslations_text_startdate" text="{/#Author/Description/@sap:label}"/>
                         </header>
                     </Column>
                 </columns>
@@ -77,8 +62,6 @@
                     <ColumnListItem id="auhtorstranslations_columnlistitem_template" press="onEditPressed" type="Navigation">
                         <cells>
                             <Text id="auhtorstranslations_text_idtemplate" text="{Spras}"/>
-                            <Text id="auhtorstranslations_text_nametemplate" text="{Name}"/>
-                            <Text id="auhtorstranslations_text_surnametemplate" text="{Surname}"/>
                             <Text id="auhtorstranslations_textdescriptiontemplate" text="{Description}"/>
                             </cells>
                     </ColumnListItem>

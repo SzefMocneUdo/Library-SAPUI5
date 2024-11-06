@@ -300,7 +300,7 @@ sap.ui.define([
             model.update(`/BookTextSet(Spras='${translation.Spras}',ISBN='${translation.ISBN}')`, {
                 Spras: translation.Spras,
                 ISBN: translation.ISBN,
-                Title: translation.title,
+                Title: translation.Title,
                 Description: translation.Description
             }, {
                 success: function () {
