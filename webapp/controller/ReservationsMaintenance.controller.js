@@ -85,6 +85,11 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
             this.oDialog.setModel(oModel);
 
             this.oDialog.open();
+
+            const todayDate = new Date();
+
+            this.byId("CreateReservation_input_start_date").setMinDate(todayDate);
+            this.byId("CreateReservation_input_end_date").setMinDate(todayDate);
         },
         
         onDetailsDialog: function(oEvent) {

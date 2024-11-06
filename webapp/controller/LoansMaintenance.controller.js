@@ -83,6 +83,11 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
             this.oDialog.setModel(oModel);
 
             this.oDialog.open();
+
+            let todayDate = new Date();
+
+            this.byId("CreateLoan_input_start_date").setMaxDate(todayDate);
+            this.byId("CreateLoan_input_end_date").setMinDate(todayDate);
         },
         
         onDetailsDialog: function(oEvent) {

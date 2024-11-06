@@ -1,11 +1,11 @@
 sap.ui.define([
     "zkzilibraryproject/controller/Base.controller",
-    "sap/ui/core/Fragment",
     "sap/m/Popover",
     "sap/m/library",
-    "sap/m/Button"
+    "sap/m/Button",
+    "zkzilibraryproject/model/Service"
 ],
-function (Base, Fragment, Popover, library, Button) {
+function (Base, Popover, library, Button, Service) {
     "use strict";
 
     var PlacementType = library.PlacementType,
@@ -15,6 +15,21 @@ function (Base, Fragment, Popover, library, Button) {
         onInit: function () {
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.initialize();
+            this.setUserRole();
+        },
+
+        setUserRole: function () {
+            return new Promise((resolve) => {
+                Service.getUserInfo(this.getOwnerComponent().getModel()).then((urole) => {                    
+                    if (urole.results[0].Role === 'ADM') {
+                        this.getView().byId("MaintenancePanelSideNavigation").setVisible(true);
+                    }                         
+                    resolve();
+                }).catch((oError) => {
+                    console.error(oError);
+                    resolve();
+                });
+            });
         },
 
         onPress: function(){

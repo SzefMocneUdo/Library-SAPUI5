@@ -24,20 +24,20 @@
 							</layoutData>
 						</Input>
 						<Label id="LoanDetailsStartDateLabel" text="{i18n>label.StartDate}" />
-						<DatePicker id="loandetails_input_start_date" maxDate="{ todayDate }" displayFormat="dd MMMM yyyy" editable="false" value="{path:'/FormattedStartDate', type:'sap.ui.model.odata.type.Date', formatOptions: { pattern: 'dd MMMM yyyy'}}" />
+						<DatePicker id="loandetails_input_start_date" displayFormat="dd MMMM yyyy" editable="false" value="{path:'/FormattedStartDate', type:'sap.ui.model.odata.type.Date', formatOptions: { pattern: 'dd MMMM yyyy'}}" />
 						<Label id="LoanDetailsEndDateLabel" text="{i18n>label.EndDate}" />
-						<DatePicker id="loandetails_input_end_date" maxDate="{ todayDate }" displayFormat="dd MMMM yyyy" editable="false" value="{path:'/FormattedEndDate', type:'sap.ui.model.odata.type.Date', formatOptions: { pattern: 'dd MMMM yyyy'}}" />
+						<DatePicker id="loandetails_input_end_date" displayFormat="dd MMMM yyyy" editable="false" value="{path:'/FormattedEndDate', type:'sap.ui.model.odata.type.Date', formatOptions: { pattern: 'dd MMMM yyyy'}}" />
 
 						<Label id="LoanDetailsStatusLabel" text="{i18n>label.Status}" />
-						<ComboBox id="loanStatusComboBox" placeholder="{i18n>placeholder.SelectLoanStatus}" editable="{= ${/IsMaintainable} === true}" selectedKey="{ path: '/Status', mode:'OneTime' }">
+						<ComboBox id="loanStatusComboBox" editable="{= ${/IsMaintainable} === true}" selectedKey="{ path: '/Status', mode:'OneTime' }">
                                     <core:Item id="loan_input_finished" key="FINISHED" text="{i18n>Finished}" />
                                     <core:Item id="loan_input_pickedup" key="PICKED UP" text="{i18n>PickedUp}" />
                                     <core:Item id="loan_input_delayed" key="DELAYED" text="{i18n>Delayed}" />
                         </ComboBox>
 						<Label id="LoanDetailsPickupDateLabel" text="{i18n>label.Pickupdate}" />
-						<DatePicker id="loandetails_input_pickup_date" maxDate="{ todayDate }" displayFormat="dd MMMM yyyy" editable="false" value="{path:'/FormattedPickupDate', type:'sap.ui.model.odata.type.Date', formatOptions: { pattern: 'dd MMMM yyyy'}}" />
+						<DatePicker id="loandetails_input_pickup_date" displayFormat="dd MMMM yyyy" editable="false" value="{path:'/FormattedPickupDate', type:'sap.ui.model.odata.type.Date', formatOptions: { pattern: 'dd MMMM yyyy'}}" />
 						<Label id="LoanDetailsReturnDateLabel" text="{i18n>label.Returndate}" />
-						<DatePicker id="loandetails_input_return_date" maxDate="{ todayDate }" displayFormat="dd MMMM yyyy" editable="{= ${/IsMaintainable} === true}" value="{= ${/Status} === 'FINISHED' ? ${/FormattedReturnDate} : ''}"  />
+						<DatePicker id="loandetails_input_return_date" displayFormat="dd MMMM yyyy" editable="{= ${/IsMaintainable} === true}" value="{= ${/Status} === 'FINISHED' ? ${/FormattedReturnDate} : ''}"  />
 					</f:content>
 				</f:SimpleForm>
 			</VBox>

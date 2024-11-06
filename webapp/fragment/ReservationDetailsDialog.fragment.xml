@@ -29,7 +29,7 @@
 						<DatePicker id="Reservationdetails_input_end_date" displayFormat="dd MMMM yyyy" editable="false" value="{path:'/FormattedEndDate', type:'sap.ui.model.odata.type.Date', formatOptions: { pattern: 'dd MMMM yyyy'}}" />
 
 						<Label id="ReservationDetailsStatusLabel" text="{i18n>label.Status}" />
-						<ComboBox id="ReservationStatusComboBox" placeholder="{i18n>SelectReservationStatus}" editable="{= ${/IsMaintainable} === true }" selectedKey="{ path: '/Status', mode:'OneTime' }">
+						<ComboBox id="ReservationStatusComboBox" editable="{= ${/IsMaintainable} === true }" selectedKey="{ path: '/Status', mode:'OneTime' }">
                                     <core:Item id="Reservation_input_finished" key="RESERVED" text="{i18n>Reserved}" />
                                     <core:Item id="Reservation_input_pickedup" key="PICKED UP" text="{i18n>PickedUp}" />
                                     <core:Item id="Reservation_input_delayed" key="CANCELED" text="{i18n>Canceled}" />
