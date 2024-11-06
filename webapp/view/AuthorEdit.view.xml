@@ -24,10 +24,10 @@
                     </f:SimpleForm>
                     <OverflowToolbar id="authortranslation_toolbar_footer">
                         <ToolbarSpacer id="authortranslation_spacer_footer" />
-                        <Button id="authortranslation_button_delete" text="Delete" press="onDeletePressed" type="Negative" />
+                        <Button id="authortranslation_button_delete" text="{i18n>Delete}" press="onDeletePressed" type="Negative" />
                         <ToolbarSpacer id="authortranslation_spacer_deletebutton" width="30px" />
-                        <Button id="authortranslation_button_save" text="Save" press="onSavePressed" type="Accept"/>
-                        <Button id="authortranslation_button_cancel" text="Cancel" press="onCancelPressed" type="Reject"/>
+                        <Button id="authortranslation_button_save" text="{i18n>Save}" press="onSavePressed" type="Accept"/>
+                        <Button id="authortranslation_button_cancel" text="{i18n>Cancel}" press="onCancelPressed" type="Reject"/>
                     </OverflowToolbar>
     </Page>
 </mvc:View>

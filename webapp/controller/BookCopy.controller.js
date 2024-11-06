@@ -22,6 +22,10 @@ sap.ui.define([
             },
 
             onSavePressed: async function(){
+                let i18nModel = this.getView().getModel("i18n"),
+                    oResourceBundle = i18nModel.getResourceBundle(),
+                    SuccessfullySaved = oResourceBundle.getText("SuccessfullySaved");
+
                 const book = {
                     Bookid: this.getView().byId("bookcopy_field_bookid").getValue(),
                     Availability: this.getView().byId("bookStatusComboBox").getSelectedKey()
@@ -32,14 +36,14 @@ sap.ui.define([
 
                 this.getView().getModel().submitChanges({
                     success: () => {
-                        sap.m.MessageToast.show("Successfully saved!");
+                        sap.m.MessageToast.show(SuccessfullySaved);
                         
                         this.getOwnerComponent().getModel().refresh(true);
                         
                         this.onNavBack();
                     },
                     error: () => {
-                        sap.m.MessageToast.show("An error occured!");
+                        sap.m.MessageToast.show(oResourceBundle.getText("ErrorOccured"));
                     }
                 })
                 } catch(oError){

@@ -35,11 +35,6 @@ function (Base, Fragment, Popover, library, Button) {
 			oNavListItem.setVisible(!oNavListItem.getVisible());
 		},
 
-        // onSideNavigationItemSelected: function (oEvent) {
-        //     const eventParameter = oEvent.getParameter("item");
-        //     this.getOwnerComponent().getRouter().navTo(eventParameter.getKey());
-        // },
-
         handleUserNamePress: function (event) {
 			var oPopover = new Popover({
 				showHeader: false,
@@ -104,7 +99,7 @@ function (Base, Fragment, Popover, library, Button) {
                     this.getOwnerComponent().getRouter().navTo("AuthorsMaintenance");
                     break;
                 default:
-                    this.getOwnerComponent().getRouter().navTo("Main");
+                    this.getOwnerComponent().getRouter().navTo("Books");
                     break;
             }
         },

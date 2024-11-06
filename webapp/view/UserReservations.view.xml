@@ -5,7 +5,7 @@
  xmlns="sap.m">
     <Page id="UserReservations" title="{i18n>page.UserReservations}">
         <headerContent>
-            <Button id="CreateUserReservations" press="onCreateReservation" text="Create" type="Emphasized" />
+            <Button id="CreateUserReservations" press="onCreateReservation" icon="sap-icon://add" text="{i18n>Create}" />
         </headerContent>
         <IconTabBar
 				id="iconTabBarUserReservations"

@@ -10,7 +10,7 @@
                     <Toolbar id="BooksMaintenance_Table_Toolbar">
                         <Title id="BooksMaintenance_table_title" text="{i18n>main.tableHeader}" />
                         <ToolbarSpacer id="BooksMaintenance_table_toolbarspacer" />
-                        <Button id="BooksMaintenance_table_createbutton" text="{i18n>books.createButton}" type="Emphasized" press="onCreatePressed"></Button>
+                        <Button id="BooksMaintenance_table_createbutton" icon="sap-icon://add" text="{i18n>books.createButton}" press="onCreatePressed"></Button>
                     </Toolbar>
                 </headerToolbar>
                 
@@ -54,7 +54,6 @@
                 <items>
                     <ColumnListItem id="booksmaintenance_columnlistitem_template" press="onNavToDetail" type="Navigation">
                         <cells>
-                            <!-- <Text id="main_text_isbntemplate" text="{ISBN}"/> -->
                             <Text id="booksmaintenance_text_titletemplate" text="{Title}"/>
                             <Text id="booksmaintenance_text_genrestemplate" text="{Genres}"/>
                             <Text id="booksmaintenance_text_authorstemplate" text="{Authors}"/>

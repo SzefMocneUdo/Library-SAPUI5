@@ -174,14 +174,14 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
         },
 
         onCancelPressed: async function () {
+            let i18nModel = this.getView().getModel("i18n"),
+                oResourceBundle = i18nModel.getResourceBundle();
             const reservation = {
                 Reservationid: (this.byId("SimpleFormChangeColumn_ReservationDetails").mAggregations.title).slice(-36),
                 Status: "CANCELED"
             }
 
-            let sText = "Are You sure that You want to cancel the reservation?";
-
-            MessageBox.confirm(sText, {
+            MessageBox.confirm(oResourceBundle.getText("deleteQuestion"), {
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                 emphasizedAction: MessageBox.Action.YES,
                 onClose: async (sAction) => {
@@ -192,12 +192,12 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
         
                             this.getView().getModel().submitChanges({
                                 success: () => {
-                                    sap.m.MessageToast.show("Reservation canceled");
+                                    sap.m.MessageToast.show(oResourceBundle.getText("ReservationCanceled"));
                                     this.getOwnerComponent().getModel().refresh(true);
                                     this.closeDialog();
                                 },
                                 error: () => {
-                                    sap.m.MessageToast.show("An error occurred!");
+                                    sap.m.MessageToast.show(oResourceBundle.getText("ErrorOccured"));
                                 }
                             });
                         } catch (oError) {
@@ -211,6 +211,8 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
         },
 
         onSavePressed: async function () {
+            let i18nModel = this.getView().getModel("i18n"),
+                oResourceBundle = i18nModel.getResourceBundle();
 
             let startDate = this.byId("CreateReservation_input_start_date").getValue(),
                 endDate = this.byId("CreateReservation_input_end_date").getValue();
@@ -229,7 +231,7 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
 
             try{
                 if (books.length === 0) {
-                    sap.m.MessageToast.show("You must select at least one book");
+                    sap.m.MessageToast.show(oResourceBundle.getText("MustSelectOneBook"));
                 }
                 else{
                     let oModel = this.getOwnerComponent().getModel();
@@ -241,12 +243,12 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
             
                     this.getView().getModel().submitChanges({
                         success: () => {
-                            MessageBox.information(`A new reservation with ID: '${createdreservation.Reservationid}' has been created`);
+                            MessageBox.information(oResourceBundle.getText("NewReservationWithId") + createdreservation.Reservationid + ' ' + oResourceBundle.getText("HasBeenCreated"));
                             this.getOwnerComponent().getModel().refresh(true);
                             this.closeDialog();
                         },
                         error: () => {
-                            sap.m.MessageToast.show("An error occurred!");
+                            sap.m.MessageToast.show(this.getErrorMessage(oResourceBundle.getText("ErrorOccured")));
                         }
                     });
                 }

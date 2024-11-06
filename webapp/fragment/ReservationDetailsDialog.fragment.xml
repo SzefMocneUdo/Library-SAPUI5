@@ -5,34 +5,34 @@
 	xmlns:core="sap.ui.core">
 	<Dialog
 		id="ReservationDetails"
-		title="ReservationDetails">
+		title="{i18n>title.ReservationDetails}">
 		<content>
 			<VBox class="sapUiSmallMargin" id="ReservationDetailsformContainer" width="800px">
 				<f:SimpleForm id="SimpleFormChangeColumn_ReservationDetails"
 					layout="ColumnLayout"
-                    title="Reservation ID: {/Reservationid}"
+                    title="{i18n>title.ReservationID}: {/Reservationid}"
 					columnsM="2"
 					columnsL="2"
 					columnsXL="2">
 					<f:content>
-						<Label id="ReservationDetailsBooksLabel" text="Books" />
+						<Label id="ReservationDetailsBooksLabel" text="{i18n>label.Books}" />
 						<Text id="ReservationDetailsBooksText" text="{/Books}" wrapping="true" />
-						<Label id="ReservationDetailsCustomerLabel" text="Customer" />
+						<Label id="ReservationDetailsCustomerLabel" text="{i18n>label.Customer}" />
 						<Input id="ReservationDetailsCustomerInput" editable="false" value="{/Reader}">
 							<layoutData>
 								<f:ColumnElementData id="ReservationDetailsColumnElementData" cellsSmall="8" cellsLarge="8" />
 							</layoutData>
 						</Input>
-						<Label id="ReservationDetailsStartDateLabel" text="Start Date" />
+						<Label id="ReservationDetailsStartDateLabel" text="{i18n>label.StartDate}" />
 						<DatePicker id="Reservationdetails_input_start_date" displayFormat="dd MMMM yyyy" editable="false" value="{path:'/FormattedStartDate', type:'sap.ui.model.odata.type.Date', formatOptions: { pattern: 'dd MMMM yyyy'}}" />
-						<Label id="ReservationDetailsEndDateLabel" text="End Date" />
+						<Label id="ReservationDetailsEndDateLabel" text="{i18n>label.EndDate}" />
 						<DatePicker id="Reservationdetails_input_end_date" displayFormat="dd MMMM yyyy" editable="false" value="{path:'/FormattedEndDate', type:'sap.ui.model.odata.type.Date', formatOptions: { pattern: 'dd MMMM yyyy'}}" />
 
-						<Label id="ReservationDetailsStatusLabel" text="Status" />
-						<ComboBox id="ReservationStatusComboBox" placeholder="Select Reservation Status" editable="{= ${/IsMaintainable} === true }" selectedKey="{ path: '/Status', mode:'OneTime' }">
-                                    <core:Item id="Reservation_input_finished" key="RESERVED" text="Reserved" />
-                                    <core:Item id="Reservation_input_pickedup" key="PICKED UP" text="Picked Up" />
-                                    <core:Item id="Reservation_input_delayed" key="CANCELED" text="Canceled" />
+						<Label id="ReservationDetailsStatusLabel" text="{i18n>label.Status}" />
+						<ComboBox id="ReservationStatusComboBox" placeholder="{i18n>SelectReservationStatus}" editable="{= ${/IsMaintainable} === true }" selectedKey="{ path: '/Status', mode:'OneTime' }">
+                                    <core:Item id="Reservation_input_finished" key="RESERVED" text="{i18n>Reserved}" />
+                                    <core:Item id="Reservation_input_pickedup" key="PICKED UP" text="{i18n>PickedUp}" />
+                                    <core:Item id="Reservation_input_delayed" key="CANCELED" text="{i18n>Canceled}" />
                         </ComboBox>
 					</f:content>
 				</f:SimpleForm>
@@ -41,19 +41,19 @@
 				<content>
 					<ToolbarSpacer id="ReservationDetailsToolbarSpacer" />
 					<Button id="ReservationDetailsCancel"
-						text="Cancel"
+						text="{i18n>Cancel}"
 						type="Reject"
 						press="onCancelPressed"
 						ariaHasPopup="Dialog"
 						visible="{= ${/Status} === 'RESERVED' }" />
 					<Button id="ReservationDetailsUpdate"
-						text="Update"
+						text="{i18n>Update}"
 						type="Emphasized"
 						press="onUpdatePressed"
 						ariaHasPopup="Dialog"
 						visible="{= ${/IsMaintainable} === true }" />
 					<Button id="ReservationDetailsCloseDialog"
-						text="Close"
+						text="{i18n>Close}"
 						type="Emphasized"
 						press="closeDialog"
 						ariaHasPopup="Dialog" />

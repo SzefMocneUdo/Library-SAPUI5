@@ -33,11 +33,11 @@ sap.ui.define([
                 });
             },
 
-            onDeletePressed: function(){ //Delete entity
+            onDeletePressed: function(){
                 let sPath = this.getView().getElementBinding().getPath(),
                     i18nModel = this.getView().getModel("i18n"),
                     oResourceBundle = i18nModel.getResourceBundle(),
-                    sText = oResourceBundle.getText("Are You sure?"),
+                    sText = oResourceBundle.getText("deleteQuestion"),
                     authorid = this.getView().byId("authordetails_field_authorid").getValue();
 
                 MessageBox.confirm(sText, {

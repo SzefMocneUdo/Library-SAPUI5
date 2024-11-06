@@ -9,12 +9,12 @@
     <Page id="BookDetails" >
         <IconTabBar id="IconTabBarBookDetails" class="sapUiResponsiveContentPadding">
             <items>
-                <IconTabFilter id="IconTabFilterBookDetailsDefinition" text="Definition" key="definition">
+                <IconTabFilter id="IconTabFilterBookDetailsDefinition" text="{i18n>Definition}" key="definition">
                     <content>
                         <OverflowToolbar id="bookdetails_toolbar_header">
                             <Title id="bookdetails_title_header" text="{i18n>BookDetails}"/>
                             <ToolbarSpacer id="bookdetails_spacer_header" />
-                            <Button id="bookdetails_button_edit" text="Edit" type="Emphasized" press="onEditPressed"/>
+                            <Button id="bookdetails_button_edit" text="{i18n>Edit}" type="Emphasized" press="onEditPressed"/>
                         </OverflowToolbar>
         
                         <smartForm:SmartForm id="bookdetails_smartform">
@@ -47,14 +47,14 @@
                         </smartForm:SmartForm>
                         <OverflowToolbar id="bookdetails_toolbar_footer">
                             <ToolbarSpacer id="bookdetails_spacer_footer" />
-                            <Button id="bookdetails_button_cancel" text="Delete" press="onDeletePressed" type="Negative" />
+                            <Button id="bookdetails_button_cancel" text="{i18n>Delete}" press="onDeletePressed" type="Negative" />
                         </OverflowToolbar>
                     </content>
                 </IconTabFilter>
 
-                <IconTabFilter id="IconTabFilterBookDetailsTranslation" text="Translations" key="translations">
+                <IconTabFilter id="IconTabFilterBookDetailsTranslation" text="{i18n>Translations}" key="translations">
                     <content>
-                        <Table id="table_booksmaintenance_translations" headerText="{i18n>BooksTranslationsTitle.tableHeader}" items="{BookTextSet}" growing="true" growingThreshold="200" alternateRowColors="true" >
+                        <Table id="table_booksmaintenance_translations" items="{BookTextSet}" growing="true" growingThreshold="200" alternateRowColors="true" >
                             <headerToolbar>
                                 <Toolbar id="Books_Translations_Table_Toolbar">
                                     <Title id="Books_Translations_table_title" text="{i18n>BooksTranslations.tableHeader}" />
@@ -92,12 +92,12 @@
                     </content>
                 </IconTabFilter>
 
-                <IconTabFilter id="IconTabFilterBookDetailsCopies" text="Book copies" key="bookcopies">
+                <IconTabFilter id="IconTabFilterBookDetailsCopies" text="{i18n>Bookcopies}" key="bookcopies">
                     <content>
-                        <Table id="table_booksmaintenance_copy" headerText="{i18n>BooksTranslationsTitle.tableHeader}" items="{ToBook_copySet}" growing="true" growingThreshold="200" alternateRowColors="true" >
+                        <Table id="table_booksmaintenance_copy"  items="{ToBook_copySet}" growing="true" growingThreshold="200" alternateRowColors="true" >
                             <headerToolbar>
                                 <Toolbar id="Books_Copy_Table_Toolbar">
-                                    <Title id="Books_Copy_table_title" text="{i18n>BooksTranslations.tableHeader}" />
+                                    <Title id="Books_Copy_table_title" text="{i18n>BooksCopies.tableHeader}" />
                                     <ToolbarSpacer id="Books_Copy_table_toolbarspacer" />
                                     <Button id="Books_Copy_table_createbutton" text="{i18n>button.createCopyButton}" type="Emphasized" press="onCreateCopyPressed"></Button>
                                 </Toolbar>

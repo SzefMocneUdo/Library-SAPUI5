@@ -9,7 +9,7 @@
     <Page id="GenreDetails" title="{i18n>page.genresMaintenance}" >
         <IconTabBar id="IconTabBarGenreDetails" class="sapUiResponsiveContentPadding">
             <items>
-                <IconTabFilter id="IconTabFilterGenreDetailsDefinition" text="Definition" key="definition">
+                <IconTabFilter id="IconTabFilterGenreDetailsDefinition" text="{i18n>Definition}" key="definition">
                     <content>
                         <smartForm:SmartForm id="genredetails_smartform">
                             <smartForm:Group id="genredetails_group">
@@ -26,11 +26,11 @@
                         </smartForm:SmartForm>
                         <OverflowToolbar id="genredetails_toolbar_footer" visible="{editModel>/editMode}">
                             <ToolbarSpacer id="genredetails_spacer_footer" />
-                            <Button id="genredetails_button_cancel" text="Delete" press="onDeletePressed" type="Negative" visible="{editModel>/editMode}" />
+                            <Button id="genredetails_button_cancel" text="{i18n>Delete}" press="onDeletePressed" type="Negative" visible="{editModel>/editMode}" />
                         </OverflowToolbar>
                     </content>
                 </IconTabFilter>
-                <IconTabFilter id="IconTabFilterGenresMaintenanceTranslations" text="Translations" key="translations">
+                <IconTabFilter id="IconTabFilterGenresMaintenanceTranslations" text="{i18n>Translations}" key="translations">
                     <content>
                         <Table id="table_genresmaintenance_translations" headerText="{i18n>GenresTranslationsTitle.tableHeader}" items="{GenreTextSet}" growing="true" growingThreshold="200" alternateRowColors="true" >
                 <headerToolbar>

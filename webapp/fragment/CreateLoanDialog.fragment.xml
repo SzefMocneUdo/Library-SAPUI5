@@ -10,19 +10,19 @@
 			<VBox class="sapUiSmallMargin" id="CreateLoanformContainer" height="350px" width="400px">
 				<f:SimpleForm id="SimpleFormChangeColumn_CreateLoan">
 					<f:content>
-						<Label id="CreateLoanBooksLabel" text="Books" />
+						<Label id="CreateLoanBooksLabel" text="{i18n>label.Books}" />
 						<MultiComboBox id="createloan_booksMultiComboBox" required="true" showSecondaryValues= "true" items="{path:'/Book_copySet', parameters:{expand:'ToBook'}, filters: [{path: 'Availability', operator: 'EQ', value1: 'AVAILABLE'}]}"  valueStateText="{i18n>bookManagement.authorsEmptiness}">
                             <core:ListItem id="createloan_inputbooks" key="{parts:['Bookid'], formatter:'sap.ui.base.ManagedObject.escapeSettingsValue'}" text="{Bookid}" additionalText="{ToBook/Title}"/>
                         </MultiComboBox>
-						<Label id="CreateLoanCustomerLabel" text="Customer" required="true" />
+						<Label id="CreateLoanCustomerLabel" text="{i18n>label.Customer}" required="true" />
 						<Input id="CreateLoanCustomerInput">
 							<layoutData>
 								<f:ColumnElementData id="CreateLoanColumnElementData" cellsSmall="8" cellsLarge="8" />
 							</layoutData>
 						</Input>
-						<Label id="CreateLoanStartDateLabel" text="Start Date" />
+						<Label id="CreateLoanStartDateLabel" text="{i18n>label.StartDate}" />
 						<DatePicker id="CreateLoan_input_start_date" maxDate="{ todayDate }" displayFormat="dd MMMM yyyy" />
-						<Label id="CreateLoanEndDateLabel" text="End Date" />
+						<Label id="CreateLoanEndDateLabel" text="{i18n>label.EndDate}" />
 						<DatePicker id="CreateLoan_input_end_date" maxDate="{ todayDate }" displayFormat="dd MMMM yyyy" />
 					</f:content>
 				</f:SimpleForm>
@@ -31,12 +31,12 @@
 				<content>
 					<ToolbarSpacer id="CreateLoanToolbarSpacer" />
                     <Button id="CreateLoanSave"
-						text="Save"
+						text="{i18n>Save}"
 						type="Accept"
 						press="onSavePressed"
 						ariaHasPopup="Dialog" />
 					<Button id="CreateLoanCancel"
-						text="Cancel"
+						text="{i18n>Cancel}"
 						type="Reject"
 						press="closeDialog"
 						ariaHasPopup="Dialog" />

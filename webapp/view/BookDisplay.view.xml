@@ -42,7 +42,7 @@
                             </VBox>
                             <VBox id="BookVBoxRating" class="sapUiSmallMarginBottom">
                                 <Label id="BookRatingLabel" text="{/#Book/Rating/@sap:label}" />
-                                <RatingIndicator id="bookdisplay_field_rating" class="sapUiNoMargin" maxValue="10" displayOnly="true" iconSize="1rem" value="{Rating}" tooltip="Rating Tooltip"/>
+                                <RatingIndicator id="bookdisplay_field_rating" class="sapUiNoMargin" maxValue="10" displayOnly="true" iconSize="1rem" value="{Rating}"/>
                             </VBox>
                             <VBox id="BookVBoxAuthors" class="sapUiSmallMarginBottom">
                                 <Label id="BookAuthorsLabel" text="{/#Book/Authors/@sap:label}" />

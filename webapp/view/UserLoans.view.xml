@@ -4,8 +4,6 @@
  xmlns:semantic="sap.f.semantic"
  xmlns="sap.m">
     <Page id="UserLoansPage" title="{i18n>page.UserLoans}">
-        <headerContent>
-        </headerContent>
         <IconTabBar
 				id="iconTabBarUserLoans"
 				select="onFilterSelect"

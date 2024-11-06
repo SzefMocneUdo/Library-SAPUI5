@@ -33,8 +33,8 @@
         <footer>
             <OverflowToolbar id="bookedit_toolbar_footer" visible="{editModel>/editMode}">
                 <ToolbarSpacer id="bookedit_spacer_footer" />
-                <Button id="bookedit_button_save" text="Save" press="onSavePressed" type="Accept" visible="{editModel>/editMode}"/>
-                <Button id="bookedit_button_cancel" text="Cancel" press="onCancelPressed" type="Reject" visible="{editModel>/editMode}" />
+                <Button id="bookedit_button_save" text="{i18n>Save}" press="onSavePressed" type="Accept" visible="{editModel>/editMode}"/>
+                <Button id="bookedit_button_cancel" text="{i18n>Cancel}" press="onCancelPressed" type="Reject" visible="{editModel>/editMode}" />
             </OverflowToolbar>
         </footer>
     </Page>

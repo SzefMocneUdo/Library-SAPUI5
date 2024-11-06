@@ -15,7 +15,7 @@
     </f:SimpleForm>
     <OverflowToolbar id="creategenredialog_toolbar_footer">
         <ToolbarSpacer id="creategenredialog_spacer_footer" />
-        <Button id="creategenredialog_button_save" text="Save" press="onSavePressed" type="Accept"/>
-        <Button id="creategenredialog_button_cancel" text="Cancel" press="onCancelPressed" type="Reject"/>
+        <Button id="creategenredialog_button_save" text="{i18n>Save}" press="onSavePressed" type="Accept"/>
+        <Button id="creategenredialog_button_cancel" text="{i18n>Cancel}" press="onCancelPressed" type="Reject"/>
     </OverflowToolbar>
     </Dialog>

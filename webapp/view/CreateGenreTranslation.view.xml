@@ -20,8 +20,8 @@
     </f:SimpleForm>
     <OverflowToolbar id="creategenretranslation_toolbar_footer">
         <ToolbarSpacer id="creategenretranslation_spacer_footer" />
-        <Button id="creategenretranslation_button_save" text="Save" press="onSavePressed" type="Accept"/>
-        <Button id="creategenretranslation_button_cancel" text="Cancel" press="onCancelPressed" type="Reject"/>
+        <Button id="creategenretranslation_button_save" text="{i18n>Save}" press="onSavePressed" type="Accept"/>
+        <Button id="creategenretranslation_button_cancel" text="{i18n>Cancel}" press="onCancelPressed" type="Reject"/>
     </OverflowToolbar>
     </Page>
 </mvc:View>

@@ -34,6 +34,9 @@ sap.ui.define([
             },
 
             onSavePressed: async function(oEvent){
+                let i18nModel = this.getView().getModel("i18n"),
+                    oResourceBundle = i18nModel.getResourceBundle();
+
                 const translation = {
                     Authorid: oEvent.getSource().getBindingContext().getProperty("Authorid"),
                     Spras: this.getView().byId("AuthorTranslationLanguageText").getValue(),
@@ -42,24 +45,24 @@ sap.ui.define([
 
                 try{
                     if (translation.Spras === "") {
-                        sap.m.MessageToast.show("Language cannot be empty");
+                        sap.m.MessageToast.show(oResourceBundle.getText("LanguageEmpty"));
                     }
                     else if (translation.Description === ""){
-                        sap.m.MessageToast.show("Description cannot be empty");
+                        sap.m.MessageToast.show(oResourceBundle.getText("DescriptionEmpty"));
                     }
                     else{
                         await Service.updateAuthorText(this.getOwnerComponent().getModel(), translation);
 
                         this.getView().getModel().submitChanges({
                             success: () => {
-                                sap.m.MessageToast.show("Successfully saved!");
+                                sap.m.MessageToast.show(oResourceBundle.getText("SuccessfullySaved"));
 
                                 this.getOwnerComponent().getModel().refresh(true);
 
                                 this.onNavBack();
                             },
-                            error: (oError) => {
-                                sap.m.MessageToast.show(this.getErrorMessage(oError));
+                            error: () => {
+                                sap.m.MessageToast.show(oResourceBundle.getText("ErrorOccured"));
                             }
                         })
                     }

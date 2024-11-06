@@ -32,8 +32,8 @@
     <footer>
             <OverflowToolbar id="bookcreate_toolbar_footer">
                 <ToolbarSpacer id="bookcreate_spacer_footer" />
-                <Button id="bookcreate_button_save" text="Save" press="onCreatePressed" type="Accept"/>
-                <Button id="bookcreate_button_cancel" text="Cancel" press="onCancelCreatePressed" type="Reject"/>
+                <Button id="bookcreate_button_save" text="{i18n>Save}" press="onCreatePressed" type="Accept"/>
+                <Button id="bookcreate_button_cancel" text="{i18n>Cancel}" press="onCancelCreatePressed" type="Reject"/>
             </OverflowToolbar>
         </footer>
 </Page>

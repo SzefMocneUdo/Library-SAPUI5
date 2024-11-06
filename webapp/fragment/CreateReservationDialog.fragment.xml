@@ -10,19 +10,19 @@
 			<VBox class="sapUiSmallMargin" id="CreateReservationformContainer"  width="400px">
 				<f:SimpleForm id="SimpleFormChangeColumn_CreateReservation">
 					<f:content>
-						<Label id="CreateReservationBooksLabel" text="Books" />
+						<Label id="CreateReservationBooksLabel" text="{i18n>label.Books}" />
 						<MultiComboBox id="createReservation_booksMultiComboBox" required="true" showSecondaryValues= "true" items="{path:'/Book_copySet', parameters:{expand:'ToBook'}, filters: [{path: 'Availability', operator: 'EQ', value1: 'AVAILABLE'}]}"  valueStateText="{i18n>bookManagement.authorsEmptiness}">
                             <core:ListItem id="createReservation_inputbooks" key="{parts:['Bookid'], formatter:'sap.ui.base.ManagedObject.escapeSettingsValue'}" text="{Bookid}" additionalText="{ToBook/Title}"/>
                         </MultiComboBox>
-						<Label id="CreateReservationCustomerLabel" text="Customer" required="true" />
+						<Label id="CreateReservationCustomerLabel" text="{i18n>label.Customer}" required="true" />
 						<Input id="CreateReservationCustomerInput" visible="{= ${/IsMaintainable} === true }">
 							<layoutData>
 								<f:ColumnElementData id="CreateReservationColumnElementData" cellsSmall="8" cellsLarge="8" />
 							</layoutData>
 						</Input>
-						<Label id="CreateReservationStartDateLabel" text="Start Date" />
+						<Label id="CreateReservationStartDateLabel" text="{i18n>label.StartDate}" />
 						<DatePicker id="CreateReservation_input_start_date" displayFormat="dd MMMM yyyy" visible="{= ${/IsMaintainable} === true }" />
-						<Label id="CreateReservationEndDateLabel" text="End Date" />
+						<Label id="CreateReservationEndDateLabel" text="{i18n>label.EndDate}" />
 						<DatePicker id="CreateReservation_input_end_date" displayFormat="dd MMMM yyyy" visible="{= ${/IsMaintainable} === true }" />
 					</f:content>
 				</f:SimpleForm>
@@ -31,12 +31,12 @@
 				<content>
 					<ToolbarSpacer id="CreateReservationToolbarSpacer" />
                     <Button id="CreateReservationSave"
-						text="Save"
+						text="{i18n>Save}"
 						type="Accept"
 						press="onSavePressed"
 						ariaHasPopup="Dialog" />
 					<Button id="CreateReservationCancel"
-						text="Cancel"
+						text="{i18n>Cancel}"
 						type="Reject"
 						press="closeDialog"
 						ariaHasPopup="Dialog" />

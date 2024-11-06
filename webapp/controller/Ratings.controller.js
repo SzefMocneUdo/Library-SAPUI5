@@ -37,13 +37,16 @@ function (Base, Service, Filter, FilterOperator, MessageBox) {
         },
 
         deleteRow: function (oEvent) {
+            let i18nModel = this.getView().getModel("i18n"),
+                oResourceBundle = i18nModel.getResourceBundle();
+
             let oButton = oEvent.getSource();            
             let oListItem = oButton.getParent();
             let oModel = this.getView().getModel();
             let oContext = oListItem.getBindingContext();
             let sPath = oContext.getPath();
 
-            MessageBox.confirm("Are You sure that You want to delete this rating?", {
+            MessageBox.confirm(oResourceBundle.getText("deleteQuestion"), {
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                 onClose: async function (sAction) {
                     if (sAction === MessageBox.Action.YES) {

@@ -22,19 +22,19 @@
                                 <Input id="bookcopy_field_bookid" value="{Bookid}" enabled="false" />
                                 <Label id="bookcopy_element_availability" text="{/#Book_copy/Availability/@sap:label}"/>
                                 <ComboBox id="bookStatusComboBox" placeholder="Select Book Status" selectionChange="onStatusChange" selectedKey="{Availability}">
-                                    <core:Item id="bookcopy_input_available" key="AVAILABLE" text="Available" />
-                                    <core:Item id="bookcopy_input_notavailable" key="NOT AVAILABLE" text="Not Available" />
-                                    <core:Item id="bookcopy_input_lost" key="LOST" text="Lost" />
+                                    <core:Item id="bookcopy_input_available" key="AVAILABLE" text="{i18n>Available}" />
+                                    <core:Item id="bookcopy_input_notavailable" key="NOT AVAILABLE" text="{i18n>NotAvailable}" />
+                                    <core:Item id="bookcopy_input_lost" key="LOST" text="{i18n>Lost}" />
                                 </ComboBox>
                             </f:content>
                         </f:SimpleForm>
                         
                         <OverflowToolbar id="bookcopy_toolbar_footer">
                             <ToolbarSpacer id="bookcopy_spacer_footer" />
-                            <Button id="bookcopy_button_delete" text="Delete" press="onDeletePressed" type="Negative" />
+                            <Button id="bookcopy_button_delete" text="{i18n>Delete}" press="onDeletePressed" type="Negative" />
                             <ToolbarSpacer id="bookcopy_spacer_delete_save" width="25px"/>
-                            <Button id="bookcopy_button_save" text="Save" press="onSavePressed" type="Accept" />
-                            <Button id="bookcopy_button_cancel" text="Cancel" press="onCancelPressed" type="Reject" />
+                            <Button id="bookcopy_button_save" text="{i18n>Save}" press="onSavePressed" type="Accept" />
+                            <Button id="bookcopy_button_cancel" text="{i18n>Cancel}" press="onCancelPressed" type="Reject" />
                         </OverflowToolbar>
                         </content>
     </Page>

@@ -18,12 +18,12 @@
 				<content>
 					<ToolbarSpacer id="CreateRatingToolbarSpacer" />
                     <Button id="CreateRatingSave"
-						text="Save"
+						text="{i18n>Save}"
 						type="Accept"
 						press="onSavePressed"
 						ariaHasPopup="Dialog" />
 					<Button id="CreateRatingCancel"
-						text="Cancel"
+						text="{i18n>Cancel}"
 						type="Reject"
 						press="closeDialog"
 						ariaHasPopup="Dialog" />

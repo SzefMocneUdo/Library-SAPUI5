@@ -46,18 +46,21 @@ sap.ui.define([
             onSavePressed: async function () {
                 let isbn = this.getView().byId("BookISBNText").getText();
                 let rating = this.getView().byId("CreateRating_RatingIndicator").getValue();
+                let i18nModel = this.getView().getModel("i18n"),
+                    oResourceBundle = i18nModel.getResourceBundle(),
+                    ratingCreated = oResourceBundle.getText("RatingCreated"); 
 
                 try {
                     await Service.createRating(this.getOwnerComponent().getModel(), isbn, rating);
 
                     this.getView().getModel().submitChanges({
                         success: () => {
-                            sap.m.MessageToast.show("Your rating has been created")
+                            sap.m.MessageToast.show(ratingCreated)
                             this.getOwnerComponent().getModel().refresh(true);
                             this.closeDialog();
                         },
                         error: () => {
-                            sap.m.MessageToast.show("An error occurred!");
+                            sap.m.MessageToast.show(oResourceBundle.getText("ErrorOccured"));
                         }
                     });
                 } catch (oError) {
@@ -67,6 +70,11 @@ sap.ui.define([
 
             onCreateReservation: async function() {
                 try {
+                    let i18nModel = this.getView().getModel("i18n"),
+                    oResourceBundle = i18nModel.getResourceBundle(),
+                    BookNotAvailable = oResourceBundle.getText("BookNotAvailable"),
+                    NewReservationWithId = oResourceBundle.getText("NewReservationWithId"),
+                    HasBeenCreated = oResourceBundle.getText("HasBeenCreated");
 
                     let isbn = this.getView().byId("BookISBNText").getText();
                     
@@ -94,7 +102,7 @@ sap.ui.define([
                     };
                     
                     if (Availability === false) {
-                        MessageBox.error("Book is not available");
+                        MessageBox.error(BookNotAvailable);
                     } else {
                         const reservation = {
                             Reader: null,
@@ -107,11 +115,11 @@ sap.ui.define([
 
                         this.getView().getModel().submitChanges({
                             success: () => {
-                                MessageBox.information(`A new reservation with ID: '${createdreservation.Reservationid}' has been created`);
+                                MessageBox.information(NewReservationWithId + createdreservation.Reservationid + ' ' + HasBeenCreated);
                                 this.getOwnerComponent().getModel().refresh(true);
                             },
                             error: () => {
-                                sap.m.MessageToast.show("An error occurred!");
+                                sap.m.MessageToast.show(oResourceBundle.getText("ErrorOccured"));
                             }
                         });
                     }

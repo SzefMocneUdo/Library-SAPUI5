@@ -9,7 +9,7 @@
     <Page id="AuthorDetails" title="{i18n>page.authorsMaintenance}" >
         <IconTabBar id="IconTabBarAuthorDetails" class="sapUiResponsiveContentPadding">
             <items>
-                <IconTabFilter id="IconTabFilterAuthorDetailsDefinition" text="Definition" key="definition">
+                <IconTabFilter id="IconTabFilterAuthorDetailsDefinition" text="{i18n>Definition}" key="definition">
                     <content>
                         <smartForm:SmartForm id="authordetails_smartform">
                             <smartForm:Group id="authordetails_group">
@@ -32,11 +32,11 @@
                         </smartForm:SmartForm>
                         <OverflowToolbar id="authordetails_toolbar_footer" visible="{editModel>/editMode}">
                             <ToolbarSpacer id="authordetails_spacer_footer" />
-                            <Button id="authordetailsv_button_cancel" text="Delete" press="onDeletePressed" type="Negative" visible="{editModel>/editMode}" />
+                            <Button id="authordetailsv_button_cancel" text="{i18n>Delete}" press="onDeletePressed" type="Negative" visible="{editModel>/editMode}" />
                         </OverflowToolbar>
                     </content>
                 </IconTabFilter>
-                <IconTabFilter id="IconTabFilterAuthorsMaintenanceTranslations" text="Translations" key="translations">
+                <IconTabFilter id="IconTabFilterAuthorsMaintenanceTranslations" text="{i18n>Translations}" key="translations">
                     <content>
                         <Table id="table_auhtorsmaintenance_translations" headerText="{i18n>AuthorsTranslationsTitle.tableHeader}" items="{AuthorTextSet}" growing="true" growingThreshold="200" alternateRowColors="true" >
                 <headerToolbar>

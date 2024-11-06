@@ -62,12 +62,12 @@ sap.ui.define([
 
                     this.getView().getModel().submitChanges({
                     success: () => {
-                        sap.m.MessageToast.show("Successfully saved!");
+                        sap.m.MessageToast.show("{i18n>SuccessfullySaved}");
                         
                         this.getOwnerComponent().getModel().refresh(true);
                     },
-                    error: () => {
-                        sap.m.MessageToast.show("An error occured!");
+                    error: (oError) => {
+                        sap.m.MessageToast.show(this.getErrorMessage(oError));
                     }
                 })                   
                     
@@ -98,6 +98,8 @@ sap.ui.define([
                     sText = oResourceBundle.getText("deleteQuestion"),
                     ISBN = this.getView().byId("bookdetails_field_isbn").getValue(),
                     oModel = this.getOwnerComponent().getModel();
+
+                let Success = oResourceBundle.getText("Success");
             
                 MessageBox.confirm(sText, {
                     actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -169,8 +171,8 @@ sap.ui.define([
                                 await Service.deleteBook(oModel, ISBN);
             
                                 this.getView().getModel().submitChanges({
-                                    success: () => sap.m.MessageToast.show("Success"),
-                                    error: () => sap.m.MessageToast.show("Error")
+                                    success: () => sap.m.MessageToast.show(Success),
+                                    error: () => sap.m.MessageToast.show(oResourceBundle.getText("ErrorOccured"))
                                 });
                                 
                                 let oRouter = this.getOwnerComponent().getRouter();

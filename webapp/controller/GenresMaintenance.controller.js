@@ -37,30 +37,32 @@ function (Fragment, Service, Base) {
         },
 
         onSavePressed: async function () {
+            let i18nModel = this.getView().getModel("i18n"),
+                oResourceBundle = i18nModel.getResourceBundle();
+
             let Name = this.byId("CreateGenreNameDialogInput").getValue();
             let Description = this.byId("CreateGenreDescriptionDialogInput").getValue();
 
             try{
                 if (Name === "") {
-                    sap.m.MessageToast.show("Name cannot be empty");
+                    sap.m.MessageToast.show(oResourceBundle.getText("NameEmpty"));
                 }
                 else if (Description === "") {
-                    sap.m.MessageToast.show("Description cannot be empty");
+                    sap.m.MessageToast.show(oResourceBundle.getText("DescriptionEmpty"));
                 }
                 else {
                     await Service.createGenre(this.getOwnerComponent().getModel(), Name, Description);
 
                     this.getView().getModel().submitChanges({
                         success: () => {
-                            sap.m.MessageToast.show("Successfully saved!");
+                            sap.m.MessageToast.show(oResourceBundle.getText("SuccessfullySaved"));
                             
                             this.getOwnerComponent().getModel().refresh(true);
         
-                            // this.onNavBack();
                             this.oDialog.close();
                         },
                         error: () => {
-                            sap.m.MessageToast.show("An error occured!");
+                            sap.m.MessageToast.show(oResourceBundle.getText("ErrorOccured"));
                         }
                     })
                 } 

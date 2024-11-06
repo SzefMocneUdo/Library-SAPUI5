@@ -18,10 +18,10 @@
                     </f:SimpleForm>
                     <OverflowToolbar id="genretranslation_toolbar_footer">
                         <ToolbarSpacer id="genretranslation_spacer_footer" />
-                        <Button id="genretranslation_button_delete" text="Delete" press="onDeletePressed" type="Negative" />
+                        <Button id="genretranslation_button_delete" text="{i18n>Delete}" press="onDeletePressed" type="Negative" />
                         <ToolbarSpacer id="genretranslation_spacer_deletebutton" width="30px" />
-                        <Button id="genretranslation_button_save" text="Save" press="onSavePressed" type="Accept"/>
-                        <Button id="genretranslation_button_cancel" text="Cancel" press="onCancelPressed" type="Reject"/>
+                        <Button id="genretranslation_button_save" text="{i18n>Save}" press="onSavePressed" type="Accept"/>
+                        <Button id="genretranslation_button_cancel" text="{i18n>Cancel}" press="onCancelPressed" type="Reject"/>
                     </OverflowToolbar>
     </Page>
 </mvc:View>

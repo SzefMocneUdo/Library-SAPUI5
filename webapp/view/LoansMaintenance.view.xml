@@ -5,7 +5,7 @@
  xmlns="sap.m">
     <Page id="LoansMaintenancePage" title="{i18n>page.loansMaintenance}">
         <headerContent>
-            <Button id="CreateLoansMaintenance" press="onCreateLoan" text="Create" type="Emphasized" />
+            <Button id="CreateLoansMaintenance" press="onCreateLoan" text="{i18n>Create}" type="Emphasized" />
         </headerContent>
         <IconTabBar
 				id="iconTabBarLoansMaintenance"

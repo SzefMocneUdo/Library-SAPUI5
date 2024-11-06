@@ -40,7 +40,7 @@ sap.ui.define([
                         oAuthControl.setSelectedKeys(aSelectedKeys);
                     },
                     error: function(oError) {
-                        console.error("Błąd podczas pobierania autorów", oError);
+                        console.error(oError);
                     }
                 });
 
@@ -60,7 +60,7 @@ sap.ui.define([
                         oGenreControl.setSelectedKeys(gSelectedKeys);
                     },
                     error: function(oError) {
-                        console.error("Błąd podczas pobierania autorów", oError);
+                        console.error(oError);
                     }
                 });
 
@@ -72,6 +72,9 @@ sap.ui.define([
             },
 
             onSavePressed: async function() {
+                let i18nModel = this.getView().getModel("i18n"),
+                    oResourceBundle = i18nModel.getResourceBundle();
+
                 const publicationDate = this.getView().byId("bookedit_input_publication_date").getValue();
                 const ISBN = this.getView().byId("bookedit_text_isbn").getValue();
                 const book = {
@@ -95,34 +98,32 @@ sap.ui.define([
                 const newgenres = this.getView().byId("bookedit_genresMultiComboBox").getSelectedKeys();
             
                 try {
-
-                    // Walidacja pól
                     if (book.ISBN === "") {
-                        MessageToast.show("ISBN cannot be empty");
+                        MessageToast.show(oResourceBundle.getText("ISBNEmpty"));
                         return;
                     }
                     if (book.Title === "") {
-                        MessageToast.show("Title cannot be empty");
+                        MessageToast.show(oResourceBundle.getText("TitleEmpty"));
                         return;
                     }
                     if (newauthors.length === 0) {
-                        MessageToast.show("Authors cannot be empty");
+                        MessageToast.show(oResourceBundle.getText("AuthorsEmpty"));
                         return;
                     }
                     if (newgenres.length === 0) {
-                        MessageToast.show("Genres cannot be empty");
+                        MessageToast.show(oResourceBundle.getText("GenresEmpty"));
                         return;
                     }
                     if (book.PublicationDate === "") {
-                        MessageToast.show("Publication Date cannot be empty");
+                        MessageToast.show(oResourceBundle.getText("PublicationDateEmpty"));
                         return;
                     }
                     if (book.Language === "") {
-                        MessageToast.show("Language cannot be empty");
+                        MessageToast.show(oResourceBundle.getText("LanguageEmpty"));
                         return;
                     }
                     if (book.Description === "") {
-                        MessageToast.show("Description cannot be empty");
+                        MessageToast.show(oResourceBundle.getText("DescriptionEmpty"));
                         return;
                     }
 
@@ -174,12 +175,12 @@ sap.ui.define([
                     await Service.updateBook(this.getOwnerComponent().getModel(), book);
                     await this.getView().getModel().submitChanges({
                         success: () => {
-                            MessageToast.show("Book updated successfully!");
+                            MessageToast.show(oResourceBundle.getText("BookUpdated"));
                             this.getOwnerComponent().getModel().refresh(true);
                             this.onNavBack();
                         },
                         error: () => {
-                            MessageToast.show("Error updating book!");
+                            MessageToast.show(oResourceBundle.getText("ErrorOccured"));
                         }
                     });
             

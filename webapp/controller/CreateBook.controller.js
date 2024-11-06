@@ -12,6 +12,9 @@ sap.ui.define([
             },
 
             onCreatePressed: async function() {
+                let i18nModel = this.getView().getModel("i18n"),
+                    oResourceBundle = i18nModel.getResourceBundle();
+
                 const publicationDate = this.getView().byId("bookcreate_input_publication_date").getValue();
                 const book = {
                     ISBN: this.getView().byId("bookcreate_input_isbn").getValue(),
@@ -28,31 +31,31 @@ sap.ui.define([
             
                 try {
                     if (book.ISBN === "") {
-                        MessageToast.show("ISBN cannot be empty");
+                        MessageToast.show(oResourceBundle.getText("ISBNEmpty"));
                         return;
                     }
                     if (book.Title === "") {
-                        MessageToast.show("Title cannot be empty");
+                        MessageToast.show(oResourceBundle.getText("TitleEmpty"));
                         return;
                     }
                     if (authors.length === 0) {
-                        MessageToast.show("Authors cannot be empty");
+                        MessageToast.show(oResourceBundle.getText("AuthorsEmpty"));
                         return;
                     }
                     if (genres.length === 0) {
-                        MessageToast.show("Genres cannot be empty");
+                        MessageToast.show(oResourceBundle.getText("GenresEmpty"));
                         return;
                     }
                     if (book.PublicationDate === "") {
-                        MessageToast.show("Publication Date cannot be empty");
+                        MessageToast.show(oResourceBundle.getText("PublicationDateEmpty"));
                         return;
                     }
                     if (book.Language === "") {
-                        MessageToast.show("Language cannot be empty");
+                        MessageToast.show(oResourceBundle.getText("LanguageEmpty"));
                         return;
                     }
                     if (book.Description === "") {
-                        MessageToast.show("Description cannot be empty");
+                        MessageToast.show(oResourceBundle.getText("DescriptionEmpty"));
                         return;
                     }
             

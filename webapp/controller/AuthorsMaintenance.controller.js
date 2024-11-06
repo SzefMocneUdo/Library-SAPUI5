@@ -42,6 +42,10 @@ function (Fragment, Base, Service) {
         },
 
         onSavePressed: async function () {
+            let i18nModel = this.getView().getModel("i18n"),
+            oResourceBundle = i18nModel.getResourceBundle();
+            
+
             const Author = {
                 Name: this.byId("CreateAuthorNameDialogInput").getValue(),
                 Surname: this.byId("CreateAuthorSurnameDialogInput").getValue(),
@@ -50,28 +54,26 @@ function (Fragment, Base, Service) {
             }
 
                 if (Author.Name === "") {
-                    sap.m.MessageToast.show("Name cannot be empty");
+                    sap.m.MessageToast.show(oResourceBundle.getText("NameEmpty"));
                 }
                 else if (Author.Surname === "") {
-                    sap.m.MessageToast.show("Surname cannot be empty");
+                    sap.m.MessageToast.show(oResourceBundle.getText("SurnameEmpty"));
                 }
                 else if (Author.Nationality === "") {
-                    sap.m.MessageToast.show("Nationality cannot be empty");
+                    sap.m.MessageToast.show(oResourceBundle.getText("NationalityEmpty"));
                 }
                 else if (Author.Description === "") {
-                    sap.m.MessageToast.show("Description cannot be empty");
+                    sap.m.MessageToast.show(oResourceBundle.getText("DescriptionEmpty"));
                 }
                 else {
                     await Service.createAuthor(this.getOwnerComponent().getModel(), Author).then(() => {
                         this.getView().getModel().submitChanges({
                             success: () => {
-                                sap.m.MessageToast.show("Successfully saved!");
-            
-                                // this.onNavBack();
+                                sap.m.MessageToast.show(oResourceBundle.getText("SuccessfullySaved"));
                                 this.oDialog.close();
                             },
                             error: () => {
-                                sap.m.MessageToast.show("An error occured!");
+                                sap.m.MessageToast.show(oResourceBundle.getText("ErrorOccured"));
                             }
                         })
                     }).catch( () => {

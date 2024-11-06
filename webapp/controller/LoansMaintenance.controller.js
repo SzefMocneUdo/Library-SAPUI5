@@ -147,6 +147,9 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
         },
 
         onUpdatePressed: async function () {
+            let i18nModel = this.getView().getModel("i18n"),
+                oResourceBundle = i18nModel.getResourceBundle();
+
             let returnDate = this.byId("loandetails_input_return_date").getValue();
 
             const loan = {
@@ -158,19 +161,19 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
             }
 
             if(loan.ReturnDate === null && loan.Status == "FINISHED"){
-                sap.m.MessageToast.show("Return date cannot be empty!");
+                sap.m.MessageToast.show(oResourceBundle.getText("ReturnDateEmpty"));
             } else {
                 try {
                     await Service.updateLoan(this.getOwnerComponent().getModel(), loan);
 
                     this.getView().getModel().submitChanges({
                         success: () => {
-                            sap.m.MessageToast.show("Succesfully updated");
+                            sap.m.MessageToast.show(oResourceBundle.getText("SuccessfullyUpdated"));
                             this.getOwnerComponent().getModel().refresh(true);
                             this.closeDialog();
                         },
                         error: () => {
-                            sap.m.MessageToast.show("An error occurred!");
+                            sap.m.MessageToast.show(oResourceBundle.getText("ErrorOccured"));
                         }
                     });
                 } catch (oError) {
@@ -180,6 +183,8 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
         },
 
         onSavePressed: async function () {
+            let i18nModel = this.getView().getModel("i18n"),
+                oResourceBundle = i18nModel.getResourceBundle();
 
             let startDate = this.byId("CreateLoan_input_start_date").getValue(),
                 endDate = this.byId("CreateLoan_input_end_date").getValue();
@@ -198,10 +203,10 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
 
             try{
                 if (books.length === 0) {
-                    sap.m.MessageToast.show("You must select at least one book");
+                    sap.m.MessageToast.show(oResourceBundle.getText("MustSelectOneBook"));
                 }
                 else if (loan.Reader === "") {
-                    sap.m.MessageToast.show("Customer cannot be empty");
+                    sap.m.MessageToast.show(oResourceBundle.getText("CustomerEmpty"));
                 }
                 else{
                     let oModel = this.getOwnerComponent().getModel();
@@ -213,12 +218,12 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
             
                     this.getView().getModel().submitChanges({
                         success: () => {
-                            MessageBox.information(`A new loan with ID: '${createdloan.Loanid}' has been created`);
+                            MessageBox.information(oResourceBundle.getText("NewLoanWithId") + createdloan.Loanid + ' ' + oResourceBundle.getText("HasBeenCreated"));
                             this.getOwnerComponent().getModel().refresh(true);
                             this.closeDialog();
                         },
                         error: () => {
-                            sap.m.MessageToast.show("An error occurred!");
+                            sap.m.MessageToast.show(oResourceBundle.getText("ErrorOccured"));
                         }
                     });
                 }

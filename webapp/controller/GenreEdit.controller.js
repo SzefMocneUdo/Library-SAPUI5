@@ -22,6 +22,9 @@ sap.ui.define([
             },
 
             onSavePressed: async function(oEvent){
+                let i18nModel = this.getView().getModel("i18n"),
+                    oResourceBundle = i18nModel.getResourceBundle();
+
                 const translation = {
                     Genreid: oEvent.getSource().getBindingContext().getProperty("Genreid"),
                     Spras: this.getView().byId("GenreTranslationLanguageText").getValue(),
@@ -31,27 +34,27 @@ sap.ui.define([
 
                 try{
                     if (translation.Spras === "") {
-                        sap.m.MessageToast.show("Language cannot be empty");
+                        sap.m.MessageToast.show(oResourceBundle.getText("LanguageEmpty"));
                     }
                     else if (translation.Name === ""){
-                        sap.m.MessageToast.show("Name cannot be empty");
+                        sap.m.MessageToast.show(oResourceBundle.getText("NameEmpty"));
                     }
                     else if (translation.Description === ""){
-                        sap.m.MessageToast.show("Description cannot be empty");
+                        sap.m.MessageToast.show(oResourceBundle.getText("DescriptionEmpty"));
                     }
                     else{
                         await Service.updateGenreText(this.getOwnerComponent().getModel(), translation);
 
                         this.getView().getModel().submitChanges({
                             success: () => {
-                                sap.m.MessageToast.show("Successfully saved!");
+                                sap.m.MessageToast.show(oResourceBundle.getText("SuccessfullySaved"));
                         
                                 this.getOwnerComponent().getModel().refresh(true);
 
                                 this.onNavBack();
                             },
-                            error: (oError) => {
-                                sap.m.MessageToast.show(this.getErrorMessage(oError));
+                            error: () => {
+                                sap.m.MessageToast.show(oResourceBundle.getText("ErrorOccured"));
                             }
                         })
                     }

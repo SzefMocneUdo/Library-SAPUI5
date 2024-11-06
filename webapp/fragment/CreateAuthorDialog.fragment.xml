@@ -7,23 +7,23 @@
         <f:SimpleForm id="createauhtordialog_simpleform" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
                         labelSpanS="12" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" >
 
-        <Label id="CreateGenreAuhtorNameDialoglabel" text="{i18n>AuthorName}" />
+        <Label id="CreateGenreAuhtorNameDialoglabel" text="{i18n>label.AuthorName}" />
         <Input id="CreateAuthorNameDialogInput" required="true" maxLength="20"/>
 
-        <Label id="CreateGenreAuhtorSurnameDialoglabel" text="{i18n>AuthorSurname}" />
+        <Label id="CreateGenreAuhtorSurnameDialoglabel" text="{i18n>label.AuthorSurname}" />
         <Input id="CreateAuthorSurnameDialogInput" required="true" maxLength="20"/>
 
-        <Label id="CreateAuhtorNationalityDialoglabel" text="{i18n>Nationality}" />
-        <ComboBox id="CreateAuthorNationalityDialogInput" required="true" showSecondaryValues= "true" items="{/LanguageSet}" valueStateText="{i18n>bookManagement.auhtorsEmptiness}" selectionChange="onLanguageChange">
+        <Label id="CreateAuhtorNationalityDialoglabel" text="{i18n>label.Nationality}" />
+        <ComboBox id="CreateAuthorNationalityDialogInput" required="true" showSecondaryValues= "true" items="{/LanguageSet}" selectionChange="onLanguageChange">
                 <core:ListItem id="createauthor_input_language" key="{parts:['LanguageKey'], formatter:'sap.ui.base.ManagedObject.escapeSettingsValue'}" text="{Text}" additionalText="{LanguageKey}"/>
         </ComboBox>
 
-        <Label id="CreateAuthorDescriptionDialoglabel" text="{i18n>AuthorDescription}" />
+        <Label id="CreateAuthorDescriptionDialoglabel" text="{i18n>label.AuthorDescription}" />
         <Input id="CreateAuthorDescriptionDialogInput" required="true" maxLength="100" />
     </f:SimpleForm>
     <OverflowToolbar id="createauthordialog_toolbar_footer">
         <ToolbarSpacer id="createauthordialog_spacer_footer" />
-        <Button id="createauthordialog_button_save" text="Save" press="onSavePressed" type="Accept"/>
-        <Button id="createauthordialog_button_cancel" text="Cancel" press="onCancelPressed" type="Reject"/>
+        <Button id="createauthordialog_button_save" text="{i18n>Save}" press="onSavePressed" type="Accept"/>
+        <Button id="createauthordialog_button_cancel" text="{i18n>Cancel}" press="onCancelPressed" type="Reject"/>
     </OverflowToolbar>
     </Dialog>
