@@ -139,6 +139,43 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
                 }
         },
 
+        onCancelPressed: async function () {
+            let i18nModel = this.getView().getModel("i18n"),
+                oResourceBundle = i18nModel.getResourceBundle();
+            const reservation = {
+                Reservationid: (this.byId("SimpleFormChangeColumn_ReservationDetails").mAggregations.title).slice(-36),
+                Status: "CANCELED"
+            }
+
+            MessageBox.confirm(oResourceBundle.getText("deleteQuestion"), {
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                emphasizedAction: MessageBox.Action.YES,
+                onClose: async (sAction) => {
+                    if (MessageBox.Action.YES === sAction) {
+                        try {
+
+                            await Service.updateReservation(this.getOwnerComponent().getModel(), reservation);
+        
+                            this.getView().getModel().submitChanges({
+                                success: () => {
+                                    sap.m.MessageToast.show(oResourceBundle.getText("ReservationCanceled"));
+                                    this.getOwnerComponent().getModel().refresh(true);
+                                    this.closeDialog();
+                                },
+                                error: () => {
+                                    sap.m.MessageToast.show(oResourceBundle.getText("ErrorOccured"));
+                                }
+                            });
+                        } catch (oError) {
+                            sap.m.MessageToast.show(this.getErrorMessage(oError));
+                        }
+                    }
+                }
+            })
+
+                
+        },
+
         onSavePressed: async function () {
             let i18nModel = this.getView().getModel("i18n"),
                 oResourceBundle = i18nModel.getResourceBundle();
