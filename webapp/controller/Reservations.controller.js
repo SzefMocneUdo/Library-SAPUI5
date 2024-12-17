@@ -18,6 +18,7 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
         setUserName: function () {
             return new Promise((resolve) => {
                 Service.getUserInfo(this.getOwnerComponent().getModel()).then((uname) => {
+
                     this.username = uname.results[0].UserName;                   
                     resolve();
                 }).catch((oError) => {

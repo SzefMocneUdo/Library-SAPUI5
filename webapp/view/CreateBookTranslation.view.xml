@@ -13,10 +13,10 @@
         </ComboBox>
                             
         <Label id="CreateBookTranslationTitlelabel" text="{/#Book/Title/@sap:label}" />
-        <Input id="CreateBookTranslationTitleinput" required="true" maxLength="20"/>
+        <Input id="CreateBookTranslationTitleinput" required="true" maxLength="70"/>
 
         <Label id="CreateBookTranslationDescriptionlabel" text="{/#Book/Description/@sap:label}" />
-        <Input id="CreateBookTranslationDescriptioninput" required="true" maxLength="100" />
+        <Input id="CreateBookTranslationDescriptioninput" required="true" maxLength="150" />
     </f:SimpleForm>
     <OverflowToolbar id="createbooktranslation_toolbar_footer">
         <ToolbarSpacer id="createbooktranslation_spacer_footer" />

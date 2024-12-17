@@ -1,17 +1,3 @@
-<!-- <mvc:View
- controllerName="zkzilibraryproject.controller.Ratings"
- xmlns:mvc="sap.ui.core.mvc"
- xmlns:smartTable="sap.ui.comp.smarttable"
- xmlns="sap.m">
-    <VBox id="UserRatingsVBox">
-        <smartTable:SmartTable id="UserRatingsSmartTable" entitySet="RateSet">
-            <smartTable:layoutData>
-					<FlexItemData id="UserRatingsFlexItemData" growFactor="1" baseSize="0%"/>
-				</smartTable:layoutData>
-        </smartTable:SmartTable>
-    </VBox>
-</mvc:View> -->
-
 <mvc:View
  controllerName="zkzilibraryproject.controller.Ratings"
  xmlns:mvc="sap.ui.core.mvc"

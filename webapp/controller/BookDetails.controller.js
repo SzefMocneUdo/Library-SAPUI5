@@ -55,6 +55,9 @@ sap.ui.define([
             },
 
             onCreateCopyPressed: async function () {
+                let i18nModel = this.getView().getModel("i18n"),
+                    oResourceBundle = i18nModel.getResourceBundle();
+
                 try{
                     await Service.createBookCopy(this.getOwnerComponent().getModel(),
                                                 this.getView().byId("bookdetails_field_isbn").getValue(),
@@ -62,7 +65,7 @@ sap.ui.define([
 
                     this.getView().getModel().submitChanges({
                     success: () => {
-                        sap.m.MessageToast.show("{i18n>SuccessfullySaved}");
+                        sap.m.MessageToast.show(oResourceBundle.getText("Success"));
                         
                         this.getOwnerComponent().getModel().refresh(true);
                     },

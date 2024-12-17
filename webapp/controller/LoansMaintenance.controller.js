@@ -133,7 +133,7 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
 
             if(loan.ReturnDate === null && loan.Status == "FINISHED"){
                 sap.m.MessageToast.show(oResourceBundle.getText("ReturnDateEmpty"));
-            } else {
+            } else {             
                 try {
                     await Service.updateLoan(this.getOwnerComponent().getModel(), loan);
 

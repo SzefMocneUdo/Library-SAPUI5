@@ -68,7 +68,7 @@ sap.ui.define([
                         await Service.createBookGenre(this.getOwnerComponent().getModel(), book.ISBN, genres[i]);
                     }
 
-
+                    sap.m.MessageToast.show(oResourceBundle.getText("Success"));
                     this.getOwnerComponent().getModel().refresh(true);
                     this.onNavBack();
             

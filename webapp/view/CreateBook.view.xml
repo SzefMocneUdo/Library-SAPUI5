@@ -26,7 +26,7 @@
                 <core:ListItem id="bookcreate_input_language" key="{parts:['LanguageKey'], formatter:'sap.ui.base.ManagedObject.escapeSettingsValue'}" text="{Text}" additionalText="{LanguageKey}"/>
             </ComboBox>
             <Label id="bookcreate_label_description" required="true" text="{/#Book/Description/@sap:label}" />
-            <Input id="bookcreate_input_description" value="{Description}" />
+            <Input id="bookcreate_input_description" value="{Description}" maxLength="150" />
         </f:content>
     </f:SimpleForm>
     <footer>
