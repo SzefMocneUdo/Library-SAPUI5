@@ -14,8 +14,8 @@
         <Input id="CreateAuthorSurnameDialogInput" required="true" maxLength="20"/>
 
         <Label id="CreateAuhtorNationalityDialoglabel" text="{i18n>label.Nationality}" />
-        <ComboBox id="CreateAuthorNationalityDialogInput" required="true" showSecondaryValues= "true" items="{/LanguageSet}" selectionChange="onLanguageChange">
-                <core:ListItem id="createauthor_input_language" key="{parts:['LanguageKey'], formatter:'sap.ui.base.ManagedObject.escapeSettingsValue'}" text="{Text}" additionalText="{LanguageKey}"/>
+        <ComboBox id="CreateAuthorNationalityDialogInput" required="true" showSecondaryValues= "true" items="{path: '/CountrySet',length : 300}" selectionChange="onCountryChange">
+                <core:ListItem id="createauthor_input_Country" key="{parts:['CountryKey'], formatter:'sap.ui.base.ManagedObject.escapeSettingsValue'}" text="{NationalityText}" additionalText="{CountryKey}"/>
         </ComboBox>
 
         <Label id="CreateAuthorDescriptionDialoglabel" text="{i18n>label.AuthorDescription}" />

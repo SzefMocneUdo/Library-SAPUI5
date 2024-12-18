@@ -117,6 +117,8 @@ sap.ui.define([
                             let sPathBookGenre = "/BookSet('" + ISBN + "')/ToBookGenreSet";
                             
                             try {
+                                await Service.deleteBook(oModel, ISBN);
+
                                 await new Promise((resolve, reject) => {
                                     oModel.read(sPathBook_copy, {
                                         success: function (oData) {
@@ -171,7 +173,7 @@ sap.ui.define([
                                     await Service.deleteBookGenre(oModel, ISBN, genres[i]);
                                 }
             
-                                await Service.deleteBook(oModel, ISBN);
+                                
             
                                 this.getView().getModel().submitChanges({
                                     success: () => sap.m.MessageToast.show(Success),

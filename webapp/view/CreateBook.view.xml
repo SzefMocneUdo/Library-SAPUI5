@@ -8,7 +8,7 @@
     labelSpanS="12" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" >
         <f:content>
             <Label id="bookcreate_label_isbn" required="true" text="{/#Book/ISBN/@sap:label}" />
-            <Input id="bookcreate_input_isbn" value="{ISBN}" />
+            <Input id="bookcreate_input_isbn" value="{ISBN}" maxLength="13" />
             <Label id="bookcreate_label_title" required="true" text="{/#Book/Title/@sap:label}" />
             <Input id="bookcreate_input_title" value="{Title}" />
             <Label id="bookcreate_label_authors" required="true" text="{/#Book/Authors/@sap:label}"/>

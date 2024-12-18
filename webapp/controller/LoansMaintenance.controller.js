@@ -108,30 +108,44 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
         onSearch: function (oEvent) { 
             let filter;
 			let sQuery = oEvent.getSource().getValue();
-            
 
 			if (sQuery && sQuery.length > 0) {
                 sQuery = sQuery.toUpperCase();
-				filter = new Filter("Status", FilterOperator.Contains, sQuery);
+				filter = [
+                          new Filter("Reader", FilterOperator.Contains, sQuery)
+                        ];
 			}
             this.getView().byId("main_table_loansmaintenance").getBinding("items").filter(filter);
-        },
-
+        },        
+    
         onUpdatePressed: async function () {
             let i18nModel = this.getView().getModel("i18n"),
                 oResourceBundle = i18nModel.getResourceBundle();
 
             let returnDate = this.byId("loandetails_input_return_date").getValue();
 
+            const userLocale = sap.ui.getCore().getConfiguration().getLanguage();
+
+            const inputDateFormat = DateFormat.getDateInstance({
+                pattern: "dd MMMM yyyy",
+                locale: userLocale
+            });
+            const outputDateFormat = DateFormat.getDateInstance({
+                pattern: "yyyy-MM-dd"
+            });
+
+            let parsedReturnDate = returnDate ? inputDateFormat.parse(returnDate) : null;
+
             const loan = {
                 Loanid: (this.byId("SimpleFormChangeColumn_LoanDetails").mAggregations.title).slice(-36),
                 Status: this.byId("loanStatusComboBox").getSelectedKey(),
-                ReturnDate: returnDate === "" ? null : `${DateFormat.getDateInstance({
-                                pattern: "yyyy-MM-dd"
-                                }).format(new Date(returnDate))}T00:00:00`
+                ReturnDate: parsedReturnDate ? `${outputDateFormat.format(parsedReturnDate)}T00:00:00` : null
             }
 
-            if(loan.ReturnDate === null && loan.Status == "FINISHED"){
+            if (returnDate && !parsedReturnDate){
+                sap.m.MessageToast.show(oResourceBundle.getText("InvalidDateFormat"));
+            }
+            else if(loan.ReturnDate === null && loan.Status == "FINISHED"){
                 sap.m.MessageToast.show(oResourceBundle.getText("ReturnDateEmpty"));
             } else {             
                 try {
@@ -160,20 +174,32 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
             let startDate = this.byId("CreateLoan_input_start_date").getValue(),
                 endDate = this.byId("CreateLoan_input_end_date").getValue();
 
+            const userLocale = sap.ui.getCore().getConfiguration().getLanguage();
+
+            const inputDateFormat = DateFormat.getDateInstance({
+                pattern: "dd MMMM yyyy",
+                locale: userLocale
+            });
+            const outputDateFormat = DateFormat.getDateInstance({
+                pattern: "yyyy-MM-dd"
+            });
+
+            let parsedStartDate = startDate ? inputDateFormat.parse(startDate) : null;
+            let parsedEndDate = endDate ? inputDateFormat.parse(endDate) : null;
+
             const loan = {
                 Reader: this.byId("CreateLoanCustomerInput").getValue(),
-                StartDate: startDate === "" ? null : `${DateFormat.getDateInstance({
-                            pattern: "yyyy-MM-dd"
-                           }).format(new Date(startDate))}T00:00:00`,
-                EndDate: endDate === "" ? null : `${DateFormat.getDateInstance({
-                    pattern: "yyyy-MM-dd"
-                   }).format(new Date(endDate))}T00:00:00`
+                StartDate: parsedStartDate ? `${outputDateFormat.format(parsedStartDate)}T00:00:00` : null,
+                EndDate: parsedEndDate ? `${outputDateFormat.format(parsedEndDate)}T00:00:00` : null
             }
 
             const books = this.getView().byId("createloan_booksMultiComboBox").getSelectedKeys();
 
             try{
-                if (books.length === 0) {
+                if (startDate && !parsedStartDate || endDate && !parsedEndDate){
+                    sap.m.MessageToast.show(oResourceBundle.getText("InvalidDateFormat"));
+                }
+                else if (books.length === 0) {
                     sap.m.MessageToast.show(oResourceBundle.getText("MustSelectOneBook"));
                 }
                 else if (loan.Reader === "") {

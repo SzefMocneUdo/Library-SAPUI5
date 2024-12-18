@@ -24,7 +24,7 @@ function (Fragment, Base, Service) {
             sap.ui.getCore().setModel(i18nModel, "i18n");
 
             let oModel = this.getOwnerComponent().getModel();
-            oModel.read("/LanguageSet");
+            oModel.read("/CountrySet");
 
             this.oDialog ??= await Fragment.load({
                 id: this.getView().getId(),

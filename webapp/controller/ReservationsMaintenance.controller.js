@@ -107,7 +107,7 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
 
 			if (sQuery && sQuery.length > 0) {
                 sQuery = sQuery.toUpperCase();
-				filter = new Filter("Status", FilterOperator.Contains, sQuery);
+				filter = new Filter("Reader", FilterOperator.Contains, sQuery);
 			}
             this.getView().byId("main_table_reservationsmaintenance").getBinding("items").filter(filter);
         },
@@ -183,14 +183,23 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
             let startDate = this.byId("CreateReservation_input_start_date").getValue(),
                 endDate = this.byId("CreateReservation_input_end_date").getValue();
 
+            const userLocale = sap.ui.getCore().getConfiguration().getLanguage();
+
+            const inputDateFormat = DateFormat.getDateInstance({
+                pattern: "dd MMMM yyyy",
+                locale: userLocale
+            });
+            const outputDateFormat = DateFormat.getDateInstance({
+                pattern: "yyyy-MM-dd"
+            });
+
+            let parsedStartDate = startDate ? inputDateFormat.parse(startDate) : null;
+            let parsedEndDate = endDate ? inputDateFormat.parse(endDate) : null;
+
             const reservation = {
                 Reader: this.byId("CreateReservationCustomerInput").getValue(),
-                StartDate: startDate === "" ? null : `${DateFormat.getDateInstance({
-                            pattern: "yyyy-MM-dd"
-                           }).format(new Date(startDate))}T00:00:00`,
-                EndDate: endDate === "" ? null : `${DateFormat.getDateInstance({
-                    pattern: "yyyy-MM-dd"
-                   }).format(new Date(endDate))}T00:00:00`
+                StartDate: parsedStartDate ? `${outputDateFormat.format(parsedStartDate)}T00:00:00` : null,
+                EndDate: parsedEndDate ? `${outputDateFormat.format(parsedEndDate)}T00:00:00` : null
             }
 
             const books = this.getView().byId("createReservation_booksMultiComboBox").getSelectedKeys();
@@ -202,6 +211,9 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
                 else if (reservation.Reader === "") {
                     sap.m.MessageToast.show(oResourceBundle.getText("CustomerEmpty"));
                 }
+                else if(startDate && !parsedStartDate || endDate && !parsedEndDate){
+                    sap.m.MessageToast.show(oResourceBundle.getText("InvalidDateFormat"));
+                }
                 else{
                     let oModel = this.getOwnerComponent().getModel();
                     const createdreservation = await Service.createReservation(oModel, reservation);
@@ -212,7 +224,7 @@ function (Base, MessageBox, JSONModel, Filter, FilterOperator, Fragment, Service
             
                     this.getView().getModel().submitChanges({
                         success: () => {
-                            MessageBox.information(oResourceBundle.getText("NewReservationWithId") + createdreservation.Reservationid + ' ' + oResourceBundle.getText("HasBeenCrated"));
+                            MessageBox.information(oResourceBundle.getText("NewReservationWithId") + createdreservation.Reservationid + ' ' + oResourceBundle.getText("HasBeenCreated"));
                             this.getOwnerComponent().getModel().refresh(true);
                             this.closeDialog();
                         },
